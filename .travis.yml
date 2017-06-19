@@ -1,38 +1,45 @@
 sudo: required
 dist: trusty
+env:
+  - TEST_SUITE=backend
+  - TEST_SUITE=webclient
+
 language: node_js
 node_js:
-  - '7'
+  - if[ "$TEST_SUITE" = "webclient"]; then '7'; fi
 
 addons:
 apt:
   sources:
-    - google-chrome
+    - if[ "$TEST_SUITE" = "webclient"]; then google-chrome; fi
   packages:
-    - google-chrome-stable
-    - google-chrome-beta
-    - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost
+    - if[ "$TEST_SUITE" = "webclient"]; then google-chrome-stable; fi
+    - if[ "$TEST_SUITE" = "webclient"]; then google-chrome-beta; fi
+    - if[ "$TEST_SUITE" = "webclient"]; then google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost; fi
 
 before_install:  
- - export CHROME_BIN=/usr/bin/google-chrome
- - export DISPLAY=:99.0 
- - sh -e /etc/init.d/xvfb start
- - sudo apt-get update
- - sudo apt-get install -y libappindicator1 fonts-liberation
- - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
- - sudo dpkg -i google-chrome*.deb
+ - if[ "$TEST_SUITE" = "webclient"]; then export CHROME_BIN=/usr/bin/google-chrome; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then export DISPLAY=:99.0 ; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then sh -e /etc/init.d/xvfb start; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then sudo apt-get update; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then sudo apt-get install -y libappindicator1 fonts-liberation; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then sudo dpkg -i google-chrome*.deb; fi
 before_script:
- - cd webclient
- - npm install npm@^4.0.3 -g
- - npm install -g angular-cli
- - npm install -g karma-cli
- - npm install
- - cd ..
- - export DISPLAY=:99.0
+ - if[ "$TEST_SUITE" = "webclient"]; then cd webclient; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then npm install -g npm@^4.0.3; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then npm install -g angular-cli; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then npm install -g karma-cli; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then npm install; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then cd ..; fi
+ - if[ "$TEST_SUITE" = "webclient"]; then export DISPLAY=:99.0; fi
 
-script: cd webclient && npm run test && cd ..
+script: 
+ - if[ "$TEST_SUITE" = "webclient"]; then cd webclient && npm run test && cd ..; fi
+
+
 
 notifications:
-  email:
-    on_failure: change
-    on_success: change
+email:
+  on_failure: change
+  on_success: change
