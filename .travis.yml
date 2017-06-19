@@ -22,11 +22,12 @@ before_install:
  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
  - sudo dpkg -i google-chrome*.deb
 before_script:
-- npm install -g karma-cli
-- npm install
-- export DISPLAY=:99.0
+ - npm install -g angular-cli
+ - npm install -g karma-cli
+ - npm install
+ - export DISPLAY=:99.0
 
-script: npm run test
+script: cd webclient && npm run test && cd ..
 
 notifications:
   email:
