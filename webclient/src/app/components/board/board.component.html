@@ -1,0 +1,10 @@
+<table>
+	<caption>table title and/or explanatory text</caption>
+	<thead>
+	</thead>
+	<tr *ngFor="let column of board">
+		<td *ngFor="let tile of column">
+			<h4>{{tile.value}}</h4>
+		</td>
+	</tr>
+</table>
