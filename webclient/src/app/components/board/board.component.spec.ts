@@ -7,16 +7,21 @@ describe('BoardComponent', () => {
   let fixture: ComponentFixture<BoardComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ BoardComponent ]
-    })
-    .compileComponents();
+    TestBed
+      .configureTestingModule({
+        declarations: [BoardComponent]
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BoardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it('should be created', () => {
