@@ -2,7 +2,7 @@ import unittest
 
 import run
 
-class MainTest(unittest.TestCase):
+class InitTest(unittest.TestCase):
 
 	def test_initialisation(self):
 		self.assertTrue(True)
