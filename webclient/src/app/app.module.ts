@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './components/board/board.component';
 
+import { ReversePipe } from './pipes/reverse.pipe';
+
 import { AuthenticationService } from './services/authentication.service';
 import { BoardService } from './services/board.service';
 import { HttpService } from './services/http.service';
@@ -13,7 +15,8 @@ import { HttpService } from './services/http.service';
 @NgModule({
     declarations: [
         AppComponent,
-        BoardComponent
+        BoardComponent,
+        ReversePipe
     ],
     imports: [
         BrowserModule,
