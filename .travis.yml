@@ -39,7 +39,7 @@ matrix:
       before_script:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
-        - cd backend && python test.py && cd ..
+        - cd backend && pytest && cd ..
 
 notifications:
 email:
