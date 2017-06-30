@@ -3,28 +3,9 @@ import sys
 from eve import Eve
 import settings
 from src import register, login
-from eve.auth import TokenAuth
+from src.auth import WordioAuth
 from flask import current_app
 SETTINGS_PATH = os.path.abspath(settings.__file__)
-
-class WordioAuth(TokenAuth):
-    def check_auth(self, token, allowed_roles, resource, method):
-        accounts = self.current_app.data.driver.db['users']
-        lookup = {'token': token}
-        account = accounts.find_one(lookup)
-        return WordioTokenAuth(current_app, self).check_user_token(token, allowed_roles, resource, method, accounts)
-
-class WordioTokenAuth(object):
-    def __init__(self, auth):
-        self.auth = auth
-
-    def check_user_token(self, token, allowed_roles, resource, method, account):
-        if account and '_id' in account:
-            if 'users' in resource:
-                self.auth.set_request_auth_value(account['username'])
-            else:
-                self.auth.set_request_auth_value(account['_id'])
-        return account
 
 def enable_cors(app):
     try:
@@ -45,10 +26,9 @@ def main(logger, app):
             logger.log("Error")
             logger.log(error)
 
-if __name__ == '__main__':
-    
-    app = Eve(auth = WordioAuth, settings=SETTINGS_PATH)
+app = Eve(auth = WordioAuth, settings=SETTINGS_PATH)
 
+if __name__ == '__main__':
     @app.route('/login', methods=['POST'])
     def lgn():
         return login.login(app)

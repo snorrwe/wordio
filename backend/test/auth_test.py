@@ -5,11 +5,10 @@ import pytest
 import os.path, sys
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-import run
-from run import WordioTokenAuth
-from run import WordioAuth
+from src.auth import WordioTokenAuth
 
 class AuthTests(unittest.TestCase):
+
 	def test_check_auth_by_id(self):
 		roles = ['1']
 		mock_auth = Mock(return_value=True)
