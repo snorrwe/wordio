@@ -45,7 +45,7 @@ matrix:
         - cd backend
         - cd app
         - python run.py &
-        - ./test/api_test.py
+        - sudo ./test/api_test.py
     - language: python
       python: 3.6
       env:
