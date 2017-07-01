@@ -35,7 +35,7 @@ matrix:
 
     - language: python
       python: 3.6
-
+  
       before_script:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
@@ -47,7 +47,7 @@ matrix:
         - APACHE_TEST = 1
 
       before_script:
-        - backend/deploy.sh
+        - sudo backend/deploy.sh
       script:
         - cd backend/test && ./api_test.py http://localhost/ && cd ..
 
