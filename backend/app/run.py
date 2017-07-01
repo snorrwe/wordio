@@ -4,7 +4,7 @@ from eve import Eve
 import settings
 from src.user import register, login
 from src.auth.auth import WordioAuth
-from src.logger import Logger
+from src.logger import LogService
 from flask import current_app
 import pymongo
 SETTINGS_PATH = os.path.abspath(settings.__file__)
@@ -18,15 +18,15 @@ def enable_cors(app):
 
 def main(logger, app):
     try:
-        logger.log("Starting")
+        logger.debug("Starting")
         enable_cors(app)
         app.run()
     except:
         error = sys.exc_info()[0]
         print("Error in main %s" % error)
         if logger:
-            logger.log("Error")
-            logger.log(error)
+            logger.error("Error")
+            logger.error(error)
 
 app = Eve(auth = WordioAuth, settings=SETTINGS_PATH)
 
@@ -57,5 +57,5 @@ if __name__ == '__main__':
     def reg():
         return register.register(app)
 
-    logger = Logger("log.txt")
+    logger = LogService("log.txt")
     main(logger, app)

@@ -25,7 +25,6 @@ matrix:
       before_script:
        - cd webclient
        - npm install -g npm@^4.0.3
-       - npm install -g angular-cli
        - npm install -g karma-cli
        - npm install
        - cd ..
