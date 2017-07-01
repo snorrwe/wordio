@@ -42,11 +42,11 @@ matrix:
       before_script:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
-        - if [ $API_TEST = "0" ]; then pytest  ; fi
-        - if [ $API_TEST = "1" ]; then cd backend ; fi
-        - if [ $API_TEST = "1" ]; then cd app ; fi
-        - if [ $API_TEST = "1" ]; then nohup python run.py ; fi
-        - if [ $API_TEST = "1" ]; then cd test && ./api_test.py && cd .. ; fi
+        - if [ ${API_TEST} = "0" ]; then pytest  ; fi
+        - if [ ${API_TEST} = "1" ]; then cd backend ; fi
+        - if [ ${API_TEST} = "1" ]; then cd app ; fi
+        - if [ ${API_TEST} = "1" ]; then nohup python run.py ; fi
+        - if [ ${API_TEST} = "1" ]; then cd test && ./api_test.py && cd .. ; fi
 
 notifications:
 email:
