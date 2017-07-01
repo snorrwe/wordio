@@ -37,16 +37,23 @@ matrix:
     - language: python
       python: 3.6
       env:
-        - API_TEST = 0
         - API_TEST = 1
       before_script:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
-        - if [ "$API_TEST" = "0" ]; then pytest  ; fi
-        - if [ "$API_TEST" = "1" ]; then cd backend ; fi
-        - if [ "$API_TEST" = "1" ]; then cd app ; fi
-        - if [ "$API_TEST" = "1" ]; then nohup python run.py ; fi
-        - if [ "$API_TEST" = "1" ]; then cd test && ./api_test.py && cd .. ; fi
+        - pytest 
+        - cd backend
+        - cd app
+        - nohup python run.py
+        - cd test && ./api_test.py && cd ..
+    - language: python
+      python: 3.6
+      env:
+        - API_TEST = 0
+      before_script:
+        - python -m pip install --no-cache-dir -r ./backend/requirements.txt
+      script:
+        - pytest 
 
 notifications:
 email:
