@@ -25,37 +25,36 @@ def main(logger, app):
         error = sys.exc_info()[0]
         print("Error in main %s" % error)
         if logger:
-            logger.error("Error")
             logger.error(error)
 
 app = Eve(auth = WordioAuth, settings=SETTINGS_PATH)
 
-if __name__ == '__main__':
-
-    @app.route('/hello', methods=['GET'])
-    def hello():
-        result = None
-        try:
-            helloCollection = app.data.driver.db['_hello']
-            find = helloCollection.find_one({'foo': 'bar'})
-            if(find):
-                helloCollection.delete_one({'foo': 'bar'})
-            else:
-                helloCollection.insert_one({'foo': 'bar'})
-            result = "up&running"
-        except (pymongo.errors.AutoReconnect, pymongo.errors.ServerSelectionTimeoutError):
-            result = "db_not_available!"
-        return '''{
-    "status": "%s"         
+@app.route('/hello', methods=['GET'])
+def hello():
+    result = None
+    try:
+        helloCollection = app.data.driver.db['_hello']
+        lookup = {'foo': 'bar'}
+        find = helloCollection.find_one(lookup)
+        if(find):
+            helloCollection.delete_one(lookup)
+        else:
+            helloCollection.insert_one(lookup)
+        result = "up&running"
+    except (pymongo.errors.AutoReconnect, pymongo.errors.ServerSelectionTimeoutError):
+        result = "db_not_available!"
+    return '''{
+"status": "%s"         
 }''' % result
 
-    @app.route('/login', methods=['POST'])
-    def lgn():
-        return login.login(app)
+@app.route('/login', methods=['POST'])
+def lgn():
+    return login.login(app)
 
-    @app.route('/register', methods=['POST'])
-    def reg():
-        return register.register(app)
+@app.route('/register', methods=['POST'])
+def reg():
+    return register.register(app)
 
+if __name__ == '__main__':
     logger = LogService("log.txt")
     main(logger, app)
