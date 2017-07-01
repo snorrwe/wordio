@@ -34,14 +34,21 @@ matrix:
        - cd webclient && npm run travis-test && cd ..
 
     - language: python
-      python: 3.4
+      python: 3.6
 
       before_script:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
         - cd backend && pytest && cd ..
+    - language: python
+
+      python: 3.6
+
+      before_script:
+        - backend/deploy.sh
+      script:
+        - cd backend/test && ./api_test.py http://localhost/ && cd ..
 
 notifications:
 email:
-  on_failure: change
-  on_success: change
+  on_failure: littlesnorrboy@gmail.com
