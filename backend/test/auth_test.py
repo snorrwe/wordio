@@ -5,7 +5,7 @@ import pytest
 import os.path, sys
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 
-from src.auth import WordioTokenAuth
+from src.auth.auth import WordioTokenAuth
 
 class AuthTests(unittest.TestCase):
 

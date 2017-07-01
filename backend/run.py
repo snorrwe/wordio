@@ -2,8 +2,8 @@ import os
 import sys
 from eve import Eve
 import settings
-from src import register, login
-from src.auth import WordioAuth
+from src.user import register, login
+from src.auth.auth import WordioAuth
 from flask import current_app
 SETTINGS_PATH = os.path.abspath(settings.__file__)
 
