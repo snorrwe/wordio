@@ -29,6 +29,12 @@ def main(logger, app):
 app = Eve(auth = WordioAuth, settings=SETTINGS_PATH)
 
 if __name__ == '__main__':
+    @app.route('/hello', methods=['GET'])
+    def hello():
+        return '''{
+    "status": "up&running"         
+}'''
+
     @app.route('/login', methods=['POST'])
     def lgn():
         return login.login(app)

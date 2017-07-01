@@ -1,5 +1,6 @@
 sudo: required
 dist: trusty
+
 matrix:
   include:
     - language: node_js
@@ -34,14 +35,26 @@ matrix:
        - cd webclient && npm run travis-test && cd ..
 
     - language: python
-      python: 3.4
-
+      python: 3.6
+      env:
+        - API_TEST = 1
       before_script:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
-        - cd backend && pytest && cd ..
+        - pytest 
+        - cd backend
+        - cd app
+        - python run.py &
+        - python ./test/api_test.py http://127.0.0.1:5000/
+    - language: python
+      python: 3.6
+      env:
+        - API_TEST = 0
+      before_script:
+        - python -m pip install --no-cache-dir -r ./backend/requirements.txt
+      script:
+        - pytest 
 
 notifications:
 email:
-  on_failure: change
-  on_success: change
+  on_failure: littlesnorrboy@gmail.com
