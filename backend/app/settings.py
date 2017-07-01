@@ -3,9 +3,13 @@
 import os
 from src.domains import main
 
-MONGO_USERNAME = ''
-MONGO_PASSWORD = ''
-MONGO_DBNAME = ''
+MONGO_HOST = None
+MONGO_PORT = 27017
+MONGO_USERNAME = 'wordio'
+MONGO_PASSWORD = 'wordio_pw'
+MONGO_DBNAME = 'wordio'
+
+HATEOAS = True
 
 # Enable reads (GET), inserts (POST) and DELETE for resources/collections
 # (if you omit this line, the API will default to ['GET'] and provide
@@ -18,7 +22,7 @@ ITEM_METHODS = ['GET']
 
 # We enable standard client cache directives for all resources exposed by the
 # API. We can always override these global settings later.
-CACHE_CONTROL = 'max-age=20'
+CACHE_CONTROL = 'max-age=20, must-revalidate'
 CACHE_EXPIRES = 20
 
 AUTH_FIELD = 'user_id'

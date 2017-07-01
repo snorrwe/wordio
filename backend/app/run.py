@@ -6,6 +6,7 @@ from src.user import register, login
 from src.auth.auth import WordioAuth
 from src.logger import Logger
 from flask import current_app
+import pymongo
 SETTINGS_PATH = os.path.abspath(settings.__file__)
 
 def enable_cors(app):
@@ -30,12 +31,23 @@ def main(logger, app):
 app = Eve(auth = WordioAuth, settings=SETTINGS_PATH)
 
 if __name__ == '__main__':
-    
+
     @app.route('/hello', methods=['GET'])
     def hello():
+        result = None
+        try:
+            helloCollection = app.data.driver.db['_hello']
+            find = helloCollection.find_one({'foo': 'bar'})
+            if(find):
+                helloCollection.delete_one({'foo': 'bar'})
+            else:
+                helloCollection.insert_one({'foo': 'bar'})
+            result = "up&running"
+        except (pymongo.errors.AutoReconnect, pymongo.errors.ServerSelectionTimeoutError):
+            result = "db_not_available!"
         return '''{
-    "status": "up&running"         
-}'''
+    "status": "%s"         
+}''' % result
 
     @app.route('/login', methods=['POST'])
     def lgn():
