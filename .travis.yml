@@ -45,7 +45,7 @@ matrix:
         - cd backend
         - cd app
         - python run.py &
-        - python ./test/api_test.py
+        - python ./test/api_test.py http://127.0.0.1:5000/
     - language: python
       python: 3.6
       env:
