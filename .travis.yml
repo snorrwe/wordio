@@ -38,7 +38,11 @@ matrix:
       python: 3.6
       env:
         - API_TEST = 1
+      services:
+        - mongodb
       before_script:
+        - sleep 15
+        - bash ./backend/init_mongo.sh
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
         - pytest 
