@@ -1,9 +1,10 @@
 sudo: required
 dist: trusty
-env:
-  - API_TEST = 0
-  - API_TEST = 1
+
 matrix:
+  env:
+    - API_TEST = 0
+    - API_TEST = 1
   include:
     - language: node_js
       node_js:
