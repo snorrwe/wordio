@@ -42,7 +42,7 @@ matrix:
         - mongodb
       before_script:
         - sleep 15
-        - mongo wordio --eval 'db.createUser({user: "wordio", pwd: "wordio_pw", roles: ["readWrite"]});'
+        - bash ./backend/init_mongo.sh
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
         - pytest 
