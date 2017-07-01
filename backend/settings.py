@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from domains import main
+from src.domains import main
 
 MONGO_USERNAME = ''
 MONGO_PASSWORD = ''
