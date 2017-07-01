@@ -47,7 +47,7 @@ matrix:
         - APACHE_TEST = 1
 
       before_script:
-        - sudo backend/deploy.sh
+        - sudo bash backend/deploy.sh
       script:
         - cd backend/test && ./api_test.py http://localhost/ && cd ..
 
