@@ -43,6 +43,8 @@ matrix:
     - language: python
 
       python: 3.6
+      env:
+        - APACHE_TEST = 1
 
       before_script:
         - backend/deploy.sh
