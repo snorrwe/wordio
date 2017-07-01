@@ -1,6 +1,8 @@
 import requests
 import sys
+import pytest
 
+@pytest.mark.skip(reason="This is an explicit test for testing if the deployment succeeded. Run manually!")
 def test_api(api_base_url = "http://127.0.0.1:5000"):
 	try:
 		url = '%s/hello' % api_base_url
