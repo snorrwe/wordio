@@ -35,21 +35,18 @@ matrix:
 
     - language: python
       python: 3.6
+      env:
+        - API_TEST = 0
+        - API_TEST = 1
   
       before_script:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
-        - cd backend && pytest && cd ..
-    - language: python
-
-      python: 3.6
-      env:
-        - APACHE_TEST = 1
-
-      before_script:
-        - sudo bash backend/deploy.sh
-      script:
-        - cd backend/test && ./api_test.py http://localhost/ && cd ..
+        - if [ $API_TEST = "0" ]; then pytest  ; fi
+        - if [ $API_TEST = "1" ]; then cd backend ; fi
+        - if [ $API_TEST = "1" ]; then cd app ; fi
+        - if [ $API_TEST = "1" ]; then nohup python run.py ; fi
+        - if [ $API_TEST = "1" ]; then cd test && ./api_test.py && cd .. ; fi
 
 notifications:
 email:
