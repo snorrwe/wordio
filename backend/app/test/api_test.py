@@ -11,7 +11,13 @@ def test_api(api_base_url = "http://127.0.0.1:5000"):
 		assert result['status'] == "up&running"
 		return 0
 	except:
-		print("Failure")
+		print('''
+//////////////////////////////////
+/////////////Failure//////////////
+//////////////////////////////////
+''')
+		print('Api base url: %s' % api_base_url)
+		print("\n//////////////////////////////////\n")
 		raise
 
 if __name__ == '__main__':
