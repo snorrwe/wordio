@@ -4,6 +4,7 @@ from eve import Eve
 import settings
 from src.user import register, login
 from src.auth.auth import WordioAuth
+from src.logger import Logger
 from flask import current_app
 SETTINGS_PATH = os.path.abspath(settings.__file__)
 
@@ -29,6 +30,7 @@ def main(logger, app):
 app = Eve(auth = WordioAuth, settings=SETTINGS_PATH)
 
 if __name__ == '__main__':
+    
     @app.route('/hello', methods=['GET'])
     def hello():
         return '''{
@@ -42,14 +44,6 @@ if __name__ == '__main__':
     @app.route('/register', methods=['POST'])
     def reg():
         return register.register(app)
-       
-    class Logger(object):
-        def __init__(self, logfileName):
-            self.logfileName = logfileName
-
-        def log(self, message):
-            with open(self.logfileName, "w+") as f:
-                f.write(message)
 
     logger = Logger("log.txt")
     main(logger, app)
