@@ -2,9 +2,6 @@ sudo: required
 dist: trusty
 
 matrix:
-  env:
-    - API_TEST = 0
-    - API_TEST = 1
   include:
     - language: node_js
       node_js:
@@ -39,7 +36,9 @@ matrix:
 
     - language: python
       python: 3.6
-  
+      env:
+        - API_TEST = 0
+        - API_TEST = 1
       before_script:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
