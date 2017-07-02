@@ -15,6 +15,5 @@ def log_stack(name):
             finally:
                 functionStack.pop()
                 log(name, "finished", len(functionStack))
-            return result
         return wrapper
     return inner_decorator
