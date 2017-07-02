@@ -1,5 +1,5 @@
 def log(name, message, tabs):
-    print("%s____ %s %s ____" % (''.join([' ' for i in range(4 * tabs)])), name, message)
+    print("%s____ %s %s ____" % (''.join([' ' for i in range(4 * tabs)]), name, message))
 
 functionStack = []
 def log_stack(name):
