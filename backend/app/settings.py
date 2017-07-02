@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
 from src.domains import main
 
 MONGO_HOST = None

@@ -5,7 +5,6 @@ import settings
 from src.user import register, login
 from src.auth.auth import WordioAuth
 from src.logger import LogService
-from flask import current_app
 import pymongo
 SETTINGS_PATH = os.path.abspath(settings.__file__)
 
