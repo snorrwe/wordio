@@ -1,17 +1,20 @@
+def log(name, message, tabs):
+    print("%s____ %s %s ____" % (''.join([' ' for i in range(4 * tabs)])), name, message)
+
 functionStack = []
 def log_stack(name):
     def inner_decorator(method):
         def wrapper(*args, **kwargs):
             try:
-                print("%s_____ %s starting _____" % (''.join([' ' for i in range(len(functionStack) * 5)]), name))
+                log(name, "starting", len(functionStack))
                 functionStack.append("")
                 return method(*args, **kwargs)
             except:
-                print("%s_____ %s error _____\n" % (''.join([' ' for i in range(len(functionStack) * 5)]), name))
+                log(name, "error", len(functionStack) - 1)
                 raise
             finally:
                 functionStack.pop()
-                print("%s_____ %s finished _____\n" % (''.join([' ' for i in range(len(functionStack) * 5)]), name))
+                log(name, "finished", len(functionStack))
             return result
         return wrapper
     return inner_decorator
