@@ -41,7 +41,7 @@ matrix:
         - mongodb
       before_script:
         - sleep 15
-        - bash ./backend/init_mongo.sh
+        - bash ./backend/init_mongo_test.sh
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
         - pytest 
