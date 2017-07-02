@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import Mock
 
 import os.path, sys
-sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir, os.pardir))
 
 from src.auth.auth import WordioTokenAuth
 

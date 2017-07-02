@@ -1,11 +1,12 @@
 from eve.auth import TokenAuth
+from flask import current_app
 
 class WordioAuth(TokenAuth):
     def check_auth(self, token, allowed_roles, resource, method):
-        accounts = self.current_app.data.driver.db['users']
+        accounts = current_app.data.driver.db['users']
         lookup = {'token': token}
         account = accounts.find_one(lookup)
-        return WordioTokenAuth(current_app, self).check_user_token(token, allowed_roles, resource, method, accounts)
+        return WordioTokenAuth(self).check_user_token(token, allowed_roles, resource, method, account)
 
 class WordioTokenAuth(object):
     def __init__(self, auth):

@@ -44,11 +44,10 @@ matrix:
         - bash ./backend/init_mongo_test.sh
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
-        - pytest 
         - cd backend
         - cd app
         - python run.py &
-        - python ./test/api_test.py http://127.0.0.1:5000/
+        - python ./test/api_tests/api_test.py http://127.0.0.1:5000/
     - language: python
       python: 3.6
       env:
@@ -56,6 +55,7 @@ matrix:
       before_script:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
+        - cd ./backend/src/test/unit_tests
         - pytest 
 
 notifications:
