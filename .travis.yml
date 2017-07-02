@@ -55,7 +55,7 @@ matrix:
       before_script:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
-        - cd ./backend/src/test/unit_tests
+        - cd ./backend/app/test/unit_tests
         - pytest 
 
 notifications:
