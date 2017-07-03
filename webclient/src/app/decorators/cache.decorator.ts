@@ -67,23 +67,23 @@ export module Cache {
 		}
 	}
 
-	var cachedFunctionWrapper = function(ogMethod, cacheKey, ...args: any[]) {
+	var cachedFunctionWrapper = function(ogMethod: Function, cacheKey: string, ...args: any[]) {
 		log("info", "invoked cached method", ...args);
 		if (callCache[cacheKey]) {
 			log("info", "returns cached response", callCache[cacheKey]);
 			return callCache[cacheKey];
 		}
 		let result = ogMethod.apply(this, args)
-		result = processFuture(result, log, cacheKey);
 		if (result instanceof Promise) {
 			log("info", "cached a request! Key", cacheKey);
+			result = processFuture(result, log, cacheKey);
 			callCache[cacheKey] = result;
 		}
 		log("info", "returns");
 		return result;
 	}
 
-	var processFuture(promise, log, cacheKey){
+	var processFuture(promise: Promise<any>, log: Log, cacheKey: string): Promise<any>{
 		return promise
 			.then((result) => {
 				log("info", "resolved", result);
