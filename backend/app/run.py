@@ -5,6 +5,7 @@ import settings
 from src.user import register, login
 from src.auth.auth import WordioAuth
 from src.logger import LogService
+from flask import current_app
 import pymongo
 SETTINGS_PATH = os.path.abspath(settings.__file__)
 
@@ -53,6 +54,23 @@ def lgn():
 @app.route('/register', methods=['POST'])
 def reg():
     return register.register(app)
+
+def insert_tiles_by_games(request):
+    tiles = request.json['board']
+    new_tiles = []
+    tilesCollection = app.data.driver.db['tiles']
+    for tile in tiles:
+        id = None
+        existing = tilesCollection.find_one(tile)
+        if(existing):
+            id = existing['_id']
+        else:
+            result = tilesCollection.insert_one(tile)
+            id = result.inserted_id
+        new_tiles.append(id)
+    request.json['board'] = new_tiles
+
+app.on_pre_POST_games += insert_tiles_by_games
 
 if __name__ == '__main__':
     logger = LogService("log.txt")

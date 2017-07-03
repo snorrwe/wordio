@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from src.domains import main
+from src.domains import domain_import
 
 MONGO_HOST = None
 MONGO_PORT = 27017
@@ -26,6 +26,8 @@ CACHE_EXPIRES = 20
 
 AUTH_FIELD = 'user_id'
 
+EMBEDDING = True
+
 # The DOMAIN dict explains which resources will be available and how they will
 # be accessible to the API consumer.
-DOMAIN = main.get_domain()
+DOMAIN = domain_import.get_domains()
