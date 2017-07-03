@@ -6,16 +6,24 @@ from werkzeug.security import generate_password_hash
 
 def register(app):
     try:
-        json = request.get_json(force=True)
+        return process_request()
+    except KeyError as e:
+        abort(make_response(jsonify(missingKey=str(e)), 500))
+    except:
+        import sys
+        error = sys.exc_info()[0]
+        print("Unexpected error in register: %s!" % error)
+        raise
+
+def process_request():
+    json = request.get_json(force=True)
         username = getKey("username", json)
         password = getKey("password", json)
         displayName = getKey("displayName", json)
         users = app.data.driver.db['users']
         token = get_unique_token(app)
-        if(users.find_one({"username": username})):
-            abort(make_response(jsonify(takenKey="username"), 500))
-        if(users.find_one({"displayName": displayName})):
-            abort(make_response(jsonify(takenKey="displayName"), 500)) 
+        validate_unique("username", username)
+        validate_unique("displayName", displayName)
         result = users.insert([{
                     "username": username
                     , "password": generate_password_hash(password)
@@ -24,10 +32,7 @@ def register(app):
                 }])
         if result:
             return jsonify(authToken=token)
-    except KeyError as e:
-        abort(make_response(jsonify(missingKey=str(e)), 500))
-    except:
-        import sys
-        error = sys.exc_info()[0]
-        print("Error in register %s" % error)
-        raise
+
+def validate_unique(key, value):
+    if(users.find_one({key: value})):
+            abort(make_response(jsonify(takenKey=key), 500))
