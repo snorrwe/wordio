@@ -30,13 +30,12 @@ export module Cache {
 		return result;
 	}
 
-	var getLogger = function(className, propertyKey: string, isEnabled?: boolean, logLevels?: LogLevels) {
+	var getLogger = function(className, propertyKey: string, options: { isEnabled?: boolean, logLevel?: LogLevels }) {
 		let prefix = "[ " + className + " # " + propertyKey + " ]";
-		if (!logLevels) logLevels = LogLevels.error;
-		if (isEnabled)
+		if (!options.logLevel) options.logLevel = LogLevels.error;
+		if (options.isEnabled)
 			return function(level: string = "log", ...args: any[]) {
-				if (LogLevels[level] <= logLevels)
-					console[level](prefix, ...args);
+				if (LogLevels[level] <= options.logLevel) console[level](prefix, ...args);
 			}
 		else
 			return function() { }
@@ -59,9 +58,9 @@ export module Cache {
 		return function(target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
 			let ogMethod: (...args: any[]) => Promise<any> = descriptor.value;
 			let className = getNameByClass(target);
-			let log = getLogger(className, propertyKey, options.enableLog);
-			let cacheKey = getKey(className, propertyKey, ...args);
+			let log = getLogger(className, propertyKey, { isEnabled: options.enableLog, logLevel: options.logLevel });
 			descriptor.value = function(...args) {
+				let cacheKey = getKey(className, propertyKey, ...args);
 				return cachedFunctionWrapper(ogMethod, cacheKey, ...args);
 			}
 			return descriptor;
