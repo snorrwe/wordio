@@ -7,6 +7,12 @@ def getKey(key, json):
     except KeyError as e:
         raise KeyError(key)
 
+def getKeys(json, *keys):
+    result = []
+    for key in keys:
+        result.append(getKey(key, json))
+    return tuple(result)
+
 def get_unique_token(app):
     token = get_random_token();
     accounts = app.data.driver.db['users']
@@ -16,4 +22,4 @@ def get_unique_token(app):
     return token
 
 def get_random_token():
-	return ''.join(random.choice(string.ascii_uppercase)for x in range(30))
+    return ''.join(random.choice(string.ascii_uppercase)for x in range(30))
