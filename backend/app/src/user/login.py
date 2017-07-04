@@ -5,12 +5,8 @@ from werkzeug.security import check_password_hash
 def login(app):
     try:
         json = request.get_json(force=True)
-        username = getKey("username", json)
-        password = getKey("password", json)
-        if len(username) == 0:
-            raise KeyError("username")
-        if len(password) == 0:
-            raise KeyError("password")
+        (username, password) = getKeys(json, "username", "password")
+        ensure_data_integrity(username = username, password = password)
         users = app.data.driver.db['users']
         lookup = {
             "username": username
@@ -30,4 +26,8 @@ def login(app):
         error = sys.exc_info()[0]
         print("Error in login %s" % error)
         raise
-        
+
+def ensure_data_integrity(**kwargs):
+    for key in kwargs:
+        if(len(kwargs[key]) == 0):
+            raise KeyError(key)

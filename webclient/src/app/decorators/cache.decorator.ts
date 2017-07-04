@@ -30,19 +30,18 @@ export module Cache {
 		return result;
 	}
 
-	var getLogger = function(className, propertyKey: string, isEnabled?: boolean, logLevels?: LogLevels) {
+	var getLogger = function(className, propertyKey: string, options: { isEnabled?: boolean, logLevel?: LogLevels }) {
 		let prefix = "[ " + className + " # " + propertyKey + " ]";
-		if(!logLevels) logLevels = LogLevels.error;
-		if (isEnabled)
+		if (!options.logLevel) options.logLevel = LogLevels.error;
+		if (options.isEnabled)
 			return function(level: string = "log", ...args: any[]) {
-				if(LogLevels[level] <= logLevels)
-					console[level](prefix, ...args);
+				if (LogLevels[level] <= options.logLevel) console[level](prefix, ...args);
 			}
 		else
 			return function() { }
 	}
 
-	export enum LogLevels{
+	export enum LogLevels {
 		none = 0
 		, info = 4
 		, log = 3
@@ -59,34 +58,43 @@ export module Cache {
 		return function(target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
 			let ogMethod: (...args: any[]) => Promise<any> = descriptor.value;
 			let className = getNameByClass(target);
-			let log = getLogger(className, propertyKey, options.enableLog);
-			descriptor.value = function(...args: any[]) {
+			let log = getLogger(className, propertyKey, { isEnabled: options.enableLog, logLevel: options.logLevel });
+			descriptor.value = function(...args) {
 				let cacheKey = getKey(className, propertyKey, ...args);
-				log("info", "invoked cached method", ...args);
-				if (callCache[cacheKey]) {
-					log("info", "returns cached response", callCache[cacheKey]);
-					return callCache[cacheKey];
-				}
-				let result = ogMethod.apply(this, args)
-					.then((result) => {
-						log("info", "resolved", result);
-						delete callCache[cacheKey];
-						return result;
-					})
-					.catch((error) => {
-						log("error", "was rejected!", error);
-						delete callCache[cacheKey];
-						return Promise.reject(error);
-					});
-				if (result instanceof Promise) {
-					log("info", "cached a request! Key", cacheKey);
-					callCache[cacheKey] = result;
-				}
-				log("info", "returns");
-				return result;
+				return cachedFunctionWrapper(ogMethod, cacheKey, ...args);
 			}
 			return descriptor;
 		}
+	}
+
+	var cachedFunctionWrapper = function(ogMethod: Function, cacheKey: string, ...args: any[]) {
+		log("info", "invoked cached method", ...args);
+		if (callCache[cacheKey]) {
+			log("info", "returns cached response", callCache[cacheKey]);
+			return callCache[cacheKey];
+		}
+		let result = ogMethod.apply(this, args)
+		if (result instanceof Promise) {
+			log("info", "cached a request! Key", cacheKey);
+			result = processFuture(result, log, cacheKey);
+			callCache[cacheKey] = result;
+		}
+		log("info", "returns");
+		return result;
+	}
+
+	var processFuture(promise: Promise<any>, log: Log, cacheKey: string): Promise<any>{
+		return promise
+			.then((result) => {
+				log("info", "resolved", result);
+				delete callCache[cacheKey];
+				return result;
+			})
+			.catch((error) => {
+				log("error", "was rejected!", error);
+				delete callCache[cacheKey];
+				return Promise.reject(error);
+			});
 	}
 }
 

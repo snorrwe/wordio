@@ -5,6 +5,11 @@ import settings
 from src.user import register, login
 from src.auth.auth import WordioAuth
 from src.logger import LogService
+from src.domains.event_hooks.insert_hosts_by_solutions import insert_hosts_by_solutions
+from src.domains.event_hooks.insert_tiles_by_games import insert_tiles_by_games
+from src.custom.hello_endpoint import hello
+from flask import current_app
+from flask import request, abort, make_response, jsonify
 import pymongo
 SETTINGS_PATH = os.path.abspath(settings.__file__)
 
@@ -29,30 +34,19 @@ def main(logger, app):
 app = Eve(auth = WordioAuth, settings=SETTINGS_PATH)
 
 @app.route('/hello', methods=['GET'])
-def hello():
-    result = None
-    try:
-        helloCollection = app.data.driver.db['_hello']
-        lookup = {'foo': 'bar'}
-        find = helloCollection.find_one(lookup)
-        if(find):
-            helloCollection.delete_one(lookup)
-        else:
-            helloCollection.insert_one(lookup)
-        result = "up&running"
-    except (pymongo.errors.AutoReconnect, pymongo.errors.ServerSelectionTimeoutError):
-        result = "db_not_available!"
-    return '''{
-"status": "%s"         
-}''' % result
+def hello_controller():
+    return hello()
 
 @app.route('/login', methods=['POST'])
-def lgn():
+def login_controller():
     return login.login(app)
 
 @app.route('/register', methods=['POST'])
-def reg():
+def register_controller():
     return register.register(app)
+
+app.on_pre_POST_games += insert_tiles_by_games
+app.on_pre_POST_solutions += insert_hosts_by_solutions
 
 if __name__ == '__main__':
     logger = LogService("log.txt")

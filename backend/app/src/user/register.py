@@ -6,28 +6,31 @@ from werkzeug.security import generate_password_hash
 
 def register(app):
     try:
-        json = request.get_json(force=True)
-        username = getKey("username", json)
-        password = getKey("password", json)
-        displayName = getKey("displayName", json)
-        users = app.data.driver.db['users']
-        token = get_unique_token(app)
-        if(users.find_one({"username": username})):
-            abort(make_response(jsonify(takenKey="username"), 500))
-        if(users.find_one({"displayName": displayName})):
-            abort(make_response(jsonify(takenKey="displayName"), 500)) 
-        result = users.insert([{
-                    "username": username
-                    , "password": generate_password_hash(password)
-                    , "displayName": displayName
-                    , "token": token
-                }])
-        if result:
-            return jsonify(authToken=token)
+        return process_request(app)
     except KeyError as e:
         abort(make_response(jsonify(missingKey=str(e)), 500))
     except:
         import sys
         error = sys.exc_info()[0]
-        print("Error in register %s" % error)
+        print("Unexpected error in register: %s!" % error)
         raise
+
+def process_request(app):
+    json = request.get_json(force=True)
+    (username, password, displayName) = getKeys(json, "username", "password", "displayName")
+    users = app.data.driver.db['users']
+    token = get_unique_token(app)
+    validate_unique("username", username, users)
+    validate_unique("displayName", displayName, users)
+    result = users.insert([{
+                "username": username
+                , "password": generate_password_hash(password)
+                , "displayName": displayName
+                , "token": token
+            }])
+    if result:
+        return jsonify(authToken=token)
+
+def validate_unique(key, value, users):
+    if(users.find_one({key: value})):
+            abort(make_response(jsonify(takenKey=key), 500))
