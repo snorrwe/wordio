@@ -28,6 +28,6 @@ def login(app):
         raise
 
 def ensure_data_integrity(**kwargs):
-    for (key, value) in kwargs:
-        if(len(value) == 0):
+    for key in kwargs:
+        if(len(kwargs[key]) == 0):
             raise KeyError(key)
