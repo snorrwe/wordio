@@ -6,10 +6,7 @@ from time import sleep
 import sys
 import os.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir)))
-
 import settings
-import register_tests
-from stack_log_decorator import log_stack
 
 MONGO_HOST = settings.MONGO_HOST
 MONGO_PORT = settings.MONGO_PORT
@@ -22,6 +19,10 @@ TEST_USER = {
     , 'password': '0xdeadbeef'
     , 'displayName': 'DeadBeef' 
 }
+
+import login_tests
+import register_tests
+from stack_log_decorator import log_stack
 
 @pytest.mark.skip(reason="This is an explicit test for testing if the deployment succeeded. Run manually!")
 @log_stack("/hello test")
@@ -42,6 +43,7 @@ def test_api(api_base_url = "http://127.0.0.1:5000/"):
                 tries += 1
                 test_hello(api_base_url)
                 register_tests.run_all()
+                login_tests.run_all()
                 return 0
             except requests.exceptions.ConnectionError:
                 if(tries > 5):

@@ -1,1 +1,1 @@
-from . import *
+from api_tests import *

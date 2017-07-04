@@ -46,7 +46,7 @@ matrix:
       script:
         - cd backend
         - cd app
-        - python run.py &
+        - python run.py > stdout.txt &
         - python ./test/api_tests/api_test.py http://127.0.0.1:5000/
     - language: python
       python: 3.6
