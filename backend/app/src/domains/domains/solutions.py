@@ -1,30 +1,24 @@
 from ..domain_base import domain
 
 @domain
-class Games(object):
-    name = "games"
+class Solutions(object):
+    name = "solutions"
     domain = {
-        'item_title': 'game'
+        'item_title': 'solution'
         # We also disable endpoint caching as we don't want client apps to
         # cache account data.
         , 'cache_control': ''
         , 'cache_expires': 0
 
-        , 'public_methods': ['GET']
-        , 'public_item_methods': ['GET']
+        , 'public_methods': ['POST']
+        , 'public_item_methods': ['PUT']
         , 'resource_methods': ['GET', 'POST', 'DELETE']
         , "item_methods": ['GET', 'PATCH', 'DELETE', 'PUT']
         
         , 'auth_field': 'host'
 
-        , 'datasource': {
-            'projection': { 
-                'host': 1
-                , 'board': 1
-            }
-        }
-
         , 'schema': {
+
             'host': {
                 'type': 'objectid'
                 , 'data_relation': {
@@ -36,14 +30,21 @@ class Games(object):
                 , 'empty': False
             }
 
-            , 'availableFrom': {
-                'type': 'datetime'
-                , 'required': False
+            , 'game': {
+                'type': 'objectid'
+                , 'data_relation': {
+                    'resource': 'games'
+                    , 'field': '_id'
+                    , 'embeddable': True
+                }
+                , 'required': True
+                , 'empty': False
             }
 
-            , 'availableUntil': {
-                'type': 'datetime'
-                , 'required': False
+            , 'nickname': {
+                'type': 'string'
+                , 'required': True
+                , 'empty': False
             }
 
             , 'board': {
