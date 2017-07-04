@@ -5,8 +5,7 @@ from werkzeug.security import check_password_hash
 def login(app):
     try:
         json = request.get_json(force=True)
-        username = getKey("username", json)
-        password = getKey("password", json)
+        (username, password) = getKeys(json, "username", "password")
         if len(username) == 0:
             raise KeyError("username")
         if len(password) == 0:
