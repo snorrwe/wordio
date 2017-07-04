@@ -9,13 +9,13 @@ def insert_hosts_by_solutions(request):
     request.json['host'] = host["_id"] if host else ""
 
 def find_by_id(collection, id):
-	result = app.data.driver.db['games'].find_one({"_id": id})
+    result = app.data.driver.db['games'].find_one({"_id": id})
     if not result:
         abort(make_response(jsonify(error="No item found in collection [%]s by id [%s]" % (collection,id)), 400))
-	return result
+    return result
 
 def get_object_id_by_request(request, key):
-	result = ObjectId(request.json[key])
-	if not result:
-		abort(make_response(jsonify(missingKey=key), 400))
-	return result
+    result = ObjectId(request.json[key])
+    if not result:
+        abort(make_response(jsonify(missingKey=key), 400))
+    return result

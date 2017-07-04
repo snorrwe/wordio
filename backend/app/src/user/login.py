@@ -6,10 +6,7 @@ def login(app):
     try:
         json = request.get_json(force=True)
         (username, password) = getKeys(json, "username", "password")
-        if len(username) == 0:
-            raise KeyError("username")
-        if len(password) == 0:
-            raise KeyError("password")
+        ensure_data_integrity(username = username, password = password)
         users = app.data.driver.db['users']
         lookup = {
             "username": username
@@ -29,4 +26,8 @@ def login(app):
         error = sys.exc_info()[0]
         print("Error in login %s" % error)
         raise
-        
+
+def ensure_data_integrity(**kwargs):
+    for (key, value) in kwargs:
+        if(len(value) == 0):
+            raise KeyError(key)
