@@ -4,7 +4,6 @@ from werkzeug.security import check_password_hash
 
 
 class Login(object):
-    """docstring for Login"""
     def __init__(self, app):
         self.app = app
         self.users = app.data.driver.db['users']
@@ -13,22 +12,22 @@ class Login(object):
         }
 
     def login(self):
+        (username, password) = self.get_data_from_request()
+        user = self.users.find_one(self.lookup) 
+        if user and check_password_hash(user["password"], password):
+            return self.set_unique_token(user)
+        else:
+            abort(make_response(jsonify(error="Invalid credentials"), 500))
+        
+    def get_data_from_request(self):
         try:
-            (username, password) = self.get_data_from_request()
-            user = self.users.find_one(self.lookup) 
-            if user and check_password_hash(user["password"], password):
-                return self.set_unique_token(user)
-            else:
-                abort(make_response(jsonify(error="Invalid credentials"), 500))
+            json = request.get_json(force=True)
+            (username, password) = getKeys(json, "username", "password")
+            self.ensure_data_integrity(username = username, password = password)
+            self.lookup["username"] = username
+            return (username, password)
         except KeyError as e:
             abort(make_response(jsonify(missingKey=str(e)), 500))
-
-    def get_data_from_request(self):
-        json = request.get_json(force=True)
-        (username, password) = getKeys(json, "username", "password")
-        self.ensure_data_integrity(username = username, password = password)
-        self.lookup["username"] = username
-        return (username, password)
 
     def set_unique_token(self, user):
         token = get_unique_token(self.app)
