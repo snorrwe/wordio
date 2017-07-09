@@ -1,2 +1,3 @@
 *.pyc
 backend/app/log.txt
+backend/run_dev_env.bat
