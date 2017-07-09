@@ -51,7 +51,7 @@ class Games(object):
                 , 'schema': {
                     'type': 'objectid'
                     , 'data_relation': {
-                        'resource': 'public_tiles'
+                        'resource': 'tiles'
                         , 'field': '_id'
                         , 'embeddable': True
                     }

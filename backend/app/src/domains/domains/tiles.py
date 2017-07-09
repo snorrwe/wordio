@@ -2,9 +2,9 @@ from ..domain_base import domain
 
 @domain
 class Tiles(object):
-    name = "tiles"
+    name = "private_tiles"
     domain = {
-        'item_title': 'tile'
+        'item_title': 'private_tile'
         # We also disable endpoint caching as we don't want client apps to
         # cache account data.
         , 'cache_control': ''
@@ -44,9 +44,9 @@ class Tiles(object):
 
 @domain
 class PublicTiles(object):
-    name = "public_tiles"
+    name = "tiles"
     domain = {
-        'item_title': 'public_tile'
+        'item_title': 'tile'
         # We also disable endpoint caching as we don't want client apps to
         # cache account data.
         , 'cache_control': ''
@@ -56,7 +56,7 @@ class PublicTiles(object):
         , 'public_item_methods': ['GET']
 
         , 'datasource': {
-            'source': 'tiles'
+            'source': 'private_tiles'
             , 'projection': {
                 'filled': 0
             }
