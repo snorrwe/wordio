@@ -9,11 +9,6 @@ def register(app):
         return process_request(app)
     except KeyError as e:
         abort(make_response(jsonify(missingKey=str(e)), 500))
-    except:
-        import sys
-        error = sys.exc_info()[0]
-        print("Unexpected error in register: %s!" % error)
-        raise
 
 def process_request(app):
     json = request.get_json(force=True)
