@@ -12,14 +12,14 @@ class Login(object):
         }
 
     def login(self):
-        (username, password) = self.get_data_from_request()
+        (username, password) = self.get_login_data_from_current_request()
         user = self.users.find_one(self.lookup) 
         if user and check_password_hash(user["password"], password):
             return self.set_unique_token(user)
         else:
             abort(make_response(jsonify(error="Invalid credentials"), 500))
         
-    def get_data_from_request(self):
+    def get_login_data_from_current_request(self):
         try:
             json = request.get_json(force=True)
             (username, password) = getKeys(json, "username", "password")
