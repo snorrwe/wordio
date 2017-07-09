@@ -14,7 +14,7 @@ class WordioTokenAuth(object):
 
     def check_user_token(self, token, allowed_roles, resource, method, account):
         if account and '_id' in account:
-            if 'users' in resource:
+            if resource and 'users' in resource:
                 self.auth.set_request_auth_value(account['username'])
             else:
                 self.auth.set_request_auth_value(account['_id'])
