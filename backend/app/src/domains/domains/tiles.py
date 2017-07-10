@@ -46,8 +46,7 @@ class PublicTiles(object):
         , 'datasource': {
             'source': 'private_tiles'
             , 'projection': {
-                "_id": 1
-                , "x": 1
+                "x": 1
                 , "y": 1
                 , "value": 1
             }
