@@ -5,21 +5,11 @@ class Tiles(object):
     name = "private_tiles"
     domain = {
         'item_title': 'private_tile'
-        # We also disable endpoint caching as we don't want client apps to
-        # cache account data.
         , 'cache_control': ''
         , 'cache_expires': 0
-
+        , 'resource_methods': ['GET', 'POST', 'DELETE']
+        , "item_methods": ['GET', 'PATCH', 'DELETE', 'PUT']
         , 'internal_resource': True
-        , 'auth_field': 'host'
-
-        , 'datasource': {
-            'projection': {
-                'x' : 1
-                , 'y' : 1
-                , 'value' : 1
-            }
-        }
 
         , 'schema': {
             'x': {
@@ -47,8 +37,6 @@ class PublicTiles(object):
     name = "tiles"
     domain = {
         'item_title': 'tile'
-        # We also disable endpoint caching as we don't want client apps to
-        # cache account data.
         , 'cache_control': ''
         , 'cache_expires': 0
 
@@ -58,7 +46,9 @@ class PublicTiles(object):
         , 'datasource': {
             'source': 'private_tiles'
             , 'projection': {
-                'filled': 0
+                "x": 1
+                , "y": 1
+                , "value": 1
             }
         }
     }

@@ -1,10 +1,13 @@
+from functools import wraps
+
 def log(name, message, tabs, tabChar):
     print("%s  %s %s " % (''.join([tabChar for i in range(4 * tabs)]), name, message))
 
 functionStack = []
-def log_stack(name, **kwargs):
+def log_stack(_name = None, **kwargs):
     tabChar = kwargs['tabChar'] if 'tabChar' in kwargs else ' '
     def inner_decorator(method):
+        name = _name if _name is not None else method.__name__
         def wrapper(*args, **kwargs):
             try:
                 log(name, "starting", len(functionStack), tabChar)

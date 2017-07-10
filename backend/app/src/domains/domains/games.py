@@ -5,11 +5,8 @@ class Games(object):
     name = "games"
     domain = {
         'item_title': 'game'
-        # We also disable endpoint caching as we don't want client apps to
-        # cache account data.
         , 'cache_control': ''
         , 'cache_expires': 0
-
         , 'public_methods': ['GET']
         , 'public_item_methods': ['GET']
         , 'resource_methods': ['GET', 'POST', 'DELETE']
@@ -33,6 +30,12 @@ class Games(object):
                     , 'embeddable': True
                 }
                 , 'required': True
+                , 'empty': False
+            }
+
+            , 'name': {
+                'type': 'string'
+                , 'required': False
                 , 'empty': False
             }
 

@@ -24,8 +24,10 @@ class Users(object):
 
         , 'datasource': {
             'projection': { 
-                'username': 1 
-                , 'displayName': 1
+                "_id": 0
+                , "username": 0
+                , "password": 0
+                , "token": 0
             }
         }
 

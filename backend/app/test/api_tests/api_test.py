@@ -22,6 +22,7 @@ TEST_USER = {
 
 import login_tests
 import register_tests
+import games_tests
 from stack_log_decorator import log_stack
 
 @pytest.mark.skip(reason="This is an explicit test for testing if the deployment succeeded. Run manually!")
@@ -44,6 +45,7 @@ def test_api(api_base_url = "http://127.0.0.1:5000/"):
                 test_hello(api_base_url)
                 register_tests.run_all()
                 login_tests.run_all()
+                games_tests.run_all()
                 return 0
             except requests.exceptions.ConnectionError:
                 if(tries > 5):

@@ -8,11 +8,11 @@ import pytest, pymongo, requests
 from stack_log_decorator import log_stack
 from register_tests import test_register_valid
 
-@log_stack("add_existing_test_user")
+@log_stack()
 def add_existing_test_user(api_base_url):
     test_register_valid(api_base_url)
 
-@log_stack("delete_existing_test_user")
+@log_stack()
 def delete_existing_test_user():
     client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
     db = client['wordio']
@@ -22,16 +22,16 @@ def delete_existing_test_user():
     if(test):
         db["users"].delete_one(lookup)
 
-@log_stack("Setup")
+@log_stack()
 def setup(api_base_url):
     add_existing_test_user(api_base_url)
 
-@log_stack("Teardown")
+@log_stack()
 def teardown():
     delete_existing_test_user()
 
 @pytest.mark.skip(reason="This is an explicit test for testing if the deployment succeeded. Run manually!")
-@log_stack("# /login valid test")
+@log_stack()
 def test_login_valid(api_base_url):
     url = "%slogin/" % api_base_url
     payload = TEST_USER
@@ -41,7 +41,7 @@ def test_login_valid(api_base_url):
     assert 'authToken' in response.json()
 
 @pytest.mark.skip(reason="This is an explicit test for testing if the deployment succeeded. Run manually!")
-@log_stack("# /login wrong password test")
+@log_stack()
 def test_login_wrong_password(api_base_url):
     url = "%slogin/" % api_base_url
     payload = copy.deepcopy(TEST_USER)
@@ -53,7 +53,7 @@ def test_login_wrong_password(api_base_url):
     assert response.json()['error'] == "Invalid credentials"
 
 @pytest.mark.skip(reason="This is an explicit test for testing if the deployment succeeded. Run manually!")
-@log_stack("# /login wrong username test")
+@log_stack()
 def test_login_wrong_username(api_base_url):
     url = "%slogin/" % api_base_url
     payload = copy.deepcopy(TEST_USER)
@@ -65,7 +65,7 @@ def test_login_wrong_username(api_base_url):
     assert response.json()['error'] == "Invalid credentials"
 
 @pytest.mark.skip(reason="This is an explicit test for testing if the deployment succeeded. Run manually!")
-@log_stack("# /login missing password test")
+@log_stack()
 def test_login_missing_password(api_base_url):
     url = "%slogin/" % api_base_url
     payload = copy.deepcopy(TEST_USER)
@@ -77,7 +77,7 @@ def test_login_missing_password(api_base_url):
     assert response.json()['missingKey'] == "'password'"
 
 @pytest.mark.skip(reason="This is an explicit test for testing if the deployment succeeded. Run manually!")
-@log_stack("# /login missing username test")
+@log_stack()
 def test_login_missing_username(api_base_url):
     url = "%slogin/" % api_base_url
     payload = copy.deepcopy(TEST_USER)

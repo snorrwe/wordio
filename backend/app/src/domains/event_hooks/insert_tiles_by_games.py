@@ -1,15 +1,21 @@
 from flask import current_app as app
+from bson.objectid import ObjectId
 
 class InsertTilesByGamesHook(object):
     def __init__(self, request, app):
         self.request = request
         self.app = app
-        self.tilesCollection = self.app.data.driver.db['tiles']
+        self.tilesCollection = self.app.data.driver.db['private_tiles']
 
     def execute(self):
-        tiles = self.request.json['board'] if 'board' in self.request.json else []
-        new_tiles = []
-        for tile in tiles:
+        if 'board' not in self.request.json or not len(self.request.json['board']):
+            self.request.json['board'] = []
+            return
+        self.process_tiles()
+
+    def process_tiles(self):
+        tile_ids = []
+        for tile in self.request.json['board']:
             id = None
             existing = self.tilesCollection.find_one(tile)
             if(existing):
@@ -17,8 +23,9 @@ class InsertTilesByGamesHook(object):
             else:
                 result = self.tilesCollection.insert_one(tile)
                 id = result.inserted_id
-            new_tiles.append(id)
-        self.request.json['board'] = new_tiles
+            if id:
+                tile_ids.append(ObjectId(id))
+        self.request.json['board'] = tile_ids
         
 def insert_tiles_by_games(request):
-    InsertTilesByGamesHook(request, current_app).execute()
+    InsertTilesByGamesHook(request, app).execute()
