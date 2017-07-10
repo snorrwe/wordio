@@ -11,6 +11,9 @@ class InsertTilesByGamesHook(object):
         if 'board' not in self.request.json or not len(self.request.json['board']):
             self.request.json['board'] = []
             return
+        self.process_tiles()
+
+    def process_tiles(self):
         tile_ids = []
         for tile in self.request.json['board']:
             id = None
