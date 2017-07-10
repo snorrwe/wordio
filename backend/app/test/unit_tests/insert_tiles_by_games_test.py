@@ -7,7 +7,6 @@ sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.par
 from ..help.any import Any
 from src.domains.event_hooks.insert_tiles_by_games import InsertTilesByGamesHook
 
-
 class InsertTilesByGamesHookTests(unittest.TestCase):
 	
 	def create_request(self):
