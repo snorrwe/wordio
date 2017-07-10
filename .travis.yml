@@ -36,7 +36,7 @@ matrix:
     - language: python
       python: 3.6
       env:
-        - API_TEST = 1
+        - API_TEST
       services:
         - mongodb
       before_script:
@@ -51,7 +51,7 @@ matrix:
     - language: python
       python: 3.6
       env:
-        - API_TEST = 0
+        - UNIT_TEST
       before_script:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
