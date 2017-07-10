@@ -11,7 +11,7 @@ class InsertTilesByGamesHookTests(unittest.TestCase):
 	
 	def create_request(self):
 		self.request = Any()
-		self.request.json = {'board': [{'id': 3412}]}
+		self.request.json = {'board': [{'_id': 3412}]}
 
 	def create_app(self):
 		self.app = Any()
@@ -59,7 +59,7 @@ class InsertTilesByGamesHookTests(unittest.TestCase):
 		assert "board" in self.request.json
 		assert self.request.json["board"] is not None
 		assert len(self.request.json["board"]) is 1
-		assert self.request.json["board"][0] is 5
+		assert self.request.json["board"][0]["_id"] is 5
 
 	def test_with_existing(self):
 		request = Any()
@@ -70,7 +70,7 @@ class InsertTilesByGamesHookTests(unittest.TestCase):
 		assert "board" in request.json
 		assert request.json["board"] is not None
 		assert len(request.json["board"]) is 1
-		assert request.json["board"][0] is 123
+		assert request.json["board"][0]["_id"] is 123
 
 if __name__ == '__main__':
 	unittest.main()
