@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 
 import { HttpService } from './http.service';
 
-var httpService: Http = {} as any;
+let httpService: Http = {} as any;
 
 describe('HttpService', () => {
 	beforeEach(() => {

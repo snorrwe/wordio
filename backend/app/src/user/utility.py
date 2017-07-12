@@ -1,5 +1,6 @@
 import random
 import string
+from secrets import token_hex
 
 def getKey(key, json):
     try:
@@ -22,4 +23,4 @@ def get_unique_token(app):
     return token
 
 def get_random_token():
-    return ''.join(random.choice(string.ascii_uppercase)for x in range(30))
+    return token_hex(20)

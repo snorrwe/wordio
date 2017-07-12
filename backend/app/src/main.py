@@ -17,7 +17,7 @@ def enable_cors(app):
     try:
         from flask_cors import CORS
         CORS(app)
-    except:
+    except ImportError:
         pass
 
 def start_app(app):
