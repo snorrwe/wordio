@@ -73,7 +73,7 @@ export module Cache {
             log("info", "returns cached response", callCache[cacheKey]);
             return callCache[cacheKey];
         }
-        let result = ogMethod.apply(this, args)
+        let result = ogMethod.apply(this, args);
         if (result instanceof Promise) {
             log("info", "cached a request! Key", cacheKey);
             result = processFuture(result, log, cacheKey);

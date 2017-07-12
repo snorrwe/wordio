@@ -9,7 +9,7 @@ class LocalStorageService {
         return this._instance;
     }
 
-    private storage: Storage
+    private storage: Storage;
     private cache: { [key: string]: any };
 
     constructor() {

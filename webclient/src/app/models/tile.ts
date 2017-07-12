@@ -3,4 +3,4 @@ export interface Tile {
 	isSelected: boolean;
 	value: string;
 	position: number;
-} 
+}
