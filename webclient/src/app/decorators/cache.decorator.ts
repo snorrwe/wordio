@@ -8,14 +8,12 @@ export module Cache {
         return result;
     }
 
-    const hashObject = (obj: any): string => {
-        if (!obj || !(obj instanceof Object)) return obj;
-        let result = "";
-        Object.keys(obj)
-            //Sort keys so the sameish objects will always return the same hash
-            .sort((a, b) => { return a.localeCompare(b); })
+    const hashObject = (object: any): string => {
+        if (!object || !(object instanceof Object)) return object;
+        let result = typeof object;
+        Object.keys(object)
             .forEach((key) => {
-                result += hashObject(obj[key]);
+                result += hashObject(object[key]);
             });
         return result;
     }
@@ -37,8 +35,9 @@ export module Cache {
             return function(level: string = "log", ...args: any[]) {
                 if (LogLevels[level] <= options.logLevel) console[level](prefix, ...args);
             }
-        else
+        else {
             return function() { }
+        }
     }
 
     export enum LogLevels {
@@ -83,7 +82,7 @@ export module Cache {
         return result;
     }
 
-    const processFuture(promise: Promise<any>, log: Log, cacheKey: string): Promise<any>{
+    const processFuture = (promise: Promise<any>, log: Log, cacheKey: string) => {
         return promise
             .then((result) => {
                 log("info", "resolved", result);
