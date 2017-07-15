@@ -12,7 +12,7 @@ class InsertTilesByGamesHookTests(unittest.TestCase):
 	
 	def create_request(self):
 		self.request = Any()
-		self.request.json = {'board': [{'_id': "3412"}]}
+		self.request.json = {'board': [{'_id': "3412", 'x': 0, 'y': 0}]}
 
 	def create_app(self):
 		self.app = Any()
@@ -64,7 +64,7 @@ class InsertTilesByGamesHookTests(unittest.TestCase):
 
 	def test_with_existing(self):
 		request = Any()
-		request.json = {'board': [{'id': 543}]}
+		request.json = {'board': [{'id': 543, 'x': 0, 'y': 0}]}
 		service = self.create_service(request = request)
 		self.app.data.driver.db['private_tiles'].find_one = lambda x: { '_id': "59640453a3537b1b2c46beef" }
 		service.execute()
