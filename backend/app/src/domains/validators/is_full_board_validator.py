@@ -1,7 +1,7 @@
 from eve.io.mongo import Validator
 
 class IsFullBoardValidator(Validator):
-    
+
     def validate_board(self, board):
         (lengths, mins, maxs) = self.get_length_by_board(board)
         board_2d = {}
@@ -23,12 +23,9 @@ class IsFullBoardValidator(Validator):
         min = (board[0]["x"], board[0]["y"])
         max = (board[0]["x"], board[0]["y"])
         for tile in board[1:]:
-            if tile["x"] < min[0]:
-                min = (tile["x"], min[1])
-            if tile["y"] < min[1]:
-                min = (min[0], tile["y"])
-            if tile["x"] > max[0]:
-                max = (tile["x"], max[1])
-            if tile["y"] > max[1]:
-                max = (max[0], tile["y"])
+            min = self._get_next_by_comparison(min, tile["x"], tile["y"], lambda x,y: x < y)
+            max = self._get_next_by_comparison(max, tile["x"], tile["y"], lambda x,y: x > y)
         return ((max[0] - min[0] + 1, max[1] - min[1] + 1), min, max)
+
+    def _get_next_by_comparison(self, current, x, y, comparator):
+        return (x if comparator(x, current[0]) else current[0], y if comparator(x, current[1]) else current[1])
