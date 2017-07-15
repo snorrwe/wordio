@@ -1,12 +1,12 @@
 export module Cache {
-    const callCache: { [key: string]: Promise<any> } = {}
+    const callCache: { [key: string]: Promise<any> } = {};
     const getKey = (...args: any[]) => {
         let result = '';
         args.forEach((value: any) => {
             result += hashObject(value);
         });
         return result;
-    }
+    };
 
     const hashObject = (object: any): string => {
         if (!object || !(object instanceof Object)) return object;
@@ -16,7 +16,7 @@ export module Cache {
                 result += hashObject(object[key]);
             });
         return result;
-    }
+    };
 
     export const getNameByClass = function(cls: Object) {
         let regex = /function .*\(/;
@@ -26,7 +26,7 @@ export module Cache {
             result = results[0].replace("function ", "").replace("(", "");
         }
         return result;
-    }
+    };
 
     const getLogger = function(className, propertyKey: string, options: { isEnabled?: boolean, logLevel?: LogLevels }) {
         let prefix = "[ " + className + " # " + propertyKey + " ]";
@@ -36,9 +36,9 @@ export module Cache {
                 if (LogLevels[level] <= options.logLevel) console[level](prefix, ...args);
             }
         else {
-            return function() { }
+            return function() { };
         }
-    }
+    };
 
     export enum LogLevels {
         none = 0
@@ -80,7 +80,7 @@ export module Cache {
         }
         log("log", "returns");
         return result;
-    }
+    };
 
     const processFuture = (promise: Promise<any>, log: Function, cacheKey: string) => {
         return promise
@@ -94,7 +94,7 @@ export module Cache {
                 delete callCache[cacheKey];
                 return Promise.reject(error);
             });
-    }
+    };
 }
 
 export const CachedPromise = Cache.CachedPromise;

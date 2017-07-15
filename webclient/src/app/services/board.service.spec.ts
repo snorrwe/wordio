@@ -29,7 +29,7 @@ describe('BoardService', () => {
 
         it('should fetch the board from the server', (done) => {
             let callcount = 0;
-            httpMock.get = (...args: any[]) => { callcount++; return Promise.resolve() };
+            httpMock.get = (...args: any[]) => { callcount++; return Promise.resolve(); };
 
             service.getBoard("1")
                 .then(result => {
