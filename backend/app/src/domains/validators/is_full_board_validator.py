@@ -12,8 +12,8 @@ class IsFullBoardValidator(Validator):
                 return False
         return True
 
-    def _check_row(self, x, board_2d, r):
-        for y in r:
+    def _check_row(self, x, board_2d, range):
+        for y in range:
             if (x,y) not in board_2d:
                 self._error("board", "Board must be a full n×m matrix!")
                 return False
