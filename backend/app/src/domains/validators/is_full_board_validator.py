@@ -23,10 +23,8 @@ class IsFullBoardValidator(Validator):
         min = (board[0]["x"], board[0]["y"])
         max = (board[0]["x"], board[0]["y"])
         for tile in board[1:]:
-            compare_smaller = lambda a,b: a < b
-            compare_larger = lambda a,b: a > b
-            min = self._get_next_by_comparison(min, (tile["x"], tile["y"]), compare_smaller)
-            max = self._get_next_by_comparison(max, (tile["x"], tile["y"]), compare_larger)
+            min = self._get_next_by_comparison(min, (tile["x"], tile["y"]), lambda a,b: a < b)
+            max = self._get_next_by_comparison(max, (tile["x"], tile["y"]), lambda a,b: a > b)
         return ((max[0] - min[0] + 1, max[1] - min[1] + 1), min, max)
 
     def _get_next_by_comparison(self, current, next, comparator):
