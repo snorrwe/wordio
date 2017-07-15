@@ -1,17 +1,23 @@
 from flask import current_app as app
+from flask import abort, make_response, jsonify
 from bson.objectid import ObjectId
+from ..validators.is_full_board_validator import IsFullBoardValidator
 
 class InsertTilesByGamesHook(object):
     def __init__(self, request, app):
         self.request = request
         self.app = app
         self.tilesCollection = self.app.data.driver.db['private_tiles']
+        self.validator = IsFullBoardValidator()
 
     def execute(self):
         if 'board' not in self.request.json or not len(self.request.json['board']):
             self.request.json['board'] = []
             return
-        self.process_tiles()
+        if(self.validator.validate_board(self.request.json['board'])):
+            self.process_tiles()
+        else:
+            abort(make_response(jsonify(error="Board is invalid"), 422))
 
     def process_tiles(self):
         tile_ids = []
