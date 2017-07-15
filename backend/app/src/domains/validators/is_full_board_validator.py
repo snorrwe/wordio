@@ -1,16 +1,22 @@
 from eve.io.mongo import Validator
 
 class IsFullBoardValidator(Validator):
+    
     def validate_board(self, board):
         (lengths, mins, maxs) = self.get_length_by_board(board)
         board_2d = {}
         for tile in board:
             board_2d[(tile["x"], tile["y"])] = True
         for x in range(mins[0], maxs[0] + 1):
-            for y in range(mins[1], maxs[1] + 1):
-                if (x,y) not in board_2d:
-                    self._error("board", "Board must be a full n×m matrix!")
-                    return False
+            if(not self._check_row(x, board_2d, range(mins[1], maxs[1] + 1))):
+                return False
+        return True
+
+    def _check_row(self, x, board_2d, r):
+        for y in r:
+            if (x,y) not in board_2d:
+                self._error("board", "Board must be a full n×m matrix!")
+                return False
         return True
 
     def get_length_by_board(self, board):
