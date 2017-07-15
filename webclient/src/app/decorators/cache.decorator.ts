@@ -1,4 +1,4 @@
-export module Cache {
+export namespace Cache {
     const callCache: { [key: string]: Promise<any> } = {};
     const getKey = (...args: any[]) => {
         let result = '';
