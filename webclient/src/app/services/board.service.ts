@@ -7,9 +7,9 @@ import { Board } from '../models/board';
 @Injectable()
 export class BoardService {
 
-	constructor(private httpService: HttpService) { }
+    constructor(private httpService: HttpService) { }
 
-	getBoard(boardId: string): Promise<Board> {
-		return this.httpService.get<Board>("");
-	}
+    getBoard(boardId: string): Promise<Board> {
+        return this.httpService.get<Board>("");
+    }
 }
