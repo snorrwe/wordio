@@ -60,32 +60,32 @@ export module Cache {
             let log = getLogger(className, propertyKey, { isEnabled: options.enableLog, logLevel: options.logLevel });
             descriptor.value = function(...args) {
                 let cacheKey = getKey(className, propertyKey, ...args);
-                return cachedFunctionWrapper(ogMethod, cacheKey, ...args);
+                return cachedFunctionWrapper(ogMethod, cacheKey, log, ...args);
             }
             return descriptor;
         }
     }
 
-    const cachedFunctionWrapper = function(ogMethod: Function, cacheKey: string, ...args: any[]) {
-        log("info", "invoked cached method", ...args);
+    const cachedFunctionWrapper = function(ogMethod: Function, cacheKey: string, log: Function, ...args: any[]) {
+        log("log", "invoked cached method", ...args);
         if (callCache[cacheKey]) {
-            log("info", "returns cached response", callCache[cacheKey]);
+            log("log", "returns cached response", callCache[cacheKey]);
             return callCache[cacheKey];
         }
         let result = ogMethod.apply(this, args);
         if (result instanceof Promise) {
-            log("info", "cached a request! Key", cacheKey);
+            log("log", "cached a request! Key", cacheKey);
             result = processFuture(result, log, cacheKey);
             callCache[cacheKey] = result;
         }
-        log("info", "returns");
+        log("log", "returns");
         return result;
     }
 
-    const processFuture = (promise: Promise<any>, log: Log, cacheKey: string) => {
+    const processFuture = (promise: Promise<any>, log: Function, cacheKey: string) => {
         return promise
             .then((result) => {
-                log("info", "resolved", result);
+                log("log", "resolved", result);
                 delete callCache[cacheKey];
                 return result;
             })
