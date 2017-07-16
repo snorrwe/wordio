@@ -4,6 +4,9 @@ from bson.objectid import ObjectId
 from bson.errors import InvalidId
 
 def insert_hosts_by_solutions(request):
+    if not request.json:
+        abort(make_response(jsonify(error="Body cannot be empty"), 400))
+        return
     gameId = get_object_id_by_request(request, "game")
     game = find_by_id("games", gameId)
     host = app.data.driver.db['users'].find_one({"_id": game["host"]})
