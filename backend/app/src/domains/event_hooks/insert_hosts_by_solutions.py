@@ -1,6 +1,7 @@
 from flask import current_app as app
 from flask import abort, make_response, jsonify
 from bson.objectid import ObjectId
+from bson.errors import InvalidId
 
 def insert_hosts_by_solutions(request):
     gameId = get_object_id_by_request(request, "game")
@@ -15,7 +16,11 @@ def find_by_id(collection, id):
     return result
 
 def get_object_id_by_request(request, key):
-    result = ObjectId(request.json[key])
-    if not result:
+    if request.json is None:
+        abort(make_response(jsonify(error="No body"), 422))
+    try:
+        return ObjectId(request.json[key])
+    except InvalidId:
+        abort(make_response(jsonify(error="key=[%s] is not a valid ObjectId" % key), 400))
+    except KeyError:
         abort(make_response(jsonify(missingKey=key), 400))
-    return result
