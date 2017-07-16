@@ -1,6 +1,6 @@
 export interface Tile {
-	id: number;
-	isSelected: boolean;
-	value: string;
-	position: number;
+    id: number;
+    isSelected: boolean;
+    value: string;
+    position: number;
 }

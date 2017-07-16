@@ -6,13 +6,13 @@ import { HttpService } from './http.service';
 let httpService: Http = {} as any;
 
 describe('HttpService', () => {
-	beforeEach(() => {
-		TestBed.configureTestingModule({
-			providers: [HttpService, { provide: Http, useValue: httpService}]
-		});
-	});
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [HttpService, { provide: Http, useValue: httpService}]
+        });
+    });
 
-	it('should be created', inject([HttpService], (service: HttpService) => {
-		expect(service).toBeTruthy();
-	}));
+    it('should be created', inject([HttpService], (service: HttpService) => {
+        expect(service).toBeTruthy();
+    }));
 });
