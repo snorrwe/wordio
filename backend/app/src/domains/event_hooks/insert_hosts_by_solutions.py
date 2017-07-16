@@ -16,8 +16,6 @@ def find_by_id(collection, id):
     return result
 
 def get_object_id_by_request(request, key):
-    if request.json is None:
-        abort(make_response(jsonify(error="No body"), 422))
     try:
         return ObjectId(request.json[key])
     except InvalidId:
