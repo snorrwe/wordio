@@ -1,5 +1,3 @@
-import random
-import string
 from secrets import token_hex
 
 def getKey(key, json):

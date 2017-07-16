@@ -5,15 +5,13 @@ class Solutions(object):
     name = "solutions"
     domain = {
         'item_title': 'solution'
-        # We also disable endpoint caching as we don't want client apps to
-        # cache account data.
         , 'cache_control': ''
         , 'cache_expires': 0
 
         , 'public_methods': ['POST']
         , 'public_item_methods': ['PUT']
         , 'resource_methods': ['GET', 'POST', 'DELETE']
-        , "item_methods": ['GET', 'PATCH', 'DELETE', 'PUT']
+        , 'item_methods': ['GET', 'PATCH', 'DELETE', 'PUT']
         
         , 'auth_field': 'host'
 
@@ -52,7 +50,7 @@ class Solutions(object):
                 , 'schema': {
                     'type': 'objectid'
                     , 'data_relation': {
-                        'resource': 'public_tiles'
+                        'resource': 'tiles'
                         , 'field': '_id'
                         , 'embeddable': True
                     }
