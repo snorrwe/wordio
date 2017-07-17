@@ -30,6 +30,8 @@ class SolutionValidator(object):
             result = game['availableUntil'] >= datetime.utcnow()
         if result and 'availableFrom' in game:
             result = game['availableFrom'] <= datetime.utcnow()
+        if not result:
+            abort(make_response(jsonify(error="Game has expired!"), 400))
         return result
 
     def get_existing(self, solution = None):
