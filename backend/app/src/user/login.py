@@ -2,7 +2,6 @@ from flask import request, abort, make_response, jsonify
 from .utility import *
 from werkzeug.security import check_password_hash
 
-
 class Login(object):
     def __init__(self, app):
         self.app = app
