@@ -1,6 +1,8 @@
-export interface Tile {
-    id: number;
-    isSelected: boolean;
+import { MongoItem } from "./mongo.template";
+
+export interface Tile extends MongoItem {
+    filled: boolean;
     value: string;
-    position: number;
+    x: number;
+    y: number;
 }
