@@ -2,8 +2,11 @@ import { MongoItem } from "./mongo.template";
 import { Tile } from "./tile";
 
 export class Game extends MongoItem {
-    host: { displayName: string };
-    board: Tile[][];
+    private _host: { displayName: string };
+    get host() { return this._host; }
+
+    private _board?: Tile[][];
+    get board() { return this._board; }
 
     private static createMatrix(board: Tile[]): Tile[][] {
         if (!board || !board.length) return [];
@@ -22,18 +25,34 @@ export class Game extends MongoItem {
         return result;
     }
 
+    static makeDto(game: Game): GameDto {
+        if (!game) return null;
+        const board = [];
+        for (const column of game._board || []) {
+            board.push(...column);
+        }
+        return {
+            _created: game._created
+            , _etag: game._etag
+            , _id: game._id
+            , _updated: game._updated
+            , host: game._host
+            , board: board
+        };
+    }
+
     constructor(game?: Game | GameDto) {
         super();
         if (!game) return;
-        this.host = game.host;
+        this._host = game.host;
         this._id = game._id;
         this._etag = game._etag;
         this._updated = game._updated;
         this._created = game._created;
         if (game instanceof Game) {
-            this.board = game.board;
+            this._board = game._board || [];
         } else {
-            this.board = Game.createMatrix(game.board);
+            this._board = Game.createMatrix(game.board || []);
         }
     }
 }
