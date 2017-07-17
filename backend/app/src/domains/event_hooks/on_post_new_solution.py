@@ -1,10 +1,8 @@
 from flask import current_app
 from bson.objectid import ObjectId
 
-db = current_app.data.driver.db
-
 def remove_old_solutions(solution):
-    db['solutions'].delete_many({
+    current_app.data.driver.db['solutions'].delete_many({
         'game': ObjectId(solution['game'])
         , 'nickname': solution['nickname']
         , '_updated': { '$le': solution['_updated']  }
