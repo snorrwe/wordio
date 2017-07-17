@@ -6,5 +6,5 @@ import { Tile } from '../models/tile';
 @Injectable()
 export class BoardService {
 
-    constructor(private httpService: EveHttpService) { } 
+    constructor(private httpService: EveHttpService) { }
 }

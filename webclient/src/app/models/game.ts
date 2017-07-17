@@ -26,7 +26,7 @@ export class Game extends MongoItem {
         board.sort((a, b) => a.x - b.x || a.y - b.y);
         let row: Tile[] = [board[0]];
         for (let i = 1; i < board.length; ++i) {
-            if (board[i].x == row[row.length - 1].x) {
+            if (board[i].x === row[row.length - 1].x) {
                 row.push(board[i]);
             } else {
                 result.push(row);

@@ -45,7 +45,7 @@ export class EveHttpService {
             });
     }
 
-    private parseResponse<TReturn>(response: Response): Promise<TReturn[]> { 
+    private parseResponse<TReturn>(response: Response): Promise<TReturn[]> {
         try {
             let body = response.json();
             return Promise.resolve((body as ItemsDto<TReturn>)._items);
