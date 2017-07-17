@@ -1,5 +1,5 @@
-import { Game, GameDto } from './game';
-import { Tile } from './tile';
+import { Game, GameDto } from "./game";
+import { Tile } from "./tile";
 
 function validateBoard(board: Tile[][], columns: number, rows: number) {
     for (let x = 0; x < columns; x++) {
@@ -10,8 +10,8 @@ function validateBoard(board: Tile[][], columns: number, rows: number) {
     }
 }
 
-describe('Game tests', () => {
-    it('Can be created by sorted board', () => {
+describe("Game tests", () => {
+    it("Can be created by sorted board", () => {
         const dto: GameDto = {
             board: [
                 { x: 0, y: 0 }
@@ -25,7 +25,7 @@ describe('Game tests', () => {
         validateBoard(result.board, 2, 2);
     });
 
-    it('Can be created by reversed board', () => {
+    it("Can be created by reversed board", () => {
         const dto: GameDto = {
             board: [
                 { x: 1, y: 1 }
@@ -39,7 +39,7 @@ describe('Game tests', () => {
         validateBoard(result.board, 2, 2);
     });
 
-    it('Can be created by random board', () => {
+    it("Can be created by random board", () => {
         const dto: GameDto = {
             board: [
                  { x: 0, y: 1 }
@@ -53,7 +53,7 @@ describe('Game tests', () => {
         validateBoard(result.board, 2, 2);
     });
 
-    it('Can be created by random board 2×3', () => {
+    it("Can be created by random board 2×3", () => {
         const dto: GameDto = {
             board: [
                 { x: 0, y: 1 }

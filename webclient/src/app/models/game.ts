@@ -1,24 +1,9 @@
-import { MongoItem } from './mongo.template';
-import { Tile } from './tile';
+import { MongoItem } from "./mongo.template";
+import { Tile } from "./tile";
 
 export class Game extends MongoItem {
     host: { displayName: string };
     board: Tile[][];
-
-    constructor(game?: Game | GameDto) {
-        super();
-        if (!game) return;
-        this.host = game.host;
-        this._id = game._id;
-        this._etag = game._etag;
-        this._updated = game._updated;
-        this._created = game._created;
-        if (game instanceof Game) {
-            this.board = game.board;
-        } else {
-            this.board = Game.createMatrix(game.board);
-        }
-    }
 
     private static createMatrix(board: Tile[]): Tile[][] {
         if (!board || !board.length) return [];
@@ -35,6 +20,21 @@ export class Game extends MongoItem {
         }
         result.push(row);
         return result;
+    }
+
+    constructor(game?: Game | GameDto) {
+        super();
+        if (!game) return;
+        this.host = game.host;
+        this._id = game._id;
+        this._etag = game._etag;
+        this._updated = game._updated;
+        this._created = game._created;
+        if (game instanceof Game) {
+            this.board = game.board;
+        } else {
+            this.board = Game.createMatrix(game.board);
+        }
     }
 }
 

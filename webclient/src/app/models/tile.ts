@@ -1,4 +1,4 @@
-import { MongoItem } from './mongo.template';
+import { MongoItem } from "./mongo.template";
 
 export interface Tile extends MongoItem {
     filled?: boolean;

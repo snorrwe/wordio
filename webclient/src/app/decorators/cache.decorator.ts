@@ -1,12 +1,5 @@
 export namespace Cache {
     const callCache: { [key: string]: Promise<any> } = {};
-    const getKey = (...args: any[]) => {
-        let result = '';
-        args.forEach((value: any) => {
-            result += hashObject(value);
-        });
-        return result;
-    };
 
     const hashObject = (object: any): string => {
         if (!object || !(object instanceof Object)) return object;
@@ -17,22 +10,29 @@ export namespace Cache {
             });
         return result;
     };
+    const getKey = (...args: any[]) => {
+        let result = "";
+        args.forEach((value: any) => {
+            result += hashObject(value);
+        });
+        return result;
+    };
 
     export const getNameByClass = function(cls: Object) {
         const regex = /function .*\(/;
         const results = regex.exec(cls.constructor.toString());
-        let result = 'UNKNOWN_CLASS';
+        let result = "UNKNOWN_CLASS";
         if (results && results.length) {
-            result = results[0].replace('function ', '').replace('(', '');
+            result = results[0].replace("function ", "").replace("(", "");
         }
         return result;
     };
 
     const getLogger = function(className, propertyKey: string, options: { isEnabled?: boolean, logLevel?: LogLevels }) {
-        const prefix = '[ ' + className + ' # ' + propertyKey + ' ]';
+        const prefix = "[ " + className + " # " + propertyKey + " ]";
         if (!options.logLevel) options.logLevel = LogLevels.error;
         if (options.isEnabled)
-            return function(level: string = 'log', ...args: any[]) {
+            return function(level: string = "log", ...args: any[]) {
                 if (LogLevels[level] <= options.logLevel) console[level](prefix, ...args);
             };
         else {
@@ -53,6 +53,36 @@ export namespace Cache {
         logLevel?: LogLevels;
     }
 
+    const processFuture = (promise: Promise<any>, log: Function, cacheKey: string) => {
+        return promise
+            .then((result) => {
+                log("log", "resolved", result);
+                delete callCache[cacheKey];
+                return result;
+            })
+            .catch((error) => {
+                log("error", "was rejected!", error);
+                delete callCache[cacheKey];
+                return Promise.reject(error);
+            });
+    };
+
+    const cachedFunctionWrapper = function(ogMethod: Function, cacheKey: string, log: Function, ...args: any[]) {
+        log("log", "invoked cached method", ...args);
+        if (callCache[cacheKey]) {
+            log("log", "returns cached response", callCache[cacheKey]);
+            return callCache[cacheKey];
+        }
+        let result = ogMethod.apply(this, args);
+        if (result instanceof Promise) {
+            log("log", "cached a request! Key", cacheKey);
+            result = processFuture(result, log, cacheKey);
+            callCache[cacheKey] = result;
+        }
+        log("log", "returns");
+        return result;
+    };
+
     export function CachedPromise(options: CachedPromiseOptions = {}) {
         return function(target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
             const ogMethod: (...args: any[]) => Promise<any> = descriptor.value;
@@ -65,36 +95,6 @@ export namespace Cache {
             return descriptor;
         };
     }
-
-    const cachedFunctionWrapper = function(ogMethod: Function, cacheKey: string, log: Function, ...args: any[]) {
-        log('log', 'invoked cached method', ...args);
-        if (callCache[cacheKey]) {
-            log('log', 'returns cached response', callCache[cacheKey]);
-            return callCache[cacheKey];
-        }
-        let result = ogMethod.apply(this, args);
-        if (result instanceof Promise) {
-            log('log', 'cached a request! Key', cacheKey);
-            result = processFuture(result, log, cacheKey);
-            callCache[cacheKey] = result;
-        }
-        log('log', 'returns');
-        return result;
-    };
-
-    const processFuture = (promise: Promise<any>, log: Function, cacheKey: string) => {
-        return promise
-            .then((result) => {
-                log('log', 'resolved', result);
-                delete callCache[cacheKey];
-                return result;
-            })
-            .catch((error) => {
-                log('error', 'was rejected!', error);
-                delete callCache[cacheKey];
-                return Promise.reject(error);
-            });
-    };
 }
 
 export const CachedPromise = Cache.CachedPromise;

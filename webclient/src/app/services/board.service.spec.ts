@@ -1,9 +1,9 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject } from "@angular/core/testing";
 
-import { BoardService } from './board.service';
-import { EveHttpService } from './http.service';
+import { BoardService } from "./board.service";
+import { EveHttpService } from "./http.service";
 
-describe('BoardService', () => {
+describe("BoardService", () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
@@ -13,7 +13,7 @@ describe('BoardService', () => {
         });
     });
 
-    it('should be created', inject([BoardService], (service: BoardService) => {
+    it("should be created", inject([BoardService], (service: BoardService) => {
         expect(service).toBeTruthy();
     }));
 });

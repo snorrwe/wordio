@@ -1,16 +1,16 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Pipe, PipeTransform } from '@angular/core';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { Pipe, PipeTransform } from "@angular/core";
 
-import { BoardComponent } from './board.component';
+import { BoardComponent } from "./board.component";
 
 @Pipe({
-    name: 'reverse'
+    name: "reverse"
 })
 class ReversePipeMock implements PipeTransform {
     transform() { }
 }
 
-describe('BoardComponent', () => {
+describe("BoardComponent", () => {
     let component: BoardComponent;
     let fixture: ComponentFixture<BoardComponent>;
 
@@ -35,7 +35,7 @@ describe('BoardComponent', () => {
         fixture.destroy();
     });
 
-    it('should be created', () => {
+    it("should be created", () => {
         expect(component).toBeTruthy();
     });
 });

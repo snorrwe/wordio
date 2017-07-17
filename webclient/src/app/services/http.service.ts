@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { CachedPromise } from '../decorators/cache.decorator';
-import { Http, Response } from '@angular/http';
+import { CachedPromise } from "../decorators/cache.decorator";
+import { Http, Response } from "@angular/http";
 
-import 'rxjs/Rx';
+import "rxjs/Rx";
 
 export interface ItemsDto<T>{
     _items: T[];
@@ -16,9 +16,9 @@ export class EveHttpService {
 
     @CachedPromise()
     get<T>(url: string, ...queryParams: { key: string, value: string }[]): Promise<T[]> {
-        if (url.indexOf('?') < 0) url += '?';
+        if (url.indexOf("?") < 0) url += "?";
         for (const param of queryParams) {
-            url += param.key + '=' + param.value + '&';
+            url += param.key + "=" + param.value + "&";
         }
         return this.http.get(url)
             .toPromise()
