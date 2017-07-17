@@ -11,7 +11,7 @@ function validateBoard(board: Tile[][], columns: number, rows: number) {
 }
 
 describe('Game tests', () => {
-    
+
     it('Can be created by sorted board', () => {
         let dto: GameDto = {
             board: [
