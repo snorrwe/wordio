@@ -1,12 +1,5 @@
 export namespace Cache {
     const callCache: { [key: string]: Promise<any> } = {};
-    const getKey = (...args: any[]) => {
-        let result = '';
-        args.forEach((value: any) => {
-            result += hashObject(value);
-        });
-        return result;
-    };
 
     const hashObject = (object: any): string => {
         if (!object || !(object instanceof Object)) return object;
@@ -17,10 +10,17 @@ export namespace Cache {
             });
         return result;
     };
+    const getKey = (...args: any[]) => {
+        let result = "";
+        args.forEach((value: any) => {
+            result += hashObject(value);
+        });
+        return result;
+    };
 
     export const getNameByClass = function(cls: Object) {
-        let regex = /function .*\(/;
-        let results = regex.exec(cls.constructor.toString());
+        const regex = /function .*\(/;
+        const results = regex.exec(cls.constructor.toString());
         let result = "UNKNOWN_CLASS";
         if (results && results.length) {
             result = results[0].replace("function ", "").replace("(", "");
@@ -29,12 +29,12 @@ export namespace Cache {
     };
 
     const getLogger = function(className, propertyKey: string, options: { isEnabled?: boolean, logLevel?: LogLevels }) {
-        let prefix = "[ " + className + " # " + propertyKey + " ]";
+        const prefix = "[ " + className + " # " + propertyKey + " ]";
         if (!options.logLevel) options.logLevel = LogLevels.error;
         if (options.isEnabled)
             return function(level: string = "log", ...args: any[]) {
                 if (LogLevels[level] <= options.logLevel) console[level](prefix, ...args);
-            }
+            };
         else {
             return function() { };
         }
@@ -53,18 +53,19 @@ export namespace Cache {
         logLevel?: LogLevels;
     }
 
-    export function CachedPromise(options: CachedPromiseOptions = {}) {
-        return function(target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
-            let ogMethod: (...args: any[]) => Promise<any> = descriptor.value;
-            let className = getNameByClass(target);
-            let log = getLogger(className, propertyKey, { isEnabled: options.enableLog, logLevel: options.logLevel });
-            descriptor.value = function(...args) {
-                let cacheKey = getKey(className, propertyKey, ...args);
-                return cachedFunctionWrapper(ogMethod, cacheKey, log, ...args);
-            }
-            return descriptor;
-        }
-    }
+    const processFuture = (promise: Promise<any>, log: Function, cacheKey: string) => {
+        return promise
+            .then((result) => {
+                log("log", "resolved", result);
+                delete callCache[cacheKey];
+                return result;
+            })
+            .catch((error) => {
+                log("error", "was rejected!", error);
+                delete callCache[cacheKey];
+                return Promise.reject(error);
+            });
+    };
 
     const cachedFunctionWrapper = function(ogMethod: Function, cacheKey: string, log: Function, ...args: any[]) {
         log("log", "invoked cached method", ...args);
@@ -82,19 +83,18 @@ export namespace Cache {
         return result;
     };
 
-    const processFuture = (promise: Promise<any>, log: Function, cacheKey: string) => {
-        return promise
-            .then((result) => {
-                log("log", "resolved", result);
-                delete callCache[cacheKey];
-                return result;
-            })
-            .catch((error) => {
-                log("error", "was rejected!", error);
-                delete callCache[cacheKey];
-                return Promise.reject(error);
-            });
-    };
+    export function CachedPromise(options: CachedPromiseOptions = {}) {
+        return function(target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
+            const ogMethod: (...args: any[]) => Promise<any> = descriptor.value;
+            const className = getNameByClass(target);
+            const log = getLogger(className, propertyKey, { isEnabled: options.enableLog, logLevel: options.logLevel });
+            descriptor.value = function(...args) {
+                const cacheKey = getKey(className, propertyKey, ...args);
+                return cachedFunctionWrapper(ogMethod, cacheKey, log, ...args);
+            };
+            return descriptor;
+        };
+    }
 }
 
 export const CachedPromise = Cache.CachedPromise;

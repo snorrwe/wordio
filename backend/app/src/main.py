@@ -33,7 +33,7 @@ def start_app(app):
         if logger:
             logger.error(error)
 
-app = Eve(auth = WordioAuth, settings=SETTINGS_PATH)
+app = Eve(auth = WordioAuth, settings = SETTINGS_PATH)
 
 @app.route('/hello', methods=['GET'])
 def hello_controller():

@@ -1,19 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { CachedPromise } from '../decorators/cache.decorator'
-import { Http, Response } from '@angular/http';
+import { CachedPromise } from "../decorators/cache.decorator";
+import { Http, Response } from "@angular/http";
 
-import 'rxjs/Rx';
+import "rxjs/Rx";
+
+export interface ItemsDto<T>{
+    _items: T[];
+}
 
 @Injectable()
-export class HttpService {
+export class EveHttpService {
 
     constructor(private http: Http) { }
 
     @CachedPromise()
     get<T>(url: string, ...queryParams: { key: string, value: string }[]): Promise<T> {
         if (url.indexOf("?") < 0) url += "?";
-        for (let param of queryParams) {
+        for (const param of queryParams) {
             url += param.key + "=" + param.value + "&";
         }
         return this.http.get(url)
@@ -43,7 +47,8 @@ export class HttpService {
 
     private parseResponse<TReturn>(response: Response): Promise<TReturn> {
         try {
-            return response.json();
+            const body = response.json();
+            return Promise.resolve(body as TReturn);
         } catch (e) {
             return Promise.reject(e);
         }

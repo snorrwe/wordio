@@ -1,6 +1,6 @@
-import { Cache } from './cache.decorator';
+import { Cache } from "./cache.decorator";
 
-let getClassName = Cache.getNameByClass;
+const getClassName = Cache.getNameByClass;
 
 class LocalStorageService {
     private static _instance: LocalStorageService;
@@ -22,7 +22,7 @@ class LocalStorageService {
             let value: any;
         try {
             value = this.storage.getItem(key);
-            if (value === 'undefined') return null;
+            if (value === "undefined") return null;
             return JSON.parse(value) as T;
         } catch (e) {
             console.error("Error while getting key from localStorage", e, value);
@@ -43,7 +43,7 @@ class LocalStorageService {
 
 export function LocalStorage(keyPrefix?: string) {
     return (target: Object, propertyKey: string) => {
-        let storageKey = keyPrefix + getClassName(target) + "#" + propertyKey;
+        const storageKey = keyPrefix + getClassName(target) + "#" + propertyKey;
         Object.defineProperty(target, propertyKey, {
             get: function() {
                 return LocalStorageService.instance.get(storageKey);
@@ -52,5 +52,5 @@ export function LocalStorage(keyPrefix?: string) {
                 LocalStorageService.instance.set(storageKey, v);
             }
         });
-    }
+    };
 }

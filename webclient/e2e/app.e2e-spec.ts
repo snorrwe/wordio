@@ -1,14 +1,14 @@
-import { WebclientPage } from './app.po';
+import { WebclientPage } from "./app.po";
 
-describe('webclient App', () => {
+describe("webclient App", () => {
   let page: WebclientPage;
 
   beforeEach(() => {
     page = new WebclientPage();
   });
 
-  it('should display message saying app works', () => {
+  it("should display message saying app works", () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual("app works!");
   });
 });
