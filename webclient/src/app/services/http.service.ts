@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { CachedPromise } from '../decorators/cache.decorator'
+import { CachedPromise } from '../decorators/cache.decorator';
 import { Http, Response } from '@angular/http';
 
 import 'rxjs/Rx';
@@ -16,9 +16,9 @@ export class EveHttpService {
 
     @CachedPromise()
     get<T>(url: string, ...queryParams: { key: string, value: string }[]): Promise<T[]> {
-        if (url.indexOf("?") < 0) url += "?";
-        for (let param of queryParams) {
-            url += param.key + "=" + param.value + "&";
+        if (url.indexOf('?') < 0) url += '?';
+        for (const param of queryParams) {
+            url += param.key + '=' + param.value + '&';
         }
         return this.http.get(url)
             .toPromise()
@@ -47,7 +47,7 @@ export class EveHttpService {
 
     private parseResponse<TReturn>(response: Response): Promise<TReturn[]> {
         try {
-            let body = response.json();
+            const body = response.json();
             return Promise.resolve((body as ItemsDto<TReturn>)._items);
         } catch (e) {
             return Promise.reject(e);

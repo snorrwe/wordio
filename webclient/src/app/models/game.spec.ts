@@ -11,9 +11,8 @@ function validateBoard(board: Tile[][], columns: number, rows: number) {
 }
 
 describe('Game tests', () => {
-
     it('Can be created by sorted board', () => {
-        let dto: GameDto = {
+        const dto: GameDto = {
             board: [
                 { x: 0, y: 0 }
                 , { x: 0, y: 1 }
@@ -21,13 +20,13 @@ describe('Game tests', () => {
                 , { x: 1, y: 1 }
             ]
         } as any;
-        let result = new Game(dto);
+        const result = new Game(dto);
         expect(result).toBeTruthy();
         validateBoard(result.board, 2, 2);
     });
 
     it('Can be created by reversed board', () => {
-        let dto: GameDto = {
+        const dto: GameDto = {
             board: [
                 { x: 1, y: 1 }
                 , { x: 1, y: 0 }
@@ -35,13 +34,13 @@ describe('Game tests', () => {
                 , { x: 0, y: 0 }
             ]
         } as any;
-        let result = new Game(dto);
+        const result = new Game(dto);
         expect(result).toBeTruthy();
         validateBoard(result.board, 2, 2);
     });
 
     it('Can be created by random board', () => {
-        let dto: GameDto = {
+        const dto: GameDto = {
             board: [
                  { x: 0, y: 1 }
                 , { x: 1, y: 0 }
@@ -49,13 +48,13 @@ describe('Game tests', () => {
                 , { x: 0, y: 0 }
             ]
         } as any;
-        let result = new Game(dto);
+        const result = new Game(dto);
         expect(result).toBeTruthy();
         validateBoard(result.board, 2, 2);
     });
 
     it('Can be created by random board 2×3', () => {
-        let dto: GameDto = {
+        const dto: GameDto = {
             board: [
                 { x: 0, y: 1 }
                 , { x: 1, y: 0 }
@@ -65,7 +64,7 @@ describe('Game tests', () => {
                 , { x: 2, y: 1 }
             ]
         } as any;
-        let result = new Game(dto);
+        const result = new Game(dto);
         expect(result).toBeTruthy();
         validateBoard(result.board, 2, 2);
     });

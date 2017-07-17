@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 
 import { EveHttpService } from './http.service';
 
-let httpService: Http = {} as any;
+const httpService: Http = {} as any;
 
 describe('HttpService', () => {
     beforeEach(() => {

@@ -1,5 +1,5 @@
-import { MongoItem } from "./mongo.template";
-import { Tile } from "./tile";
+import { MongoItem } from './mongo.template';
+import { Tile } from './tile';
 
 export class Game extends MongoItem {
     host: { displayName: string };
@@ -22,7 +22,7 @@ export class Game extends MongoItem {
 
     private static createMatrix(board: Tile[]): Tile[][] {
         if (!board || !board.length) return [];
-        let result: Tile[][] = [];
+        const result: Tile[][] = [];
         board.sort((a, b) => a.x - b.x || a.y - b.y);
         let row: Tile[] = [board[0]];
         for (let i = 1; i < board.length; ++i) {
