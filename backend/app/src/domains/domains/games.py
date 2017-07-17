@@ -35,7 +35,7 @@ class Games(object):
 
             , 'name': {
                 'type': 'string'
-                , 'required': False
+                , 'required': True
                 , 'empty': False
             }
 
