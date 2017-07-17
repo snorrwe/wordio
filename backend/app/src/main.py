@@ -7,6 +7,7 @@ from .auth.auth import WordioAuth
 from .utility.logger import LogService
 from .domains.event_hooks.insert_tiles_by_games import insert_tiles_by_games
 from .domains.event_hooks.on_new_solution import on_new_solution
+from .domains.event_hooks.on_post_new_solution import on_post_new_solution
 from .custom.hello_endpoint import hello
 from flask import current_app
 from flask import request, abort, make_response, jsonify
@@ -48,9 +49,7 @@ def register_controller():
 
 app.on_pre_POST_games += insert_tiles_by_games
 app.on_pre_POST_solutions += on_new_solution
+app.on_inserted_solutions += on_post_new_solution
 
-def main():
-    start_app(app)
-    
 if __name__ == '__main__':
-    main()
+    start_app(app)
