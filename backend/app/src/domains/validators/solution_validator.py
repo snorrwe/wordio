@@ -1,5 +1,6 @@
 from flask import abort, make_response, jsonify
 from bson.objectid import ObjectId
+from datetime import datetime
 
 class SolutionValidator(object):
 
@@ -15,13 +16,28 @@ class SolutionValidator(object):
         if solution is None:
             abort(make_response(jsonify(error="Solution cannot be null!"), 422))
             return False
-        return self.validate_solution(solution)
+        result = self.validate_solution(solution)
+        if result:
+            self.control_concurrency(solution)
+        return result
 
     def validate_solution(self, solution):
+        game = self.db['games'].find_one({
+                '_id': ObjectId(solution['game'])
+            })
+        if not game:
+            return False
+        result = True
+        if 'availableUntil' in game:
+            result = game['availableUntil'] >= datetime.utcnow()
+        if result and 'availableFrom' in game:
+            result = game['availableFrom'] <= datetime.utcnow()
+        return result
+
+    def control_concurrency(self, solution):
         existing = self.get_existing(solution)
         if existing:
             self.db['solutions'].delete_one(existing)
-        return True
 
     def get_existing(self, solution = None):
         if 'existing' in self.__dict__ and self.existing:
