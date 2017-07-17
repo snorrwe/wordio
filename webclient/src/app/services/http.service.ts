@@ -5,8 +5,12 @@ import { Http, Response } from '@angular/http';
 
 import 'rxjs/Rx';
 
+export interface Dto<T>{
+    _items: T[];
+}
+
 @Injectable()
-export class HttpService {
+export class EveHttpService {
 
     constructor(private http: Http) { }
 

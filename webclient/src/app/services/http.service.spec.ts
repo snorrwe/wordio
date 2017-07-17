@@ -1,18 +1,18 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { Http } from '@angular/http';
 
-import { HttpService } from './http.service';
+import { EveHttpService } from './http.service';
 
 let httpService: Http = {} as any;
 
 describe('HttpService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [HttpService, { provide: Http, useValue: httpService}]
+            providers: [EveHttpService, { provide: Http, useValue: httpService}]
         });
     });
 
-    it('should be created', inject([HttpService], (service: HttpService) => {
+    it('should be created', inject([EveHttpService], (service: EveHttpService) => {
         expect(service).toBeTruthy();
     }));
 });

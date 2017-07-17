@@ -10,7 +10,7 @@ import { ReversePipe } from './pipes/reverse.pipe';
 
 import { AuthenticationService } from './services/authentication.service';
 import { BoardService } from './services/board.service';
-import { HttpService } from './services/http.service';
+import { EveHttpService } from './services/http.service';
 
 @NgModule({
     declarations: [
@@ -26,7 +26,7 @@ import { HttpService } from './services/http.service';
     providers: [
         AuthenticationService
         , BoardService
-        , HttpService
+        , EveHttpService
     ],
     bootstrap: [
         AppComponent

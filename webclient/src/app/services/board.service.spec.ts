@@ -1,14 +1,14 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { BoardService } from './board.service';
-import { HttpService } from './http.service';
+import { EveHttpService } from './http.service';
 
 describe('BoardService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 BoardService
-                , { provide: HttpService, useValue: {} }
+                , { provide: EveHttpService, useValue: {} }
             ]
         });
     });
@@ -22,7 +22,7 @@ describe('BoardService', () => {
         let httpMock: any;
         let service: BoardService;
 
-        beforeEach(inject([BoardService, HttpService], (s: BoardService, h: any) => {
+        beforeEach(inject([BoardService, EveHttpService], (s: BoardService, h: any) => {
             service = s;
             httpMock = h;
         }));
