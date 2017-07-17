@@ -24,14 +24,19 @@ class SolutionValidator(object):
             '_id': ObjectId(solution['game'])
         })
         if not game:
+            abort(make_response(jsonify(error="Game not found!"), 400))
             return False
+        result = self._validate_timeframes(solution, game)
+        if not result:
+            abort(make_response(jsonify(error="Game has expired!"), 400))
+        return result
+
+    def _validate_timeframes(self, solution, game):
         result = True
         if 'availableUntil' in game:
             result = game['availableUntil'] >= datetime.utcnow()
         if result and 'availableFrom' in game:
             result = game['availableFrom'] <= datetime.utcnow()
-        if not result:
-            abort(make_response(jsonify(error="Game has expired!"), 400))
         return result
 
     def get_existing(self, solution = None):
