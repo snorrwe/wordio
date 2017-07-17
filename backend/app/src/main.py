@@ -51,5 +51,8 @@ app.on_pre_POST_games += insert_tiles_by_games
 app.on_pre_POST_solutions += on_new_solution
 app.on_inserted_solutions += on_post_new_solution
 
-if __name__ == '__main__':
+def main():
     start_app(app)
+
+if __name__ == '__main__':
+    main()
