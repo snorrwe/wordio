@@ -17,14 +17,12 @@ class SolutionValidator(object):
             abort(make_response(jsonify(error="Solution cannot be null!"), 422))
             return False
         result = self.validate_solution(solution)
-        if result:
-            self.control_concurrency(solution)
         return result
 
     def validate_solution(self, solution):
         game = self.db['games'].find_one({
-                '_id': ObjectId(solution['game'])
-            })
+            '_id': ObjectId(solution['game'])
+        })
         if not game:
             return False
         result = True
@@ -33,11 +31,6 @@ class SolutionValidator(object):
         if result and 'availableFrom' in game:
             result = game['availableFrom'] <= datetime.utcnow()
         return result
-
-    def control_concurrency(self, solution):
-        existing = self.get_existing(solution)
-        if existing:
-            self.db['solutions'].delete_one(existing)
 
     def get_existing(self, solution = None):
         if 'existing' in self.__dict__ and self.existing:
