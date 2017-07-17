@@ -24,6 +24,7 @@ class SolutionValidator(object):
             '_id': ObjectId(solution['game'])
         })
         if not game:
+            abort(make_response(jsonify(error="Game not found!"), 400))
             return False
         result = True
         if 'availableUntil' in game:
