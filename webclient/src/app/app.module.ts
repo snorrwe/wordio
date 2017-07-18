@@ -9,7 +9,7 @@ import { BoardComponent } from "./components/board/board.component";
 import { ReversePipe } from "./pipes/reverse.pipe";
 
 import { AuthenticationService } from "./services/authentication.service";
-import { BoardService } from "./services/board.service";
+import { GameService } from "./services/game.service";
 import { EveHttpService } from "./services/http.service";
 
 @NgModule({
@@ -25,7 +25,7 @@ import { EveHttpService } from "./services/http.service";
     ],
     providers: [
         AuthenticationService
-        , BoardService
+        , GameService
         , EveHttpService
     ],
     bootstrap: [
