@@ -25,13 +25,15 @@ matrix:
       before_script:
        - cd webclient
        - npm install -g npm@^4.0.3
-       - npm install -g karma-cli
        - npm install
        - cd ..
        - export DISPLAY=:99.0
 
       script: 
-       - cd webclient && npm run travis-test && cd ..
+       - cd webclient
+       - npm run build
+       - npm run travis-test
+       - cd ..
 
     - language: python
       python: 3.6
