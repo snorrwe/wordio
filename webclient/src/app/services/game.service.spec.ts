@@ -102,7 +102,7 @@ describe("BoardService", () => {
             httpService.get = ((...args) => get(args)) as any;
         });
 
-        it("positive test, 3×2, boards, only containing ids", async(inject([GameService], (service: GameService) => {
+        it("positive test", async(inject([GameService], (service: GameService) => {
             get = () => Promise.resolve({
                 _items: [{}, {}, {}]
             });
@@ -111,6 +111,42 @@ describe("BoardService", () => {
                 .then(result => {
                     expect(result).toBeTruthy();
                     expect(result.length).toBe(3);
+                    for (let game of result) {
+                        expect(game).toBeTruthy();
+                        expect(game.board.length).toBe(0);
+                    }
+                })
+                .catch(e => {
+                    fail(e);
+                });
+        })));
+
+        it("positive test, returned _item is null", async(inject([GameService], (service: GameService) => {
+            get = () => Promise.resolve({
+                _items: null
+            });
+
+            return service.listGames()
+                .then(result => {
+                    expect(result).toBeTruthy();
+                    expect(result.length).toBe(0);
+                    for (let game of result) {
+                        expect(game).toBeTruthy();
+                        expect(game.board.length).toBe(0);
+                    }
+                })
+                .catch(e => {
+                    fail(e);
+                });
+        })));
+
+        it("positive test, result is null", async(inject([GameService], (service: GameService) => {
+            get = () => Promise.resolve(null);
+
+            return service.listGames()
+                .then(result => {
+                    expect(result).toBeTruthy();
+                    expect(result.length).toBe(0);
                     for (let game of result) {
                         expect(game).toBeTruthy();
                         expect(game.board.length).toBe(0);
