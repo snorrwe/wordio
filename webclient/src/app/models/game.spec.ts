@@ -90,7 +90,7 @@ describe("Game tests", () => {
                 , _etag: "asd568dfns"
                 , _updated: new Date(1)
                 , _created: new Date(1)
-            }
+            };
             const game = new Game(dto);
             const result = Game.makeDto(game);
 
