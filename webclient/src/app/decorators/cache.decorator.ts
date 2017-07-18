@@ -90,7 +90,7 @@ export namespace Cache {
             const log = getLogger(className, propertyKey, { isEnabled: options.enableLog, logLevel: options.logLevel });
             descriptor.value = function(...args) {
                 const cacheKey = getKey(className, propertyKey, ...args);
-                return cachedFunctionWrapper(target, ogMethod, cacheKey, log, ...args);
+                return cachedFunctionWrapper(this, ogMethod, cacheKey, log, ...args);
             };
             return descriptor;
         };
