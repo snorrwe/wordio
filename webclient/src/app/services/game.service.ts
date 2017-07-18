@@ -9,12 +9,8 @@ export class GameService {
 
     constructor(private httpService: EveHttpService) { }
 
-    getGame(id: string, ...queries: { key: string, value: any }[]): Promise<Game> {
-        if (!queries) queries = [];
-        if (queries.findIndex((param) => param.key === "embedded") === -1) {
-            queries.push({ key: "embedded", value: JSON.stringify({ board: 1 }) });
-        }
-        return this.httpService.get<GameDto>(this.url(Urls.GAMES) + id, ...queries)
+    getGame(id: string): Promise<Game> {
+        return this.httpService.get<GameDto>(this.url(Urls.GAMES) + id, { key: "embedded", value: JSON.stringify({ board: 1 }) })
             .then(game => {
                 return new Game(game);
             });
