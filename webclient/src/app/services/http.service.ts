@@ -5,7 +5,7 @@ import { Http, Response } from "@angular/http";
 
 import "rxjs/Rx";
 
-export interface ItemsDto<T>{
+export interface CollectionDto<T>{
     _items: T[];
 }
 
