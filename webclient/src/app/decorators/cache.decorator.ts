@@ -67,13 +67,13 @@ export namespace Cache {
             });
     };
 
-    const cachedFunctionWrapper = function(target: Object, ogMethod: Function, cacheKey: string, log: Function, ...args: any[]) {
+    const cachedFunctionWrapper = function(ogMethod: Function, cacheKey: string, log: Function, ...args: any[]) {
         log("log", "invoked cached method", ...args);
         if (callCache[cacheKey]) {
             log("log", "returns cached response", callCache[cacheKey]);
             return callCache[cacheKey];
         }
-        let result = ogMethod.apply(target, args);
+        let result = ogMethod.apply(this, args);
         if (result instanceof Promise) {
             log("log", "cached a request! Key", cacheKey);
             result = processFuture(result, log, cacheKey);
@@ -90,7 +90,7 @@ export namespace Cache {
             const log = getLogger(className, propertyKey, { isEnabled: options.enableLog, logLevel: options.logLevel });
             descriptor.value = function(...args) {
                 const cacheKey = getKey(className, propertyKey, ...args);
-                return cachedFunctionWrapper(this, ogMethod, cacheKey, log, ...args);
+                return cachedFunctionWrapper.apply(this, [ogMethod, cacheKey, log, ...args]);
             };
             return descriptor;
         };
