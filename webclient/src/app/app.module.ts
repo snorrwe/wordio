@@ -2,9 +2,11 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
+import { RouterModule } from "@angular/router";
 
 import { AppComponent } from "./app.component";
 import { BoardComponent } from "./components/board/board.component";
+import { IndexComponent } from "./components/index/index.component";
 
 import { ReversePipe } from "./pipes/reverse.pipe";
 
@@ -13,16 +15,22 @@ import { GameService } from "./services/game.service";
 import { EveHttpService } from "./services/http.service";
 import { NavigationService } from "./services/navigation.service";
 
+import { routes } from "./app.router";
+import { GameListItemComponent } from './components/game-list-item/game-list-item.component';
+
 @NgModule({
     declarations: [
         AppComponent,
         BoardComponent,
-        ReversePipe
+        ReversePipe,
+        IndexComponent,
+        GameListItemComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule
+        HttpModule,
+        RouterModule.forRoot(routes)
     ],
     providers: [
         AuthenticationService
