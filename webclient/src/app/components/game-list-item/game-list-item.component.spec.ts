@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { GameListItemComponent } from './game-list-item.component';
+import { GameListItemComponent } from "./game-list-item.component";
 
-describe('GameListItemComponent', () => {
+describe("GameListItemComponent", () => {
   let component: GameListItemComponent;
   let fixture: ComponentFixture<GameListItemComponent>;
 
@@ -19,7 +19,7 @@ describe('GameListItemComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(component).toBeTruthy();
   });
 });

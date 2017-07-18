@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { GameService } from "../../services/game.service";
-import { Game } from "../../models/game"
+import { Game } from "../../models/game";
 
 @Component({
     selector: "wordio-index",

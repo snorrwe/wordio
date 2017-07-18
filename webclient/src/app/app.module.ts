@@ -16,7 +16,7 @@ import { EveHttpService } from "./services/http.service";
 import { NavigationService } from "./services/navigation.service";
 
 import { routes } from "./app.router";
-import { GameListItemComponent } from './components/game-list-item/game-list-item.component';
+import { GameListItemComponent } from "./components/game-list-item/game-list-item.component";
 
 @NgModule({
     declarations: [
