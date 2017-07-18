@@ -39,7 +39,7 @@ export class EveHttpService {
     }
 
     private makeRequest<T>(request: Function, url: string, ...queryParams: IQueryParam[]) {
-        return request(url, { params: this.parseQueryParams(...queryParams) })
+        return request.apply(this.http, [url, { params: this.parseQueryParams(...queryParams) }])
             .toPromise()
             .then(result => {
                 return this.parseResponse<T>(result);

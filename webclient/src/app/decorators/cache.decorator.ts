@@ -1,7 +1,7 @@
 export namespace Cache {
     const callCache: { [key: string]: Promise<any> } = {};
 
-    const hashObject = (object: any): string => {
+    const hashObject = function(object: any): string {
         if (!object || !(object instanceof Object)) return object;
         let result = typeof object;
         Object.keys(object)
@@ -10,7 +10,7 @@ export namespace Cache {
             });
         return result;
     };
-    const getKey = (...args: any[]) => {
+    const getKey = function(...args: any[]) {
         let result = "";
         args.forEach((value: any) => {
             result += hashObject(value);
@@ -53,7 +53,7 @@ export namespace Cache {
         logLevel?: LogLevels;
     }
 
-    const processFuture = (promise: Promise<any>, log: Function, cacheKey: string) => {
+    const processFuture = function(promise: Promise<any>, log: Function, cacheKey: string) {
         return promise
             .then((result) => {
                 log("log", "resolved", result);
@@ -85,12 +85,12 @@ export namespace Cache {
 
     export function CachedPromise(options: CachedPromiseOptions = {}) {
         return function(target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
-            const ogMethod: (...args: any[]) => Promise<any> = descriptor.value;
+            const ogMethod = descriptor.value;
             const className = getNameByClass(target);
             const log = getLogger(className, propertyKey, { isEnabled: options.enableLog, logLevel: options.logLevel });
             descriptor.value = function(...args) {
                 const cacheKey = getKey(className, propertyKey, ...args);
-                return cachedFunctionWrapper(ogMethod, cacheKey, log, ...args);
+                return cachedFunctionWrapper.apply(this, [ogMethod, cacheKey, log, ...args]);
             };
             return descriptor;
         };
