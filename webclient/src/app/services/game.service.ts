@@ -20,7 +20,7 @@ export class GameService {
         const queries = [
             { key: "projection", value: { host: 1, name: 1 } }
             , { key: "embedded", value: { host: 1 } }
-            , { key: "page", value: (page > 0 ? page : 1).toString() }
+            , { key: "page", value: page > 0 ? page : 1 }
         ];
         return this.httpService.get<CollectionDto<GameDto>>(this.url(Urls.GAMES), ...queries)
             .then(response => {
