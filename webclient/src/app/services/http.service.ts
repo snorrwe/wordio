@@ -21,7 +21,7 @@ export class EveHttpService {
 
     @CachedPromise()
     get<T>(url: string, ...queryParams: IQueryParam[]): Promise<T> {
-        return this.makeRequest(this.http.get, url, ...queryParams);
+        return this.makeRequest<T>(this.http.get, url, ...queryParams);
     }
 
     @CachedPromise()
@@ -35,10 +35,10 @@ export class EveHttpService {
 
     @CachedPromise()
     delete<T>(url: string, ...queryParams: IQueryParam[]): Promise<T> {
-        return this.makeRequest(this.http.delete, url, ...queryParams);
+        return this.makeRequest<T>(this.http.delete, url, ...queryParams);
     }
 
-    private makeRequest(request: Function, url: string, ...queryParams: IQueryParam[]) {
+    private makeRequest<T>(request: Function, url: string, ...queryParams: IQueryParam[]) {
         return request(url, { params: this.parseQueryParams(...queryParams) })
             .toPromise()
             .then(result => {
