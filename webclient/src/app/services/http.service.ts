@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { CachedPromise } from "../decorators/cache.decorator";
-import { Http, Response } from "@angular/http";
+import { Http, Response, URLSearchParams } from "@angular/http";
 
 import "rxjs/Rx";
 
@@ -21,7 +21,7 @@ export class EveHttpService {
 
     @CachedPromise()
     get<T>(url: string, ...queryParams: IQueryParam[]): Promise<T> {
-        return this.http.get(url + this.parseQueryParams(...queryParams))
+        return this.http.get(url, { params: this.parseQueryParams(...queryParams) })
             .toPromise()
             .then(result => {
                 return this.parseResponse<T>(result);
@@ -39,18 +39,17 @@ export class EveHttpService {
 
     @CachedPromise()
     delete<T>(url: string, ...queryParams: IQueryParam[]): Promise<T> {
-        return this.http.delete(url + this.parseQueryParams(...queryParams))
+        return this.http.delete(url, { params: this.parseQueryParams(...queryParams) })
             .toPromise()
             .then(result => {
                 return this.parseResponse<T>(result);
             });
     }
 
-    private parseQueryParams(...queryParams: IQueryParam[]): string {
-        if (!queryParams || !queryParams.length) return "";
-        let result = "?";
+    private parseQueryParams(...queryParams: IQueryParam[]): URLSearchParams {
+        const result = new URLSearchParams();
         for (let param of queryParams) {
-            result += param.key + "=" + JSON.stringify(param.value);
+            result.set(param.key, JSON.stringify(param.value));
         }
         return result;
     }
