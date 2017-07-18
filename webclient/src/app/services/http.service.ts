@@ -48,7 +48,7 @@ export class EveHttpService {
 
     private parseQueryParams(...queryParams: IQueryParam[]): URLSearchParams {
         const result = new URLSearchParams();
-        for (let param of queryParams) {
+        for (const param of queryParams) {
             result.set(param.key, JSON.stringify(param.value));
         }
         return result;

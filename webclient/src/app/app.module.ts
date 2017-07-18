@@ -11,6 +11,7 @@ import { ReversePipe } from "./pipes/reverse.pipe";
 import { AuthenticationService } from "./services/authentication.service";
 import { GameService } from "./services/game.service";
 import { EveHttpService } from "./services/http.service";
+import { NavigationService } from "./services/navigation.service";
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { EveHttpService } from "./services/http.service";
         AuthenticationService
         , GameService
         , EveHttpService
+        , NavigationService
     ],
     bootstrap: [
         AppComponent
