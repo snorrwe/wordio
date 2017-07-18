@@ -1,12 +1,17 @@
 import { Injectable } from "@angular/core";
 
 import { CachedPromise } from "../decorators/cache.decorator";
-import { Http, Response } from "@angular/http";
+import { Http, Response, URLSearchParams, RequestOptions } from "@angular/http";
 
 import "rxjs/Rx";
 
-export interface ItemsDto<T>{
+export interface CollectionDto<T> {
     _items: T[];
+}
+
+export interface IQueryParam {
+    key: string;
+    value: any;
 }
 
 @Injectable()
@@ -15,16 +20,8 @@ export class EveHttpService {
     constructor(private http: Http) { }
 
     @CachedPromise()
-    get<T>(url: string, ...queryParams: { key: string, value: string }[]): Promise<T> {
-        if (url.indexOf("?") < 0) url += "?";
-        for (const param of queryParams) {
-            url += param.key + "=" + param.value + "&";
-        }
-        return this.http.get(url)
-            .toPromise()
-            .then(result => {
-                return this.parseResponse<T>(result);
-            });
+    get<T>(url: string, ...queryParams: IQueryParam[]): Promise<T> {
+        return this.makeRequest(this.http.get, url, ...queryParams);
     }
 
     @CachedPromise()
@@ -37,12 +34,24 @@ export class EveHttpService {
     }
 
     @CachedPromise()
-    delete<T>(url: string): Promise<T> {
-        return this.http.delete(url)
+    delete<T>(url: string, ...queryParams: IQueryParam[]): Promise<T> {
+        return this.makeRequest(this.http.delete, url, ...queryParams);
+    }
+
+    private makeRequest(request: Function, url: string, ...queryParams: IQueryParam[]) {
+        return request(url, { params: this.parseQueryParams(...queryParams) })
             .toPromise()
             .then(result => {
                 return this.parseResponse<T>(result);
             });
+    }
+
+    private parseQueryParams(...queryParams: IQueryParam[]): URLSearchParams {
+        const result = new URLSearchParams();
+        for (let param of queryParams) {
+            result.set(param.key, JSON.stringify(param.value));
+        }
+        return result;
     }
 
     private parseResponse<TReturn>(response: Response): Promise<TReturn> {
