@@ -21,6 +21,17 @@ export class BoardService {
             });
     }
 
+    listGames(...queries: { key: string, value: any }[]): Promise<Game[]> {
+        return this.httpService.get<ItemsDto<GameDto>>(this.url(Urls.GAMES), ...queries)
+            .then(response => {
+                const result = [];
+                for (let game of response._items || []) {
+                    result.push(new Game(game));
+                }
+                return result;
+            });
+    }
+
     private url(url: string) {
         const result = Urls.API_BASE_URL + url;
         return result;

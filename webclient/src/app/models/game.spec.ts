@@ -1,7 +1,7 @@
 import { Game, GameDto } from "./game";
 import { Tile } from "./tile";
 
-export function validateBoard(board: Tile[][], columns: number, rows: number) {
+export function assertBoardIsValid(board: Tile[][], columns: number, rows: number) {
     expect(board).toBeTruthy();
     expect(board.length).toBe(columns);
     for (let x = 0; x < columns; x++) {
@@ -27,7 +27,7 @@ describe("Game tests", () => {
         } as any;
         const result = new Game(dto);
         expect(result).toBeTruthy();
-        validateBoard(result.board, 2, 2);
+        assertBoardIsValid(result.board, 2, 2);
     });
 
     it("Can be created by reversed board", () => {
@@ -41,7 +41,7 @@ describe("Game tests", () => {
         } as any;
         const result = new Game(dto);
         expect(result).toBeTruthy();
-        validateBoard(result.board, 2, 2);
+        assertBoardIsValid(result.board, 2, 2);
     });
 
     it("Can be created by random board", () => {
@@ -55,7 +55,7 @@ describe("Game tests", () => {
         } as any;
         const result = new Game(dto);
         expect(result).toBeTruthy();
-        validateBoard(result.board, 2, 2);
+        assertBoardIsValid(result.board, 2, 2);
     });
 
     it("Can be created by random board 2×3", () => {
@@ -71,6 +71,6 @@ describe("Game tests", () => {
         } as any;
         const result = new Game(dto);
         expect(result).toBeTruthy();
-        validateBoard(result.board, 3, 2);
+        assertBoardIsValid(result.board, 3, 2);
     });
 });

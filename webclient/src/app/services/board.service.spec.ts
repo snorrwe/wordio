@@ -5,7 +5,7 @@ import { EveHttpService } from "./http.service";
 
 import { Tile } from "../models/tile";
 import { GameDto, Game } from "../models/game";
-import { validateBoard } from "../models/game.spec";
+import { assertBoardIsValid } from "../models/game.spec";
 
 describe("BoardService", () => {
     let httpService: EveHttpService;
@@ -45,7 +45,7 @@ describe("BoardService", () => {
                 .then(result => {
                     expect(result).toBeTruthy();
                     expect(result.board).toBeTruthy();
-                    validateBoard(result.board, 2, 2);
+                    assertBoardIsValid(result.board, 2, 2);
                 })
                 .catch(e => {
                     fail(e);
@@ -66,7 +66,7 @@ describe("BoardService", () => {
                 .then(result => {
                     expect(result).toBeTruthy();
                     expect(result.board).toBeTruthy();
-                    validateBoard(result.board, 2, 2);
+                    assertBoardIsValid(result.board, 2, 2);
                 })
                 .catch(e => {
                     fail(e);
@@ -87,7 +87,141 @@ describe("BoardService", () => {
                 .then(result => {
                     expect(result).toBeTruthy();
                     expect(result.board).toBeTruthy();
-                    validateBoard(result.board, 2, 2);
+                    assertBoardIsValid(result.board, 2, 2);
+                })
+                .catch(e => {
+                    fail(e);
+                });
+        })));
+    });
+
+    describe("listGames tests", () => {
+        let get: Function;
+
+        beforeEach(() => {
+            httpService.get = ((...args) => get(args)) as any;
+        });
+
+        it("positive test, empty boards", async(inject([BoardService], (service: BoardService) => {
+            get = () => Promise.resolve({
+                _items: [
+                    {
+                        board: [
+                        ]
+                    }
+                    , {
+                        board: [
+                        ]
+                    }
+                    , {
+                        board: [
+                        ]
+                    }
+                ]
+            });
+
+            return service.listGames()
+                .then(result => {
+                    expect(result).toBeTruthy();
+                    expect(result.length).toBe(3);
+                    for (let game of result) {
+                        expect(game).toBeTruthy();
+                        assertBoardIsValid(game.board, 0, 0);
+                    }
+                })
+                .catch(e => {
+                    fail(e);
+                });
+        })));
+
+        it("positive test, 2×2, ordered boards", async(inject([BoardService], (service: BoardService) => {
+            get = () => Promise.resolve({
+                _items: [
+                    {
+                        board: [
+                            {x: 0, y: 0}
+                            , {x: 0, y: 1}
+                            , {x: 1, y: 0}
+                            , {x: 1, y: 1}
+                        ]
+                    }
+                    , {
+                        board: [
+                            {x: 0, y: 0}
+                            , {x: 0, y: 1}
+                            , {x: 1, y: 0}
+                            , {x: 1, y: 1}
+                        ]
+                    }
+                    , {
+                        board: [
+                            {x: 0, y: 0}
+                            , {x: 0, y: 1}
+                            , {x: 1, y: 0}
+                            , {x: 1, y: 1}
+                        ]
+                    }
+                ]
+            });
+
+            return service.listGames()
+                .then(result => {
+                    expect(result).toBeTruthy();
+                    expect(result.length).toBe(3);
+                    for (let game of result) {
+                        expect(game).toBeTruthy();
+                        assertBoardIsValid(game.board, 2, 2);
+                    }
+                })
+                .catch(e => {
+                    fail(e);
+                });
+        })));
+
+        it("positive test, 3×2, unordered boards", async(inject([BoardService], (service: BoardService) => {
+            get = () => Promise.resolve({
+                _items: [
+                    {
+                        board: [
+                            {x: 2, y: 1}
+                            , {x: 1, y: 1}
+                            , {x: 1, y: 0}
+                            , {x: 0, y: 1}
+                            , {x: 0, y: 0}
+                            , {x: 2, y: 0}
+                        ]
+                    }
+                    , {
+                        board: [
+                            {x: 2, y: 0}
+                            , {x: 1, y: 1}
+                            , {x: 0, y: 0}
+                            , {x: 0, y: 1}
+                            , {x: 2, y: 1}
+                            , {x: 1, y: 0}
+                        ]
+                    }
+                    , {
+                        board: [
+                            {x: 2, y: 1}
+                            , {x: 2, y: 0}
+                            , {x: 0, y: 1}
+                            , {x: 0, y: 0}
+                            , {x: 1, y: 0}
+                            , {x: 1, y: 1}
+                        ]
+                    }
+                ]
+            });
+
+            return service.listGames()
+                .then(result => {
+                    expect(result).toBeTruthy();
+                    expect(result.length).toBe(3);
+                    for (let game of result) {
+                        expect(game).toBeTruthy();
+                        assertBoardIsValid(game.board, 3, 2);
+                    }
                 })
                 .catch(e => {
                     fail(e);
