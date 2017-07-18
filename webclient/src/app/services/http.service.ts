@@ -46,7 +46,7 @@ export class EveHttpService {
             });
     }
 
-    private makeRequest(request: Function, url: string, ...queryParams: IQueryParam[]){
+    private makeRequest(request: Function, url: string, ...queryParams: IQueryParam[]) {
         return request(url, { params: this.parseQueryParams(...queryParams) });
     }
 
