@@ -36,7 +36,7 @@ export class GameService {
                 return result;
             });
     }
- 
+
     addGame(game: Game): Promise<Game> {
         const dto = Game.makeDto(game);
         return this.httpService.post<GameDto>(this.url(Urls.GAMES), dto).then(result => new Game(result));
