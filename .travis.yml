@@ -6,6 +6,8 @@ matrix:
     - language: node_js
       node_js:
         - '7'
+      env:
+        - UNIT_TEST
       addons:
       apt:
         sources:

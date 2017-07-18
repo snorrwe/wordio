@@ -111,7 +111,7 @@ describe("BoardService", () => {
                 .then(result => {
                     expect(result).toBeTruthy();
                     expect(result.length).toBe(3);
-                    for (let game of result) {
+                    for (const game of result) {
                         expect(game).toBeTruthy();
                         expect(game.board.length).toBe(0);
                     }
@@ -130,7 +130,7 @@ describe("BoardService", () => {
                 .then(result => {
                     expect(result).toBeTruthy();
                     expect(result.length).toBe(0);
-                    for (let game of result) {
+                    for (const game of result) {
                         expect(game).toBeTruthy();
                         expect(game.board.length).toBe(0);
                     }
@@ -147,7 +147,7 @@ describe("BoardService", () => {
                 .then(result => {
                     expect(result).toBeTruthy();
                     expect(result.length).toBe(0);
-                    for (let game of result) {
+                    for (const game of result) {
                         expect(game).toBeTruthy();
                         expect(game.board.length).toBe(0);
                     }

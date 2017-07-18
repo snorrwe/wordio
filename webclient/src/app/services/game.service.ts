@@ -25,7 +25,7 @@ export class GameService {
         return this.httpService.get<CollectionDto<GameDto>>(this.url(Urls.GAMES), ...queries)
             .then(response => {
                 const result = [];
-                for (let game of response && response._items || []) {
+                for (const game of response && response._items || []) {
                     game.board = [];
                     result.push(new Game(game));
                 }
