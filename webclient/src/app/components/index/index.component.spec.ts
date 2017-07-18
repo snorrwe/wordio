@@ -8,7 +8,7 @@ import { GameService } from "../../services/game.service";
 class GameItemMock {
     @Input() game: any;
 
-    constructor(){
+    constructor() {
         GameItemMock.games.push(this);
     }
 
@@ -19,12 +19,14 @@ describe("IndexComponent", () => {
     let component: IndexComponent;
     let fixture: ComponentFixture<IndexComponent>;
     let gameService: GameService;
+    let gameServiceMock: GameService = {} as any;
 
     beforeEach(async(() => {
         GameItemMock.games = [];
+        gameServiceMock.listGames = () => Promise.resolve([]);
         TestBed.configureTestingModule({
             declarations: [IndexComponent, GameItemMock],
-            providers: [{ provide: GameService, useValue: {} as any }]
+            providers: [{ provide: GameService, useValue: gameServiceMock }]
         }).compileComponents();
     }));
 
