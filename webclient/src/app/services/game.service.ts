@@ -18,8 +18,8 @@ export class GameService {
 
     listGames(page: number = 1): Promise<Game[]> {
         const queries = [
-            { key: "projection", value: JSON.stringify({ host: 1, name: 1 }) }
-            , { key: "embedded", value: JSON.stringify({ host: 1 }) }
+            { key: "projection", value: { host: 1, name: 1 } }
+            , { key: "embedded", value: { host: 1 } }
             , { key: "page", value: (page > 0 ? page : 1).toString() }
         ];
         return this.httpService.get<CollectionDto<GameDto>>(this.url(Urls.GAMES), ...queries)
