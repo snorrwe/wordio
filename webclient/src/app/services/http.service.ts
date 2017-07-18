@@ -9,17 +9,19 @@ export interface CollectionDto<T>{
     _items: T[];
 }
 
+export interface IQueryParam{
+    key: string;
+    value: any;
+}
+
 @Injectable()
 export class EveHttpService {
 
     constructor(private http: Http) { }
 
     @CachedPromise()
-    get<T>(url: string, ...queryParams: { key: string, value: string }[]): Promise<T> {
-        if (url.indexOf("?") < 0) url += "?";
-        for (const param of queryParams) {
-            url += param.key + "=" + param.value + "&";
-        }
+    get<T>(url: string, ...queryParams: IQueryParam[]): Promise<T> {
+        url += this.parseQueryParams(...queryParams);
         return this.http.get(url)
             .toPromise()
             .then(result => {
@@ -37,12 +39,22 @@ export class EveHttpService {
     }
 
     @CachedPromise()
-    delete<T>(url: string): Promise<T> {
+    delete<T>(url: string, ...queryParams: IQueryParam[]): Promise<T> {
+        url += this.parseQueryParams(...queryParams);
         return this.http.delete(url)
             .toPromise()
             .then(result => {
                 return this.parseResponse<T>(result);
             });
+    }
+
+    private parseQueryParams(...queryParams: IQueryParam[]): string{
+        if(!queryParams || !queryParams.length) return "";
+        let result = "?";
+        for(let param of queryParams){
+            result += param.key + "=" + JSON.stringify(param.value);
+        }
+        return result;
     }
 
     private parseResponse<TReturn>(response: Response): Promise<TReturn> {
