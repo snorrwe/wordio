@@ -18,6 +18,7 @@ class Games(object):
             'projection': { 
                 'host': 1
                 , 'board': 1
+                , 'name': 1
             }
         }
 
@@ -37,6 +38,7 @@ class Games(object):
                 'type': 'string'
                 , 'required': True
                 , 'empty': False
+                , 'unique': True
             }
 
             , 'availableFrom': {

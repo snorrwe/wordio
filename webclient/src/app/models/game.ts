@@ -8,6 +8,9 @@ export class Game extends MongoItem {
     private _board?: Tile[][];
     get board() { return this._board; }
 
+    private _name: string;
+    get name() { return this._name; }
+
     private static createMatrix(board: Tile[]): Tile[][] {
         if (!board || !board.length) return [];
         const result: Tile[][] = [];
@@ -38,6 +41,7 @@ export class Game extends MongoItem {
             , _updated: game._updated
             , host: game._host
             , board: board
+            , name: game._name
         };
     }
 
@@ -49,6 +53,7 @@ export class Game extends MongoItem {
         this._etag = game._etag;
         this._updated = game._updated;
         this._created = game._created;
+        this._name = game.name;
         if (game instanceof Game) {
             this._board = game._board || [];
         } else {
@@ -60,4 +65,5 @@ export class Game extends MongoItem {
 export interface GameDto extends MongoItem {
     host: { displayName: string };
     board: Tile[];
+    name: string;
 }

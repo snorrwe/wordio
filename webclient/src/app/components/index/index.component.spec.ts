@@ -1,4 +1,4 @@
-import { Component, Input, Output } from "@angular/core";
+import { Component, Input, Output, Directive } from "@angular/core";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { IndexComponent } from "./index.component";
@@ -15,6 +15,11 @@ class GameItemMockComponent {
     }
 }
 
+@Directive({ selector: "[loaded]" })
+class LoadedMockDirective {
+    @Input() isLoading;
+}
+
 describe("IndexComponent", () => {
     let component: IndexComponent;
     let fixture: ComponentFixture<IndexComponent>;
@@ -25,7 +30,11 @@ describe("IndexComponent", () => {
         GameItemMockComponent.games = [];
         gameServiceMock.listGames = () => Promise.resolve([]);
         TestBed.configureTestingModule({
-            declarations: [IndexComponent, GameItemMockComponent],
+            declarations: [
+                IndexComponent
+                , GameItemMockComponent
+                , LoadedMockDirective
+            ],
             providers: [{ provide: GameService, useValue: gameServiceMock }]
         }).compileComponents();
     }));
