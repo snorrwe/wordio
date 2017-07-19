@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, ElementRef } from '@angular/core';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { Component, ElementRef } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { LoadedDirective } from './loaded.directive';
+import { LoadedDirective } from "./loaded.directive";
 
-@Component({ selector: '', template: "<div loaded [isLoading]='isLoading'></div>" })
+@Component({ selector: "test-component", template: "<div loaded [isLoading]='isLoading'></div>" })
 class TestComponent {
     isLoading: boolean;
 }
 
-describe('LoadedDirective', () => {
+describe("LoadedDirective", () => {
     let component: TestComponent;
     let fixture: ComponentFixture<TestComponent>;
 
@@ -25,7 +25,7 @@ describe('LoadedDirective', () => {
         fixture.detectChanges();
     });
 
-    it('should create an instance', () => {
+    it("should create an instance", () => {
         expect(component).toBeTruthy();
     });
 });

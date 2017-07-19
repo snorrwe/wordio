@@ -1,7 +1,7 @@
-import { Directive, Input, OnChanges, Renderer2, ElementRef, SimpleChanges } from '@angular/core';
+import { Directive, Input, OnChanges, Renderer2, ElementRef, SimpleChanges } from "@angular/core";
 
 @Directive({
-    selector: '[loaded]'
+    selector: "[loaded]"
 })
 export class LoadedDirective implements OnChanges {
 

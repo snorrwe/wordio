@@ -17,8 +17,8 @@ import { NavigationService } from "./services/navigation.service";
 
 import { routes } from "./app.router";
 import { GameListItemComponent } from "./components/game-list-item/game-list-item.component";
-import { GameComponent } from './components/game/game.component';
-import { LoadedDirective } from './directives/loaded.directive';
+import { GameComponent } from "./components/game/game.component";
+import { LoadedDirective } from "./directives/loaded.directive";
 
 @NgModule({
     declarations: [

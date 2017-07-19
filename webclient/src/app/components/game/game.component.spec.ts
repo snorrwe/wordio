@@ -1,15 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { ActivatedRoute } from "@angular/router";
-import { Directive, Input } from '@angular/core';
-import { GameComponent } from './game.component';
-import { GameService } from '../../services/game.service';
+import { Directive, Input } from "@angular/core";
+import { GameComponent } from "./game.component";
+import { GameService } from "../../services/game.service";
 
 @Directive({ selector: "[loaded]" })
 class LoadedMockDirective {
     @Input() isLoading;
 }
 
-describe('GameComponent', () => {
+describe("GameComponent", () => {
     let component: GameComponent;
     let fixture: ComponentFixture<GameComponent>;
     let gameService: GameService;
@@ -34,7 +34,7 @@ describe('GameComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should be created', () => {
+    it("should be created", () => {
         expect(component).toBeTruthy();
     });
 });
