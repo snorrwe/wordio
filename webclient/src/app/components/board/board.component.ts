@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 import { Tile } from "../../models/tile";
 
@@ -7,13 +7,8 @@ import { Tile } from "../../models/tile";
     templateUrl: "./board.component.html",
     styleUrls: ["./board.component.css"]
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent {
 
     @Input("board") private board: Tile[][];
     @Output("onChange") private onChangeEmitter = new EventEmitter<Tile[][]>();
-
-    constructor() { }
-
-    ngOnInit() {
-    }
 }
