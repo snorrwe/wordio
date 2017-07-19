@@ -38,6 +38,7 @@ class Games(object):
                 'type': 'string'
                 , 'required': True
                 , 'empty': False
+                , 'unique': True
             }
 
             , 'availableFrom': {
