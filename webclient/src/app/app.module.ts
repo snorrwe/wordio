@@ -17,6 +17,7 @@ import { NavigationService } from "./services/navigation.service";
 
 import { routes } from "./app.router";
 import { GameListItemComponent } from "./components/game-list-item/game-list-item.component";
+import { GameComponent } from './components/game/game.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { GameListItemComponent } from "./components/game-list-item/game-list-ite
         BoardComponent,
         ReversePipe,
         IndexComponent,
-        GameListItemComponent
+        GameListItemComponent,
+        GameComponent
     ],
     imports: [
         BrowserModule,
