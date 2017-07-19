@@ -24,7 +24,7 @@ describe("GameComponent", () => {
     let activatedRoute: ActivatedRoute;
 
     beforeEach(async(() => {
-        activatedRoute = {
+        const activatedRoute = {
             params: {
                 subscribe: () => { }
             }
