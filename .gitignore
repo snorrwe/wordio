@@ -3,3 +3,4 @@ backend/app/log.txt
 backend/run_dev_env.bat
 *.log
 private-docs
+*.sublime-workspace
