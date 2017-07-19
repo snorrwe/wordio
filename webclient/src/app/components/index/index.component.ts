@@ -12,9 +12,7 @@ export class IndexComponent implements OnInit {
     private games: Game[];
     private isLoading: boolean;
 
-    constructor(private gameService: GameService, private changeDetector: ChangeDetectorRef) {
-
-    }
+    constructor(private gameService: GameService, private changeDetector: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.isLoading = true;

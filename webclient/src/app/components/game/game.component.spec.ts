@@ -1,12 +1,17 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { ActivatedRoute } from "@angular/router";
-import { Directive, Input } from "@angular/core";
+import { Directive, Input, Component } from "@angular/core";
 import { GameComponent } from "./game.component";
 import { GameService } from "../../services/game.service";
 
 @Directive({ selector: "[loaded]" })
 class LoadedMockDirective {
     @Input() isLoading;
+}
+
+@Component({ selector: "wordio-board", template: "" })
+class BoardMockComponent {
+    @Input() board;
 }
 
 describe("GameComponent", () => {
@@ -22,8 +27,15 @@ describe("GameComponent", () => {
             }
         } as any;
         TestBed.configureTestingModule({
-            declarations: [GameComponent, LoadedMockDirective],
-            providers: [{ provide: GameService, useValue: {} }, { provide: ActivatedRoute, useValue: activatedRoute }]
+            declarations: [
+                GameComponent
+                , LoadedMockDirective
+                , BoardMockComponent
+            ],
+            providers: [
+                { provide: GameService, useValue: {} }
+                , { provide: ActivatedRoute, useValue: activatedRoute }
+            ]
         }).compileComponents();
     }));
 
