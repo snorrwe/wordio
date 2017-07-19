@@ -30,7 +30,7 @@ export class GameComponent implements OnInit {
                     this.game = game;
                     this.isLoading = false;
                 })
-                .catch(error=>{
+                .catch(error => {
                     console.error("Error while fetching game", id);
                     this.navigationService.push("/games");
                 });
