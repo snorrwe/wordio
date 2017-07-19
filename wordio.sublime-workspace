@@ -519,6 +519,73 @@
 	},
 	"buffers":
 	[
+		{
+			"file": ".travis.yml",
+			"settings":
+			{
+				"buffer_size": 1709,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "webclient/src/app/components/index/index.component.html",
+			"settings":
+			{
+				"buffer_size": 149,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "webclient/src/app/components/index/index.component.ts",
+			"settings":
+			{
+				"buffer_size": 560,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "webclient/src/app/components/index/index.component.spec.ts",
+			"settings":
+			{
+				"buffer_size": 1405,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "webclient/src/app/components/game-list-item/game-list-item.component.html",
+			"settings":
+			{
+				"buffer_size": 128,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "webclient/src/app/models/game.spec.ts",
+			"settings":
+			{
+				"buffer_size": 3317,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "webclient/src/app/components/game-list-item/game-list-item.component.ts",
+			"settings":
+			{
+				"buffer_size": 322,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "webclient/src/app/components/game-list-item/game-list-item.component.spec.ts",
+			"settings":
+			{
+				"buffer_size": 728,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -559,10 +626,18 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 146.0,
-		"last_filter": "project",
+		"height": 384.0,
+		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"open ",
+				"View: Toggle Open Files in Side Bar"
+			],
+			[
+				"git ",
+				"Git: Pull"
+			],
 			[
 				"project",
 				"Project: Save As"
@@ -780,7 +855,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 440.0
+		"width": 416.0
 	},
 	"console":
 	{
@@ -799,8 +874,16 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/C/Users/Frenetiq/Documents/GitHub/wordio"
+	],
 	"file_history":
 	[
+		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/app/src/domains/domains/games.py",
+		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/app/src/domains/domains/users.py",
+		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/models/game.ts",
+		"/C/Users/Frenetiq/Documents/GitHub/wordio/wordio.sublime-project",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/decorators/cache.decorator.ts",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/services/http/urls.ts",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/services/http.service.ts",
@@ -813,7 +896,6 @@
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/components/board/board.component.spec.ts",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/components/board/board.component.ts",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/components/board/board.component.html",
-		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/models/game.ts",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/wordio-client.sublime-project",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/app/src/main.py",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/app.module.ts",
@@ -825,7 +907,6 @@
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/app.component.html",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/app.router.ts",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/webclient/src/app/index/index.component.ts",
-		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/app/src/domains/domains/games.py",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/docs/hu-HU/szabalyok.md",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/private-docs/szabalyok.html",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/app/src/domains/domains/solutions.py",
@@ -883,7 +964,6 @@
 		"/C/Users/Frenetiq/AppData/Local/Temp/_tcx/0/0/webroot/szexvital/catalog/view/theme/default/template/checkout/shipping_method.tpl",
 		"/C/Users/Frenetiq/AppData/Local/Temp/_tcx/0/0/webroot/szexvital/catalog/controller/common/header.php",
 		"/C/Users/Frenetiq/AppData/Local/Temp/_tcx/0/0/webroot/szexvital/config.php",
-		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/app/src/domains/domains/users.py",
 		"/C/Users/Frenetiq/Documents/GitHub/Agyserkento/html/.htaccess",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/app/test/api_tests/api_test.py",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/app/test/api_tests/register_tests.py",
@@ -927,8 +1007,7 @@
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/init_mongo_test.py",
 		"/C/Program Files/MongoDB/Server/3.4/README",
 		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/init_mongo.sh",
-		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/requirements.txt",
-		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/app/test/auth_test.py"
+		"/C/Users/Frenetiq/Documents/GitHub/wordio/backend/requirements.txt"
 	],
 	"find":
 	{
@@ -950,6 +1029,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"name",
+			"Name",
+			"string",
+			"folder_exclude_patterns",
 			"host",
 			"alert",
 			"h1",
@@ -1073,11 +1156,7 @@
 			"\"",
 			"authToken",
 			"current_app",
-			"existin",
-			"existing",
-			"current_app",
-			"get_ext",
-			"remove_one"
+			"existin"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1099,8 +1178,254 @@
 	"groups":
 	[
 		{
+			"selected": 3,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": ".travis.yml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1709,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								111,
+								111
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "webclient/src/app/components/index/index.component.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 149,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								149,
+								149
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "webclient/src/app/components/index/index.component.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 560,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								533,
+								533
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "webclient/src/app/components/index/index.component.spec.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1405,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1033,
+								1033
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 330.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "webclient/src/app/components/game-list-item/game-list-item.component.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 128,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								128,
+								128
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "webclient/src/app/models/game.spec.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3317,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1126,
+								1126
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true,
+							"use_tab_stops": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 330.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "webclient/src/app/components/game-list-item/game-list-item.component.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 322,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								319,
+								319
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "webclient/src/app/components/game-list-item/game-list-item.component.spec.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 728,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								638,
+								638
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true,
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": true,
+								"indentSize": 4,
+								"tabSize": 4
+							},
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1173,12 +1498,48 @@
 		"selected_items":
 		[
 			[
-				"cache",
-				"webclient\\src\\app\\decorators\\cache.decorator.ts"
+				"game.sp",
+				"webclient\\src\\app\\models\\game.spec.ts"
+			],
+			[
+				"game-i",
+				"webclient\\src\\app\\components\\game-list-item\\game-list-item.component.spec.ts"
 			],
 			[
 				"game-list",
-				"webclient\\src\\app\\components\\game-list-item\\game-list-item.component.html"
+				"webclient\\src\\app\\components\\game-list-item\\game-list-item.component.ts"
+			],
+			[
+				"user",
+				"backend\\app\\src\\domains\\domains\\users.py"
+			],
+			[
+				"games",
+				"backend\\app\\src\\domains\\domains\\games.py"
+			],
+			[
+				"game.ts",
+				"webclient\\src\\app\\models\\game.ts"
+			],
+			[
+				"index.",
+				"webclient\\src\\app\\components\\index\\index.component.html"
+			],
+			[
+				"index.com",
+				"webclient\\src\\app\\components\\index\\index.component.spec.ts"
+			],
+			[
+				"index.compo",
+				"webclient\\src\\app\\components\\index\\index.component.ts"
+			],
+			[
+				"",
+				".travis.yml"
+			],
+			[
+				"cache",
+				"webclient\\src\\app\\decorators\\cache.decorator.ts"
 			],
 			[
 				".service.ts",
@@ -1213,24 +1574,12 @@
 				"webclient\\src\\app\\components\\index\\index.component.spec.ts"
 			],
 			[
-				"index.compo",
-				"webclient\\src\\app\\components\\index\\index.component.html"
-			],
-			[
-				"index.com",
-				"webclient\\src\\app\\components\\index\\index.component.ts"
-			],
-			[
 				"app.module",
 				"webclient\\src\\app\\app.module.ts"
 			],
 			[
 				"board.compo",
 				"webclient\\src\\app\\components\\board\\board.component.html"
-			],
-			[
-				"",
-				"backend\\app\\src\\domains\\domains\\games.py"
 			],
 			[
 				"solutio",
@@ -1307,10 +1656,6 @@
 			[
 				"event_hooks",
 				"backend\\app\\src\\domains\\event_hooks\\insert_hosts_by_solutions.py"
-			],
-			[
-				"games",
-				"backend\\app\\src\\domains\\domains\\games.py"
 			],
 			[
 				"inser_tiles",
@@ -1505,10 +1850,6 @@
 				"backend\\app\\settings.py"
 			],
 			[
-				"user",
-				"backend\\app\\src\\domains\\domains\\users.py"
-			],
-			[
 				"http",
 				"backend\\conf\\httpd.conf"
 			],
@@ -1666,22 +2007,6 @@
 			],
 			[
 				"manager.",
-				"managers\\manager.expansion.ts"
-			],
-			[
-				"manager.e",
-				"managers\\manager.expansion.ts"
-			],
-			[
-				"upg",
-				"creeps\\creep.upgrader.ts"
-			],
-			[
-				"repair",
-				"creeps\\creep.repairer.ts"
-			],
-			[
-				"expa",
 				"managers\\manager.expansion.ts"
 			]
 		],
