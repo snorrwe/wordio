@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { CachedPromise } from "../decorators/cache.decorator";
-import { Http, Response, URLSearchParams, RequestOptions } from "@angular/http";
+import { Http, Response, URLSearchParams, RequestOptions, Headers } from "@angular/http";
 
 import "rxjs/Rx";
 
@@ -14,10 +14,18 @@ export interface IQueryParam {
     value: any;
 }
 
+export { Urls } from "./http/urls";
+
 @Injectable()
 export class EveHttpService {
 
+    private headers: Headers = new Headers();
+
     constructor(private http: Http) { }
+
+    setAuthentication(token: string) {
+        this.headers.set("Authorization", token);
+    }
 
     @CachedPromise()
     get<T>(url: string, ...queryParams: IQueryParam[]): Promise<T> {
@@ -26,7 +34,7 @@ export class EveHttpService {
 
     @CachedPromise()
     post<T>(url: string, body: any): Promise<T> {
-        return this.http.post(url, body)
+        return this.http.post(url, body, { headers: this.headers })
             .toPromise()
             .then(result => {
                 return this.parseResponse<T>(result);
@@ -39,7 +47,10 @@ export class EveHttpService {
     }
 
     private makeRequest<T>(request: Function, url: string, ...queryParams: IQueryParam[]) {
-        return request.apply(this.http, [url, { params: this.parseQueryParams(...queryParams) }])
+        return request.apply(this.http, [url, {
+            params: this.parseQueryParams(...queryParams)
+            , headers: this.headers
+        }])
             .toPromise()
             .then(result => {
                 return this.parseResponse<T>(result);
