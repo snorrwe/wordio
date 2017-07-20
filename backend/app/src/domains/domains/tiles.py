@@ -24,6 +24,8 @@ class Tiles(object):
                 'type': 'string'
                 , 'required': True
                 , 'empty': False
+                , 'maxlength': 1
+                , 'minlength': 1
             }
             , 'filled': {
                 'type': 'boolean'
