@@ -20,7 +20,7 @@ import { GameListItemComponent } from "./components/game-list-item/game-list-ite
 import { GameComponent } from "./components/game/game.component";
 import { LoadedDirective } from "./directives/loaded.directive";
 import { TileComponent } from "./components/tile/tile.component";
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
     declarations: [
