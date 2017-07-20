@@ -12,16 +12,44 @@ export class AuthenticationService implements CanActivate {
     constructor(private httpService: EveHttpService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {
-        if (this.isLoggedin) return this.isLoggedin;
+        if (!this.authToken) return false;
+        if (this.isLoggedin) return true;
+        return this.checkAuthToken();
+    }
+
+    private checkAuthToken(): Promise<boolean> {
         this.httpService.setAuthentication(this.authToken);
         return this.httpService.get(Urls.API_BASE_URL)
             .then(response => {
                 this.isLoggedin = response != null;
                 return this.isLoggedin;
-            })    
+            })
             .catch(error => {
                 console.error("Error while checking authorization", error);
+                this.authToken = null;
                 return false;
             });
+    }
+
+    login(username, password): Promise<boolean> {
+        return this.httpService.post<{ authToken: string }>(Urls.API_BASE_URL + Urls.LOGIN, {
+            username: username,
+            password: password
+        })
+            .then(response => {
+                if (response && response.authToken) {
+                    this.authToken = response.authToken;
+                    this.isLoggedin = true;
+                }
+                return true;
+            })
+            .catch(error => {
+                console.error("Error while logging in", error);
+                return false;
+            })
+    }
+
+    logout() {
+        this.authToken = null;
     }
 }
