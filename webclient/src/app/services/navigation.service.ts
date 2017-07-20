@@ -6,15 +6,12 @@ export class NavigationService {
     private readonly navigationStack: string[] = [];
     get current(): string { return this.navigationStack[this.navigationStack.length - 1]; }
 
-    constructor(private router: Router) {
-        router.events.subscribe(event => {
-            if (event instanceof NavigationEnd && this.current !== event.urlAfterRedirects) {
-                this.navigationStack.push(event.urlAfterRedirects);
-            }
-        });
-    }
+    constructor(private router: Router) {}
 
     push(url: string): Promise<boolean> {
+        if (this.current !== url) {
+            this.navigationStack.push(url);
+        }
         return this.router.navigateByUrl(url);
     }
 
