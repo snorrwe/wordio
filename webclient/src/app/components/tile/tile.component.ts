@@ -1,9 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-    selector: 'wordio-tile',
-    templateUrl: './tile.component.html',
-    styleUrls: ['./tile.component.css']
+    selector: "wordio-tile",
+    templateUrl: "./tile.component.html",
+    styleUrls: ["./tile.component.css"]
 })
 export class TileComponent {
 
@@ -13,7 +13,7 @@ export class TileComponent {
 
     constructor() { }
 
-    onClick(){
+    onClick() {
         this.isSelected = !this.isSelected;
         this.onSelectedChangeEmitter.emit(this.isSelected);
     }

@@ -24,7 +24,7 @@ describe("GameComponent", () => {
     let activatedRoute: ActivatedRoute;
 
     beforeEach(async(() => {
-        const activatedRoute = {
+        const activatedRouteInitialValue = {
             params: {
                 subscribe: () => { }
             }
@@ -37,7 +37,7 @@ describe("GameComponent", () => {
             ],
             providers: [
                 { provide: GameService, useValue: {} }
-                , { provide: ActivatedRoute, useValue: activatedRoute }
+                , { provide: ActivatedRoute, useValue: activatedRouteInitialValue }
                 , { provide: NavigationService, useValue: {} }
             ]
         }).compileComponents();

@@ -19,7 +19,7 @@ import { routes } from "./app.router";
 import { GameListItemComponent } from "./components/game-list-item/game-list-item.component";
 import { GameComponent } from "./components/game/game.component";
 import { LoadedDirective } from "./directives/loaded.directive";
-import { TileComponent } from './components/tile/tile.component';
+import { TileComponent } from "./components/tile/tile.component";
 
 @NgModule({
     declarations: [
