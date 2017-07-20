@@ -1,8 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
+import { HttpModule, Http } from "@angular/http";
 import { RouterModule } from "@angular/router";
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
 
 import { AppComponent } from "./app.component";
 import { BoardComponent } from "./components/board/board.component";
@@ -40,7 +41,12 @@ import { NewGameComponent } from './components/new-game/new-game.component';
         BrowserModule,
         FormsModule,
         HttpModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes),
+        TranslateModule.forRoot({
+            provide: TranslateLoader,
+            useFactory: (http: Http) => new TranslateStaticLoader(http, '../assets/languages/', '.json'),
+            deps: [Http]
+        })
     ],
     providers: [
         AuthenticationService

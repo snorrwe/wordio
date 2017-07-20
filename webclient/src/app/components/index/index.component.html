@@ -1,6 +1,11 @@
 <h1>
   Index
 </h1>
-<div *ngFor="let game of games" class="list-group" loaded [isLoading]="isLoading">
-    <wordio-game-list-item [game]="game"></wordio-game-list-item>
+<div>
+    <div *ngFor="let game of games" class="list-group" loaded [isLoading]="isLoading">
+        <wordio-game-list-item [game]="game"></wordio-game-list-item>
+    </div>
+</div>
+<div>
+    <button class="btn btn-primary">New Game</button>
 </div>
