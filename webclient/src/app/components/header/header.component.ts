@@ -13,4 +13,7 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
     }
 
+    navigateTo(url: string){
+        this.navigationService.push(url);
+    }
 }
