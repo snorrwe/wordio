@@ -21,6 +21,7 @@ import { GameComponent } from "./components/game/game.component";
 import { LoadedDirective } from "./directives/loaded.directive";
 import { TileComponent } from "./components/tile/tile.component";
 import { HeaderComponent } from './components/header/header.component';
+import { NewGameComponent } from './components/new-game/new-game.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { HeaderComponent } from './components/header/header.component';
         GameComponent,
         LoadedDirective,
         TileComponent,
-        HeaderComponent
+        HeaderComponent,
+        NewGameComponent
     ],
     imports: [
         BrowserModule,
