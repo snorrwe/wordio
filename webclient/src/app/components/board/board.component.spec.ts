@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform, Component, Input, Output } from "@angular/core";
 
 import { BoardComponent } from "./board.component";
 
@@ -8,6 +8,13 @@ import { BoardComponent } from "./board.component";
 })
 class ReversePipeMock implements PipeTransform {
     transform() { }
+}
+
+@Component({ selector: "wordio-tile", template: "" })
+class TileMockComponent {
+    @Input() isSelected;
+    @Input() value;
+    @Output() onSelectedChange;
 }
 
 describe("BoardComponent", () => {
@@ -20,6 +27,7 @@ describe("BoardComponent", () => {
                 declarations: [
                     BoardComponent
                     , ReversePipeMock
+                    , TileMockComponent
                 ]
             })
             .compileComponents();
