@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { NewGameComponent } from './new-game.component';
-import { GameService } from '../../services/game.service';
+import { NewGameComponent } from "./new-game.component";
+import { GameService } from "../../services/game.service";
 
-describe('NewGameComponent', () => {
+describe("NewGameComponent", () => {
     let component: NewGameComponent;
     let fixture: ComponentFixture<NewGameComponent>;
     let gameService: GameService;
@@ -22,7 +22,7 @@ describe('NewGameComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should be created', () => {
+    it("should be created", () => {
         expect(component).toBeTruthy();
         expect(gameService).toBeTruthy();
     });

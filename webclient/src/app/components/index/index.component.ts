@@ -30,7 +30,7 @@ export class IndexComponent implements OnInit {
             });
     }
 
-    newGame(){
+    newGame() {
         this.navigationService.push("newgame");
     }
 }

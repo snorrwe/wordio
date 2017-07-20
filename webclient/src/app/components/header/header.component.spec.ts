@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { HeaderComponent } from './header.component';
-import { NavigationService } from '../../services/navigation.service';
+import { HeaderComponent } from "./header.component";
+import { NavigationService } from "../../services/navigation.service";
 
-describe('HeaderComponent', () => {
+describe("HeaderComponent", () => {
     let component: HeaderComponent;
     let fixture: ComponentFixture<HeaderComponent>;
     let navigationService: NavigationService;
@@ -22,7 +22,7 @@ describe('HeaderComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should be created', () => {
+    it("should be created", () => {
         expect(component).toBeTruthy();
         expect(navigationService).toBeTruthy();
     });

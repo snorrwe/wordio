@@ -20,16 +20,16 @@ class LoadedMockDirective {
     @Input() isLoading;
 }
 
-@Pipe({name: "translate"})
-class TranslateMockPipe implements PipeTransform{
-    transform(value){return value;}
+@Pipe({ name: "translate" })
+class TranslateMockPipe implements PipeTransform {
+    transform(value) { return value; }
 }
 
 describe("IndexComponent", () => {
     let component: IndexComponent;
     let fixture: ComponentFixture<IndexComponent>;
     let gameService: GameService;
-    let navigationService: NavigationService
+    let navigationService: NavigationService;
     const gameServiceMock: GameService = {} as any;
 
     beforeEach(async(() => {

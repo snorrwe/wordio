@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationService } from '../../services/navigation.service';
+import { Component, OnInit } from "@angular/core";
+import { NavigationService } from "../../services/navigation.service";
 
 @Component({
-    selector: 'wordio-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss']
+    selector: "wordio-header",
+    templateUrl: "./header.component.html",
+    styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
 
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
     }
 
-    navigateTo(url: string){
+    navigateTo(url: string) {
         this.navigationService.push(url);
     }
 }
