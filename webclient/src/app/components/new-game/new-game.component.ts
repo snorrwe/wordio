@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { GameService } from '../../services/game.service';
 
 @Component({
-  selector: 'wordio-new-game',
-  templateUrl: './new-game.component.html',
-  styleUrls: ['./new-game.component.scss']
+    selector: 'wordio-new-game',
+    templateUrl: './new-game.component.html',
+    styleUrls: ['./new-game.component.scss']
 })
-export class NewGameComponent implements OnInit {
+export class NewGameComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+    constructor(private gameService: GameService) { }
 }
