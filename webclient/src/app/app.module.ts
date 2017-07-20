@@ -20,6 +20,7 @@ import { GameListItemComponent } from "./components/game-list-item/game-list-ite
 import { GameComponent } from "./components/game/game.component";
 import { LoadedDirective } from "./directives/loaded.directive";
 import { TileComponent } from "./components/tile/tile.component";
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { TileComponent } from "./components/tile/tile.component";
         GameListItemComponent,
         GameComponent,
         LoadedDirective,
-        TileComponent
+        TileComponent,
+        HeaderComponent
     ],
     imports: [
         BrowserModule,
