@@ -1,6 +1,6 @@
-<table>
+<table class="board">
 	<tr *ngFor="let column of board">
-		<td *ngFor="let tile of column">
+		<td *ngFor="let tile of column" class="board-tile">
             <wordio-tile [value]="tile.value"></wordio-tile>
 		</td>
 	</tr>
