@@ -1,11 +1,9 @@
-<table>
+<table class="board">
 	<tr *ngFor="let column of board">
 		<td *ngFor="let tile of column">
-			<h4 class="panel panel-default" 
-				style="width: 75px; height: 75px; line-height: 75px" 
-				align="center">
-				{{tile.value}}
-			</h4>
+            <div class="board-tile">
+                <wordio-tile [value]="tile.value"></wordio-tile>
+            </div>
 		</td>
 	</tr>
 </table>
