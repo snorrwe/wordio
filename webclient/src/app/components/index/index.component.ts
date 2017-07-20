@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { GameService } from "../../services/game.service";
+import { NavigationService } from "../../services/navigation.service";
 import { Game } from "../../models/game";
 
 @Component({
@@ -12,7 +13,11 @@ export class IndexComponent implements OnInit {
     private games: Game[];
     private isLoading: boolean;
 
-    constructor(private gameService: GameService, private changeDetector: ChangeDetectorRef) { }
+    constructor(
+        private gameService: GameService
+        , private changeDetector: ChangeDetectorRef
+        , private navigationService: NavigationService
+    ) { }
 
     ngOnInit() {
         this.isLoading = true;
@@ -23,5 +28,9 @@ export class IndexComponent implements OnInit {
                 this.isLoading = false;
                 this.changeDetector.detectChanges();
             });
+    }
+
+    newGame(){
+        this.navigationService.push("newgame");
     }
 }

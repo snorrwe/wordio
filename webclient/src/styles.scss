@@ -1,4 +1,10 @@
 .wordio {
+
+    .index-column {
+        float: left;
+        flex: 1;
+        margin-left: 1vw;
+    }
     
     .loader:before {
         content: "Loading...";
