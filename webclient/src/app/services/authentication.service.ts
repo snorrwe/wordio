@@ -32,6 +32,8 @@ export class AuthenticationService implements CanActivate {
     }
 
     login(username, password): Promise<boolean> {
+        if(!username) return Promise.reject("Username cannot be null or empty!");
+        if(!password) return Promise.reject("Password cannot be null or empty!");
         return this.httpService.post<{ authToken: string }>(Urls.API_BASE_URL + Urls.LOGIN, {
             username: username,
             password: password
