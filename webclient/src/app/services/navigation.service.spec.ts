@@ -7,11 +7,7 @@ describe("NavigationService tests", () => {
     let router: Router;
 
     beforeEach(() => {
-        router = {
-            events: {
-                subscribe: () => { }
-            }
-        } as any;
+        router = {} as any;
         TestBed.configureTestingModule({
             providers: [
                 NavigationService
@@ -40,24 +36,13 @@ describe("NavigationService tests", () => {
     })));
 
     describe("Event tests", () => {
-        let callback: Function;
-
-        beforeEach(() => {
-            router.events.subscribe = ((cb) => { callback = cb; return {} as any; }) as any;
-        });
-
-        it("can sets current after navigation", inject([NavigationService], (service: NavigationService) => {
-            callback(new NavigationEnd(1, "", "Winnie"));
-            expect(service.current).toBe("Winnie");
-        }));
-
         it("can navigate back to null", async(inject([NavigationService], (service: NavigationService) => {
             let last: string;
             (service as any).router.navigateByUrl = (url) => {
                 last = url as string;
                 return Promise.resolve(true);
             };
-            callback(new NavigationEnd(1, "Piglet", "Winnie"));
+            service.push("Winnie");
             expect(service.current).toBe("Winnie");
             return service.pop()
                 .then(result => {
@@ -75,8 +60,8 @@ describe("NavigationService tests", () => {
                 last = url as string;
                 return Promise.resolve(true);
             };
-            callback(new NavigationEnd(1, "", "Piglet"));
-            callback(new NavigationEnd(2, "Piglet", "Winnie"));
+            service.push("Piglet");
+            service.push("Winnie");
             expect(service.current).toBe("Winnie");
             return service.pop()
                 .then(result => {

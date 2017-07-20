@@ -1,8 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
+import { HttpModule, Http } from "@angular/http";
 import { RouterModule } from "@angular/router";
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
 
 import { AppComponent } from "./app.component";
 import { BoardComponent } from "./components/board/board.component";
@@ -20,6 +21,10 @@ import { GameListItemComponent } from "./components/game-list-item/game-list-ite
 import { GameComponent } from "./components/game/game.component";
 import { LoadedDirective } from "./directives/loaded.directive";
 import { TileComponent } from "./components/tile/tile.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { NewGameComponent } from "./components/new-game/new-game.component";
+
+export const translateFactory = (http: Http) => new TranslateStaticLoader(http, "../assets/languages/", ".json");
 
 @NgModule({
     declarations: [
@@ -30,13 +35,20 @@ import { TileComponent } from "./components/tile/tile.component";
         GameListItemComponent,
         GameComponent,
         LoadedDirective,
-        TileComponent
+        TileComponent,
+        HeaderComponent,
+        NewGameComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes),
+        TranslateModule.forRoot({
+            provide: TranslateLoader,
+            useFactory: translateFactory,
+            deps: [Http]
+        })
     ],
     providers: [
         AuthenticationService

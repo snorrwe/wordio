@@ -1,6 +1,11 @@
 <h1>
   Index
 </h1>
-<div *ngFor="let game of games" class="list-group" loaded [isLoading]="isLoading">
-    <wordio-game-list-item [game]="game"></wordio-game-list-item>
+<div class="index-column">
+    <div *ngFor="let game of games" class="list-group" loaded [isLoading]="isLoading">
+        <wordio-game-list-item [game]="game"></wordio-game-list-item>
+    </div>
+</div>
+<div class="index-column">
+    <button class="btn btn-primary" (click)="newGame()">{{"NEW_GAME" | translate}}</button>
 </div>

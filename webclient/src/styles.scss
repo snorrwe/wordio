@@ -1,4 +1,10 @@
 .wordio {
+
+    .index-column {
+        float: left;
+        flex: 1;
+        margin-left: 1vw;
+    }
     
     .loader:before {
         content: "Loading...";
@@ -24,5 +30,10 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+    }
+
+    .header {
+        height: 10vh;
+        width: 100vw;
     }
 }
