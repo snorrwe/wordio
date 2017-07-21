@@ -24,7 +24,9 @@ import { TileComponent } from "./components/tile/tile.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { NewGameComponent } from "./components/new-game/new-game.component";
 
-export const translateFactory = (http: Http) => new TranslateStaticLoader(http, "../assets/languages/", ".json");
+export function translateFactory(http: Http){
+    return new TranslateStaticLoader(http, "../assets/languages/", ".json");
+}
 
 @NgModule({
     declarations: [
