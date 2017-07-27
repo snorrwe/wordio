@@ -6,7 +6,7 @@ from time import sleep
 import sys
 import os.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir)))
-import settings
+from src import settings
 
 MONGO_HOST = settings.MONGO_HOST
 MONGO_PORT = settings.MONGO_PORT
