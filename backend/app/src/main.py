@@ -18,12 +18,18 @@ SETTINGS_PATH = os.path.abspath(settings.__file__)
 
 def bootstrap_app(app):
     CORS(app)
+    __bootstrap_enpoints(app)
+    __bootstrap_events(app)
+
+def __bootstrap_enpoints(app):
     @app.route('/hello', methods=['GET'])
     def hello(): return hello_endpoint()
     @app.route('/login', methods=['POST'])
     def login(): return login_enpoint(app)
     @app.route('/register', methods=['POST'])
     def register(): return register_enpoint(app)
+
+def __bootstrap_events(app):
     app.on_pre_POST_games += insert_tiles_by_games
     app.on_pre_POST_solutions += on_new_solution
     app.on_inserted_solutions += on_post_new_solution
