@@ -32,6 +32,6 @@ class LogService(object):
     	if(self.logLevel >= LogLevel['warn']):
     		self.timed_log("WARN: %s" % message)
 
-    def errpr(self, message):
-    	if(self.logLevel >= LogLevel['errpr']):
+    def error(self, message):
+    	if(self.logLevel >= LogLevel['error']):
     		self.timed_log("ERROR: %s" % message)

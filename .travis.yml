@@ -43,10 +43,11 @@ matrix:
         - API_TEST
       services:
         - mongodb
+      install:
+        - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       before_script:
         - sleep 15
         - bash ./backend/init_mongo_test.sh
-        - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
         - cd backend
         - cd app
@@ -56,7 +57,7 @@ matrix:
       python: 3.6
       env:
         - UNIT_TEST
-      before_script:
+      install:
         - python -m pip install --no-cache-dir -r ./backend/requirements.txt
       script:
         - cd ./backend/app/test/unit_tests

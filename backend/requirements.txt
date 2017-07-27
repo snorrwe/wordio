@@ -1,3 +1,4 @@
 Eve==0.7.3
 pytest==3.1.2
 requests==2.18.1
+flask_cors==3.0.3
