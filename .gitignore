@@ -4,3 +4,8 @@ backend/run_dev_env.bat
 *.log
 private-docs
 *.sublime-workspace
+*.pyproj
+.vs
+*.sln
+backend/backend.pyproj.user
+run_dev_env.bat
