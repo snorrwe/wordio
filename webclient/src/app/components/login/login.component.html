@@ -1,3 +1,19 @@
-<p>
-  login works!
-</p>
+<div class="input-group">
+    <div class="input-group">
+        <span class="input-group-addon">{{'USERNAME' | translate}}</span>
+        <input class="form-control" type="text" name="username" placeholder="{{'USERNAME'|translate}}" [(ngModel)]="username">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">{{'PASSWORD' | translate}}</span>
+        <input class="form-control" type="password" name="password" placeholder="{{'PASSWORD'|translate}}" [(ngModel)]="password">
+    </div>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <input class="btn btn-primary" 
+                   type="submit" 
+                   name="login" 
+                   [value]="'LOGIN' | translate" 
+                   (click)="login()">
+        </span>
+    </div>
+</div>
