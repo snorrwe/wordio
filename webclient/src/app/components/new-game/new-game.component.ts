@@ -9,11 +9,13 @@ import { Board } from "../../models/game";
     styleUrls: ["./new-game.component.scss"]
 })
 export class NewGameComponent implements OnInit {
+    boardHash: string;
+    
     private _board: Tile[][] = [];
     get board() { return this._board; }
     set board(value) {
         this._board = value;
-        this.handleBoardChange();
+        this.boardHash = Board.hashBoard(this.board);
     }
 
     private _columns = 2;
@@ -29,10 +31,6 @@ export class NewGameComponent implements OnInit {
         this._rows = +value;
         this.handleParamsChange();
     }
-
-    private _boardHash: string;
-    get boardHash() { return this._boardHash; }
-    set boardHash(value) { this._boardHash = value; }
 
     constructor(private gameService: GameService) { }
 
@@ -71,10 +69,6 @@ export class NewGameComponent implements OnInit {
 
     onTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {
         console.log(event, this.board[event.tile.y][event.tile.x]);
-    }
-
-    private handleBoardChange() {
-        this.boardHash = Board.hashBoard(this.board);
     }
 
     onHashChange() {
