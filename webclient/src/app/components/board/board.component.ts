@@ -11,4 +11,9 @@ export class BoardComponent {
 
     @Input("board") private board: Tile[][];
     @Output("onChange") private onChangeEmitter = new EventEmitter<Tile[][]>();
+    @Output("onTileSelect") private onTileSelectEmitter = new EventEmitter<{ tile: Tile, mouseEvent: MouseEvent }>();
+
+    onTileSelect(tile, event) {
+        this.onTileSelectEmitter.emit({ tile: tile, mouseEvent: event.mouseEvent });
+    }
 }

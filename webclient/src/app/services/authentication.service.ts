@@ -1,23 +1,49 @@
 import { Injectable } from "@angular/core";
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+
+import { Subject } from "rxjs/Rx";
+
 import { LocalStorage } from "../decorators/localstorage.decorator";
 import { EveHttpService, Urls } from "./http.service";
+import { NavigationService } from "./navigation.service";
+
 
 @Injectable()
 export class AuthenticationService implements CanActivate {
 
     @LocalStorage("authenticationService#") private authToken: string;
-    private isLoggedin = false;
+    private _isLoggedin = false;
+    private get isLoggedin() { return this._isLoggedin; }
+    private set isLoggedin(value) {
+        this._isLoggedin = value;
+        this.onLoginChangeSubject.next(value);
+    }
+    private onLoginChangeSubject = new Subject<boolean>();
+    get onLoginChange() { return this.onLoginChangeSubject.asObservable(); }
 
-    constructor(private httpService: EveHttpService) { }
+    constructor(private httpService: EveHttpService, private navigationService: NavigationService) {
+        this.httpService.onError.subscribe(error => {
+            if (error.status && error.status === 401 && this.isLoggedin) {
+                this.logout();
+            }
+        });
+    }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {
-        if (!this.authToken) return false;
-        if (this.isLoggedin) return true;
-        return this.checkAuthToken();
+    canActivate(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Promise<boolean> {
+        if (this.isLoggedin) {
+            return Promise.resolve(true);
+        }
+        return this.checkAuthToken()
+            .then(result => {
+                if (!result) {
+                    this.navigationService.push("login");
+                }
+                return result;
+            });
     }
 
     private checkAuthToken(): Promise<boolean> {
+        if (!this.authToken) return Promise.resolve(false);
         this.httpService.setAuthentication(this.authToken);
         return this.httpService.get(Urls.API_BASE_URL)
             .then(response => {
@@ -32,8 +58,8 @@ export class AuthenticationService implements CanActivate {
     }
 
     login(username, password): Promise<boolean> {
-        if (!username) return Promise.reject("Username cannot be null or empty!");
-        if (!password) return Promise.reject("Password cannot be null or empty!");
+        if (!username) return Promise.reject("USERNAME_EMPTY");
+        if (!password) return Promise.reject("PASSWORD_EMPTY");
         return this.httpService.post<{ authToken: string }>(Urls.API_BASE_URL + Urls.LOGIN, {
             username: username,
             password: password
@@ -53,5 +79,6 @@ export class AuthenticationService implements CanActivate {
 
     logout() {
         this.authToken = null;
+        this.isLoggedin = false;
     }
 }

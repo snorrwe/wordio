@@ -14,7 +14,7 @@ class LogService(object):
         self.logLevel = logLevel
 
     def log(self, message):
-        with open(self.logfileName, "a") as f:
+        with open(self.logfileName, "a+") as f:
             f.write(message + "\n\n")
 
     def timed_log(self, message):

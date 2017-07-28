@@ -1,4 +1,10 @@
 {
-    "NAME": "Name"
-    , "NEW_GAME": "New game"
+    "NAME": "Name",
+    "NEW_GAME": "New game",
+    "USERNAME_EMPTY": "Username cannot be null or empty!",
+    "PASSWORD_EMPTY": "Password cannot be null or empty!",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "COLUMNS": "Columns",
+    "ROWS": "Rows"
 }

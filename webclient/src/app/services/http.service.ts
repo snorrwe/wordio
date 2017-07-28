@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { CachedPromise } from "../decorators/cache.decorator";
 import { Http, Response, URLSearchParams, RequestOptions, Headers } from "@angular/http";
 
-import "rxjs/Rx";
+import { Subject } from "rxjs/Rx";
 
 export interface CollectionDto<T> {
     _items: T[];
@@ -20,6 +20,8 @@ export { Urls } from "./http/urls";
 export class EveHttpService {
 
     private headers: Headers = new Headers();
+    private onErrorSubject = new Subject<any>();
+    get onError() { return this.onErrorSubject.asObservable(); }
 
     constructor(private http: Http) { }
 
@@ -38,7 +40,11 @@ export class EveHttpService {
             .toPromise()
             .then(result => {
                 return this.parseResponse<T>(result);
-            });
+            })
+            .catch(error => {
+                this.onErrorSubject.next(error);
+                return Promise.reject(error);
+            }); ;
     }
 
     @CachedPromise()
@@ -54,6 +60,10 @@ export class EveHttpService {
             .toPromise()
             .then(result => {
                 return this.parseResponse<T>(result);
+            })
+            .catch(error => {
+                this.onErrorSubject.next(error);
+                return Promise.reject(error);
             });
     }
 

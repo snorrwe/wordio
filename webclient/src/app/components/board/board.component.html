@@ -2,7 +2,7 @@
 	<tr *ngFor="let column of board">
 		<td *ngFor="let tile of column">
             <div class="board-tile">
-                <wordio-tile [value]="tile.value"></wordio-tile>
+                <wordio-tile [value]="tile.value" (onSelectedChange)="onTileSelect(tile, $event)"></wordio-tile>
             </div>
 		</td>
 	</tr>
