@@ -1,4 +1,8 @@
 {
-    "NAME": "Név"
-    , "NEW_GAME": "Új játék"
+    "NAME": "Név",
+    "NEW_GAME": "Új játék",
+    "USERNAME_EMPTY": "A felhasználónév nem lehet üres!",
+    "PASSWORD_EMPTY": "A jelszó nem lehet üres!",
+    "USERNAME": "Felhasználónév",
+    "PASSWORD": "Jelszó"
 }
