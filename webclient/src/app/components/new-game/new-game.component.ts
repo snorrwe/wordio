@@ -1,49 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { GameService } from "../../services/game.service";
 import { Tile } from "../../models/tile";
-
-function hashBoard(board: Tile[][]): string {
-    let result = "";
-    board.forEach(column => {
-        if (!column || !column.length) return;
-        column.forEach(tile => {
-            result += tile.value + " ";
-        });
-        result += "\n";
-    });
-    return result;
-}
-
-function parseBoard(board: string): { board: Tile[][], columns: number, rows: number } {
-    const lines = board.split("\n");
-    const matrix = [];
-    for (const line of lines) {
-        const items = line.split(/[ ,;]+/).filter(value => value != null && value.length === 1);
-        if (items.length) matrix.push(items);
-    }
-    const result = [];
-    let columns = 0;
-    let rows = 0;
-    for (let i = 0; i < matrix.length; i++) {
-        if (i > rows) rows = i;
-        const line: Tile[] = [];
-        for (let j = 0; j < matrix[i].length; j++) {
-            if (!matrix[i][j]) continue;
-            if (j > columns) columns = j;
-            line.push({
-                x: i,
-                y: j,
-                value: matrix[i][j]
-            });
-        }
-        result.push(line);
-    }
-    return {
-        board: result,
-        columns: columns + 1,
-        rows: rows + 1
-    };
-}
+import { Board } from "../../models/game";
 
 @Component({
     selector: "wordio-new-game",
@@ -90,8 +48,8 @@ export class NewGameComponent implements OnInit {
         const board = [];
         for (let i = 0; i < this.rows; ++i) {
             const line = (this.board[i] && this.board[i]
-                        .filter((v, index) => index < this.columns))
-                        || [];
+                .filter((v, index) => index < this.columns))
+                || [];
             for (let j = line.length; j < this.columns; ++j) {
                 const value = this.getCharByPosition(i, j);
                 line.push({
@@ -116,14 +74,16 @@ export class NewGameComponent implements OnInit {
     }
 
     private handleBoardChange() {
-        this.boardHash = hashBoard(this.board);
+        this.boardHash = Board.hashBoard(this.board);
     }
 
     onHashChange() {
-        const result = parseBoard(this.boardHash);
-        this.columns = result.columns;
-        this.rows = result.rows;
+        const result = Board.parseBoard(this.boardHash);
         this.board = result.board;
-        this.handleParamsChange();
+        if (this.rows != result.rows || this.columns != result.columns) {
+            this.columns = result.columns;
+            this.rows = result.rows;
+            this.handleParamsChange();
+        }
     }
 }
