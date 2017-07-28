@@ -58,21 +58,21 @@ export class NewGameComponent implements OnInit {
         this.handleBoardChange();
     }
 
-    private _columns: number = 2;
+    private _columns = 2;
     get columns() { return this._columns; }
     set columns(value) {
         this._columns = +value;
         this.handleParamsChange();
     }
 
-    private _rows: number = 2;
+    private _rows = 2;
     get rows() { return this._rows; }
     set rows(value) {
         this._rows = +value;
         this.handleParamsChange();
     }
 
-    private _boardHash: string
+    private _boardHash: string;
     get boardHash() { return this._boardHash; }
     set boardHash(value) { this._boardHash = value; }
 
@@ -83,13 +83,15 @@ export class NewGameComponent implements OnInit {
     }
 
     submit() {
-        throw "Not implemented";
+        throw new Error("Not implemented");
     }
 
     private handleParamsChange() {
         const board = [];
         for (let i = 0; i < this.rows; ++i) {
-            const line = (this.board[i] && this.board[i].filter((v, i) => i < this.columns)) || [];
+            const line = (this.board[i] && this.board[i]
+                        .filter((v, index) => index < this.columns))
+                        || [];
             for (let j = line.length; j < this.columns; ++j) {
                 const value = this.getCharByPosition(i, j);
                 line.push({
@@ -105,8 +107,8 @@ export class NewGameComponent implements OnInit {
     }
 
     private getCharByPosition(x: number, y: number) {
-        const alphabetLength = ('Z'.charCodeAt(0) - 'A'.charCodeAt(0));
-        return String.fromCharCode((x * this.rows + y) % alphabetLength + 'A'.charCodeAt(0));
+        const alphabetLength = ("Z".charCodeAt(0) - "A".charCodeAt(0));
+        return String.fromCharCode((x * this.rows + y) % alphabetLength + "A".charCodeAt(0));
     }
 
     onTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {

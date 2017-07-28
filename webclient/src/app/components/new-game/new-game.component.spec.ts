@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { Component, Pipe, Input, Output, EventEmitter } from "@angular/core";
+import { Component, Pipe, PipeTransform, Input, Output, EventEmitter } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 import { NewGameComponent } from "./new-game.component";
 import { GameService } from "../../services/game.service";
 
 @Pipe({ name: "translate" })
-class TranslateMockPipe {
+class TranslateMockPipe implements PipeTransform {
     transform(value) { return value; }
 }
 
 @Component({ selector: "wordio-board", template: "" })
-class WordioBoardMock {
-    static instance: WordioBoardMock;
+class WordioBoardMockComponent {
+    static instance: WordioBoardMockComponent;
 
     @Input("board") private board: any;
     @Output("onChange") private onChangeEmitter = new EventEmitter<any>();
     @Output("onTileSelect") private onTileSelectEmitter = new EventEmitter<any>();
 
     constructor() {
-        WordioBoardMock.instance = this;
+        WordioBoardMockComponent.instance = this;
     }
 }
 
@@ -27,7 +27,7 @@ describe("NewGameComponent", () => {
     let component: NewGameComponent;
     let fixture: ComponentFixture<NewGameComponent>;
     let gameService: GameService;
-    let board: WordioBoardMock;
+    let board: WordioBoardMockComponent;
 
     afterAll(() => {
         if (fixture) {
@@ -39,7 +39,7 @@ describe("NewGameComponent", () => {
         TestBed.configureTestingModule({
             declarations: [
                 NewGameComponent
-                , WordioBoardMock
+                , WordioBoardMockComponent
                 , TranslateMockPipe
             ],
             providers: [{ provide: GameService, useValue: {} }],
@@ -52,7 +52,7 @@ describe("NewGameComponent", () => {
         component = fixture.componentInstance;
         gameService = (component as any).gameService;
         fixture.detectChanges();
-        board = WordioBoardMock.instance;
+        board = WordioBoardMockComponent.instance;
     });
 
     it("should be created", () => {

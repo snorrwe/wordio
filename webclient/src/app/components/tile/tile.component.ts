@@ -15,7 +15,7 @@ export class TileComponent {
     constructor() { }
 
     onClick(event) {
-        if(!this.enabled) return;
+        if (!this.enabled) return;
         this.isSelected = !this.isSelected;
         this.onSelectedChangeEmitter.emit({isSelected: this.isSelected, mouseEvent: event});
     }
