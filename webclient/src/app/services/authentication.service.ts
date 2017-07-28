@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { LocalStorage } from "../decorators/localstorage.decorator";
 import { EveHttpService, Urls } from "./http.service";
+import { NavigationService } from "./navigation.service";
 
 @Injectable()
 export class AuthenticationService implements CanActivate {
@@ -9,15 +10,24 @@ export class AuthenticationService implements CanActivate {
     @LocalStorage("authenticationService#") private authToken: string;
     private isLoggedin = false;
 
-    constructor(private httpService: EveHttpService) { }
+    constructor(private httpService: EveHttpService, private navigationService: NavigationService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {
-        if (!this.authToken) return false;
-        if (this.isLoggedin) return true;
-        return this.checkAuthToken();
+        let result = Promise.resolve(false);
+        if (this.isLoggedin) {
+            return Promise.resolve(true);
+        }
+        return this.checkAuthToken()
+            .then(result => {
+                if (!result) {
+                    this.navigationService.push("login")
+                }
+                return result;
+            });
     }
 
     private checkAuthToken(): Promise<boolean> {
+        if (!this.authToken) return Promise.resolve(false);
         this.httpService.setAuthentication(this.authToken);
         return this.httpService.get(Urls.API_BASE_URL)
             .then(response => {

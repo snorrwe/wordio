@@ -1,6 +1,7 @@
 import { TestBed, inject, async } from "@angular/core/testing";
 
 import { AuthenticationService } from "./authentication.service";
+import { NavigationService } from "./navigation.service";
 import { EveHttpService, Urls } from "./http.service";
 
 describe("AuthenticationService", () => {
@@ -9,7 +10,11 @@ describe("AuthenticationService", () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [AuthenticationService, { provide: EveHttpService, useValue: {} }]
+            providers: [
+                AuthenticationService
+                , { provide: EveHttpService, useValue: {} }
+                , { provide: NavigationService, useValue: {}}
+            ]
         });
     });
 
