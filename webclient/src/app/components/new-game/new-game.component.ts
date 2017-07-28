@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { GameService } from "../../services/game.service";
 import { Tile } from "../../models/tile";
-import { Board } from "../../models/game";
+import { hashBoard, parseBoard } from "../../models/board";
 
 @Component({
     selector: "wordio-new-game",
@@ -10,12 +10,12 @@ import { Board } from "../../models/game";
 })
 export class NewGameComponent implements OnInit {
     boardHash: string;
-    
+
     private _board: Tile[][] = [];
     get board() { return this._board; }
     set board(value) {
         this._board = value;
-        this.boardHash = Board.hashBoard(this.board);
+        this.boardHash = hashBoard(this.board);
     }
 
     private _columns = 2;
@@ -72,7 +72,7 @@ export class NewGameComponent implements OnInit {
     }
 
     onHashChange() {
-        const result = Board.parseBoard(this.boardHash);
+        const result = parseBoard(this.boardHash);
         this.board = result.board;
         if (this.rows !== result.rows || this.columns !== result.columns) {
             this.columns = result.columns;
