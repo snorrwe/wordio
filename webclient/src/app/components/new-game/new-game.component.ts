@@ -80,7 +80,7 @@ export class NewGameComponent implements OnInit {
     onHashChange() {
         const result = Board.parseBoard(this.boardHash);
         this.board = result.board;
-        if (this.rows != result.rows || this.columns != result.columns) {
+        if (this.rows !== result.rows || this.columns !== result.columns) {
             this.columns = result.columns;
             this.rows = result.rows;
             this.handleParamsChange();

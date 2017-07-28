@@ -19,7 +19,7 @@ export namespace Board {
 
     export function buildColumnByValues(values: string[], x: number = 0) {
         const line = [];
-        let columns = 0
+        let columns = 0;
         values.forEach((value, i) => {
             if (!value) return;
             if (i > columns) columns = i;
