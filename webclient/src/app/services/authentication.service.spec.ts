@@ -7,13 +7,17 @@ import { EveHttpService, Urls } from "./http.service";
 describe("AuthenticationService", () => {
     let service: AuthenticationService;
     let httpService: EveHttpService;
+    let navigationService: NavigationService
 
     beforeEach(() => {
+        let http = {
+            onError: { subscribe: () => { } }
+        };
         TestBed.configureTestingModule({
             providers: [
                 AuthenticationService
-                , { provide: EveHttpService, useValue: {} }
-                , { provide: NavigationService, useValue: {}}
+                , { provide: EveHttpService, useValue: http }
+                , { provide: NavigationService, useValue: {} }
             ]
         });
     });
@@ -21,11 +25,13 @@ describe("AuthenticationService", () => {
     beforeEach(inject([AuthenticationService], (srvc: AuthenticationService) => {
         service = srvc;
         httpService = (service as any).httpService;
+        navigationService = (service as any).navigationService;
     }));
 
     it("should be created", () => {
         expect(service).toBeTruthy();
         expect(httpService).toBeTruthy();
+        expect(navigationService).toBeTruthy();
     });
 
     describe("login tests", () => {
@@ -61,7 +67,7 @@ describe("AuthenticationService", () => {
                     fail("Should not resolve");
                 })
                 .catch(error => {
-                    expect(error).toBe("Username cannot be null or empty!");
+                    expect(error).toBe("USERNAME_EMPTY");
                     expect(postSpy).not.toHaveBeenCalled();
                 });
         }));
@@ -74,7 +80,7 @@ describe("AuthenticationService", () => {
                     fail("Should not resolve");
                 })
                 .catch(error => {
-                    expect(error).toBe("Password cannot be null or empty!");
+                    expect(error).toBe("PASSWORD_EMPTY");
                     expect(postSpy).not.toHaveBeenCalled();
                 });
         }));
