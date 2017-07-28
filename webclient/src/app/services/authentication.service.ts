@@ -13,31 +13,30 @@ export class AuthenticationService implements CanActivate {
 
     @LocalStorage("authenticationService#") private authToken: string;
     private _isLoggedin = false;
-    private get isLoggedin(){return this._isLoggedin;}
-    private set isLoggedin(value){
+    private get isLoggedin() { return this._isLoggedin; }
+    private set isLoggedin(value) {
         this._isLoggedin = value;
         this.onLoginChangeSubject.next(value);
     }
-    private onLoginChangeSubject = new Subject<boolean>()
+    private onLoginChangeSubject = new Subject<boolean>();
     get onLoginChange() { return this.onLoginChangeSubject.asObservable(); }
 
-    constructor(private httpService: EveHttpService, private navigationService: NavigationService) { 
-        this.httpService.onError.subscribe(error =>{
-            if(error.status && error.status === 401 && this.isLoggedin){
+    constructor(private httpService: EveHttpService, private navigationService: NavigationService) {
+        this.httpService.onError.subscribe(error => {
+            if (error.status && error.status === 401 && this.isLoggedin) {
                 this.logout();
             }
         });
     }
 
-    canActivate(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Promise<boolean> | boolean {
-        let result = Promise.resolve(false);
+    canActivate(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Promise<boolean> {
         if (this.isLoggedin) {
             return Promise.resolve(true);
         }
         return this.checkAuthToken()
             .then(result => {
                 if (!result) {
-                    this.navigationService.push("login")
+                    this.navigationService.push("login");
                 }
                 return result;
             });

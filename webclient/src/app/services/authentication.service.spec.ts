@@ -7,10 +7,10 @@ import { EveHttpService, Urls } from "./http.service";
 describe("AuthenticationService", () => {
     let service: AuthenticationService;
     let httpService: EveHttpService;
-    let navigationService: NavigationService
+    let navigationService: NavigationService;
 
     beforeEach(() => {
-        let http = {
+        const http = {
             onError: { subscribe: () => { } }
         };
         TestBed.configureTestingModule({

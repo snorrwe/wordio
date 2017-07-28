@@ -44,7 +44,7 @@ export class EveHttpService {
             .catch(error => {
                 this.onErrorSubject.next(error);
                 return Promise.reject(error);
-            });;
+            }); ;
     }
 
     @CachedPromise()
