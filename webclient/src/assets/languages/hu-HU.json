@@ -4,5 +4,7 @@
     "USERNAME_EMPTY": "A felhasználónév nem lehet üres!",
     "PASSWORD_EMPTY": "A jelszó nem lehet üres!",
     "USERNAME": "Felhasználónév",
-    "PASSWORD": "Jelszó"
+    "PASSWORD": "Jelszó",
+    "COLUMNS": "Oszlopok",
+    "ROWS": "Sorok"
 }

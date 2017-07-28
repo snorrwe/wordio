@@ -4,5 +4,7 @@
     "USERNAME_EMPTY": "Username cannot be null or empty!",
     "PASSWORD_EMPTY": "Password cannot be null or empty!",
     "USERNAME": "Username",
-    "PASSWORD": "Password"
+    "PASSWORD": "Password",
+    "COLUMNS": "Columns",
+    "ROWS": "Rows"
 }
