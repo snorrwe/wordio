@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpModule, Http } from "@angular/http";
 import { RouterModule } from "@angular/router";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
 
 import { AppComponent } from "./app.component";
@@ -52,7 +53,8 @@ export function translateFactory(http: Http) {
             provide: TranslateLoader,
             useFactory: translateFactory,
             deps: [Http]
-        })
+        }),
+        BrowserAnimationsModule
     ],
     providers: [
         AuthenticationService

@@ -1,11 +1,25 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { trigger, state, style, animate, transition } from "@angular/animations";
 
 import { Tile } from "../../models/tile";
 
 @Component({
     selector: "wordio-board",
     templateUrl: "./board.component.html",
-    styleUrls: ["./board.component.css"]
+    styleUrls: ["./board.component.css"],
+    animations: [
+        trigger("appearance", [
+            state('in', style({transform: 'translateX(0)'})),
+            transition('void => *', [
+                style({transform: 'translateX(-100%)'}),
+                animate('0.2s ease-in')
+            ]),
+            transition('* => void', [
+                style({transform: 'translateX(+100%)'}),
+                animate('0.2s ease-out')
+            ])
+        ])
+    ]
 })
 export class BoardComponent {
 
@@ -15,5 +29,17 @@ export class BoardComponent {
 
     onTileSelect(tile, event) {
         this.onTileSelectEmitter.emit({ tile: tile, mouseEvent: event.mouseEvent });
+    }
+
+    getFontSize(){
+        if(!this.board
+           || this.board.length < 10 
+           || this.board[0].length < 10
+        ){
+            return null;
+        }
+        const length = Math.max(this.board.length, this.board[0].length);
+        const result = Math.floor(50 / length) + 2;
+        return result;
     }
 }

@@ -18,14 +18,14 @@ export class NewGameComponent implements OnInit {
         this.boardHash = hashBoard(this.board);
     }
 
-    private _columns = 2;
+    private _columns = 26;
     get columns() { return this._columns; }
     set columns(value) {
         this._columns = +value;
         this.handleParamsChange();
     }
 
-    private _rows = 2;
+    private _rows = 26;
     get rows() { return this._rows; }
     set rows(value) {
         this._rows = +value;
@@ -45,8 +45,7 @@ export class NewGameComponent implements OnInit {
     private handleParamsChange() {
         const board = [];
         for (let i = 0; i < this.rows; ++i) {
-            const line = (this.board[i] && this.board[i]
-                .filter((v, index) => index < this.columns))
+            const line = (this.board[i] && this.board[i].filter((v, index) => index < this.columns))
                 || [];
             for (let j = line.length; j < this.columns; ++j) {
                 const value = this.getCharByPosition(i, j);
@@ -63,7 +62,7 @@ export class NewGameComponent implements OnInit {
     }
 
     private getCharByPosition(x: number, y: number) {
-        const alphabetLength = ("Z".charCodeAt(0) - "A".charCodeAt(0));
+        const alphabetLength = ("Z".charCodeAt(0) - "A".charCodeAt(0)) + 1;
         return String.fromCharCode((x * this.rows + y) % alphabetLength + "A".charCodeAt(0));
     }
 

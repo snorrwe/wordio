@@ -10,6 +10,7 @@ export class TileComponent {
     @Input("value") private value: string;
     @Input("isSelected") private isSelected: boolean;
     @Input("enabled") private enabled = true;
+    @Input("fontSize") private fontSize?: string;
     @Output("onSelectedChange") private onSelectedChangeEmitter = new EventEmitter<{isSelected: boolean, mouseEvent: MouseEvent}>();
 
     constructor() { }
