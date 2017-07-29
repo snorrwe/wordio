@@ -9,13 +9,13 @@ import { Tile } from "../../models/tile";
     styleUrls: ["./board.component.css"],
     animations: [
         trigger("appearance", [
-            state('in', style({transform: '*'})),
+            state('in', style({ transform: '*' })),
             transition('void => *', [
-                style({transform: 'scale(1.1)'}),
+                style({ transform: 'scale(1.1)' }),
                 animate('0.2s ease-in')
             ]),
             transition('* => void', [
-                style({transform: 'scale(0)'}),
+                style({ transform: 'scale(0)' }),
                 animate('0.2s ease-out')
             ])
         ])
@@ -31,11 +31,11 @@ export class BoardComponent {
         this.onTileSelectEmitter.emit({ tile: tile, mouseEvent: event.mouseEvent });
     }
 
-    getFontSize(){
-        if(!this.board
-           || this.board.length < 10 
-           || this.board[0].length < 10
-        ){
+    getFontSize() {
+        if (!this.board
+            || this.board.length < 10
+            || this.board[0].length < 10
+        ) {
             return null;
         }
         const length = Math.max(this.board.length, this.board[0].length);
@@ -43,13 +43,17 @@ export class BoardComponent {
         return result;
     }
 
-    getBoxSize(){
+    getBoxSize() {
         let result = this.getFontSize();
-        if(!result) return;
+        if (!result) return;
         return result + 3 + "vmin";
     }
 
-    getTileHash(index: number, item: Tile){
+    getTileHash(index: number, item: Tile) {
         return item.value + item.x + item.y;
+    }
+
+    getRowHash(index: number, row: Tile[]) {
+        return index;
     }
 }
