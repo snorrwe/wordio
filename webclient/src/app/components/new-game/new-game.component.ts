@@ -14,6 +14,8 @@ const charCodeA = "A".charCodeAt(0);
 export class NewGameComponent implements OnInit {
     boardHash: string;
 
+    private stageBoard: Tile[][];
+    private isLoading: boolean;
     private _board: Tile[][] = [];
     get board() { return this._board; }
     set board(value) {
@@ -25,43 +27,60 @@ export class NewGameComponent implements OnInit {
     get columns() { return this._columns; }
     set columns(value) {
         this._columns = +value;
-        this.handleParamsChange();
+        this.buildBoard();
     }
 
     private _rows = 15;
     get rows() { return this._rows; }
     set rows(value) {
         this._rows = +value;
-        this.handleParamsChange();
+        this.buildBoard();
     }
 
     constructor(private gameService: GameService) { }
 
     ngOnInit() {
-        this.handleParamsChange();
+        this.buildBoard();
     }
 
     submit() {
         throw new Error("Not implemented");
     }
 
-    private handleParamsChange() {
-        const board = [];
+    buildBoard() {
+        this.isLoading = true;
+        this.stageBoard = [];
+        let result = Promise.resolve();
         for (let i = 0; i < this.rows; ++i) {
-            const line = (this.board[i] && this.board[i].filter((v, index) => index < this.columns))
-                || [];
-            for (let j = line.length; j < this.columns; ++j) {
-                const value = this.getCharByPosition(i, j);
-                line.push({
-                    x: j,
-                    y: i,
-                    filled: false,
-                    value: value
+            result = result
+                .then(() => {
+                    return this.buildRow(i);
                 });
-            }
-            board.push(line);
         }
-        this.board = board;
+        return result.then(() => {
+            return this.onBuildFinish();
+        });
+    }
+
+    private buildRow(row: number) {
+        const line = (this.board[row] && this.board[row].filter((v, index) => index < this.columns))
+            || [];
+        for (let column = line.length; column < this.columns; ++column) {
+            const value = this.getCharByPosition(row, column);
+            line.push({
+                x: column,
+                y: row,
+                filled: false,
+                value: value
+            });
+        }
+        this.stageBoard.push(line);
+    }
+
+    private onBuildFinish() {
+        this.isLoading = false;
+        this.board = this.stageBoard;
+        delete this.stageBoard;
     }
 
     private getCharByPosition(x: number, y: number) {
@@ -78,7 +97,7 @@ export class NewGameComponent implements OnInit {
         if (this.rows !== result.rows || this.columns !== result.columns) {
             this.columns = result.columns;
             this.rows = result.rows;
-            this.handleParamsChange();
+            this.buildBoard();
         }
     }
 }
