@@ -3,6 +3,9 @@ import { GameService } from "../../services/game.service";
 import { Tile } from "../../models/tile";
 import { hashBoard, parseBoard } from "../../models/board";
 
+const alphabetLength = "Z".charCodeAt(0) - "A".charCodeAt(0) + 1;
+const charCodeA = "A".charCodeAt(0);
+
 @Component({
     selector: "wordio-new-game",
     templateUrl: "./new-game.component.html",
@@ -18,14 +21,14 @@ export class NewGameComponent implements OnInit {
         this.boardHash = hashBoard(this.board);
     }
 
-    private _columns = 26;
+    private _columns = 15;
     get columns() { return this._columns; }
     set columns(value) {
         this._columns = +value;
         this.handleParamsChange();
     }
 
-    private _rows = 26;
+    private _rows = 15;
     get rows() { return this._rows; }
     set rows(value) {
         this._rows = +value;
@@ -62,8 +65,7 @@ export class NewGameComponent implements OnInit {
     }
 
     private getCharByPosition(x: number, y: number) {
-        const alphabetLength = ("Z".charCodeAt(0) - "A".charCodeAt(0)) + 1;
-        return String.fromCharCode((x * this.rows + y) % alphabetLength + "A".charCodeAt(0));
+        return String.fromCharCode((x * this.rows + y) % alphabetLength + charCodeA);
     }
 
     onTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {
