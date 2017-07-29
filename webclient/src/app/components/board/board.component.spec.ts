@@ -14,6 +14,7 @@ class ReversePipeMock implements PipeTransform {
 class TileMockComponent {
     @Input() isSelected;
     @Input() value;
+    @Input() fontSize;
     @Output() onSelectedChange;
 }
 

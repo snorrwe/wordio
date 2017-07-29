@@ -9,13 +9,13 @@ import { Tile } from "../../models/tile";
     styleUrls: ["./board.component.css"],
     animations: [
         trigger("appearance", [
-            state('in', style({transform: 'translateX(0)'})),
+            state('in', style({transform: '*'})),
             transition('void => *', [
-                style({transform: 'translateX(-100%)'}),
+                style({transform: 'scale(1.1)'}),
                 animate('0.2s ease-in')
             ]),
             transition('* => void', [
-                style({transform: 'translateX(+100%)'}),
+                style({transform: 'scale(0)'}),
                 animate('0.2s ease-out')
             ])
         ])
@@ -41,5 +41,11 @@ export class BoardComponent {
         const length = Math.max(this.board.length, this.board[0].length);
         const result = Math.floor(50 / length) + 2;
         return result;
+    }
+
+    getBoxSize(){
+        let result = this.getFontSize();
+        if(!result) return;
+        return result + 3 + "vmin";
     }
 }
