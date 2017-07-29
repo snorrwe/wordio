@@ -48,4 +48,8 @@ export class BoardComponent {
         if(!result) return;
         return result + 3 + "vmin";
     }
+
+    getTileHash(index: number, item: Tile){
+        return item.value + item.x + item.y;
+    }
 }

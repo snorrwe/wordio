@@ -1,6 +1,6 @@
 <table class="board">
 	<tr *ngFor="let column of board">
-		<td *ngFor="let tile of column" [@appearance]="'in'">
+		<td *ngFor="let tile of column;trackBy: getTileHash" [@appearance]="'in'">
             <div class="board-tile" [ngStyle]="{'width':  getBoxSize(), 'height':  getBoxSize()}">
                 <wordio-tile [value]="tile.value" 
                             [fontSize]="getFontSize() + 'vmin'"
