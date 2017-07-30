@@ -14,7 +14,6 @@ const charCodeA = "A".charCodeAt(0);
 export class NewGameComponent implements OnInit {
     boardHash: string;
 
-    private stageBoard: Tile[][];
     private isLoading: boolean;
     private _board: Tile[][] = [];
     get board() { return this._board; }
@@ -49,20 +48,25 @@ export class NewGameComponent implements OnInit {
 
     buildBoard() {
         this.isLoading = true;
-        this.stageBoard = [];
+        let stageBoard = [];
         let result = Promise.resolve();
         for (let i = 0; i < this.rows; ++i) {
             result = result
                 .then(() => {
-                    return this.buildRow(i);
+                    return this.buildRow(i, stageBoard);
                 });
         }
-        return result.then(() => {
-            return this.onBuildFinish();
-        });
+        return result
+            .then(() => {
+                return this.onBuildFinish(stageBoard);
+            })
+            .catch(error => {
+                console.error("Error while building the board", error);
+                return this.onBuildFinish(stageBoard);
+            });
     }
 
-    private buildRow(row: number) {
+    private buildRow(row: number, stageBoard: Tile[][]) {
         const line = (this.board[row] && this.board[row].filter((v, index) => index < this.columns))
             || [];
         for (let column = line.length; column < this.columns; ++column) {
@@ -74,13 +78,12 @@ export class NewGameComponent implements OnInit {
                 value: value
             });
         }
-        this.stageBoard.push(line);
+        stageBoard.push(line);
     }
 
-    private onBuildFinish() {
+    private onBuildFinish(stageBoard) {
         this.isLoading = false;
-        this.board = this.stageBoard;
-        delete this.stageBoard;
+        this.board = stageBoard;
     }
 
     private getCharByPosition(x: number, y: number) {
