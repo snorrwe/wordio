@@ -1,5 +1,5 @@
 <table class="board">
-	<tr *ngFor="let column of board; trackBy: getRowHash">
+	<tr *ngFor="let column of board; trackBy: getRowHash" [@appearance]="'in'">
 		<td *ngFor="let tile of column;trackBy: getTileHash" [@appearance]="'in'">
             <div class="board-tile" [ngStyle]="{'width':  getBoxSize(), 'height':  getBoxSize()}">
                 <wordio-tile [value]="tile.value" 
