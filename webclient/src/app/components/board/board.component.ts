@@ -10,8 +10,8 @@ import { Tile } from "../../models/tile";
     animations: [
         trigger("appearance", [
             state('in', style({ transform: '*' })),
-            transition('void => *', [
-                style({ transform: 'scale(1.1)' }),
+            transition('void => in', [
+                style({ transform: 'scale(1.5)' }),
                 animate('0.2s ease-in')
             ]),
             transition('* => void', [

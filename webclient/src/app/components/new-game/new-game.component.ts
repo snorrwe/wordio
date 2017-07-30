@@ -3,8 +3,10 @@ import { GameService } from "../../services/game.service";
 import { Tile } from "../../models/tile";
 import { hashBoard, parseBoard } from "../../models/board";
 
-const alphabetLength = "Z".charCodeAt(0) - "A".charCodeAt(0) + 1;
-const charCodeA = "A".charCodeAt(0);
+function charCode(char: string){
+    return char.charCodeAt(0);
+}
+const alphabetLength = charCode("Z") - charCode("A") + 1;
 
 @Component({
     selector: "wordio-new-game",
@@ -14,7 +16,9 @@ const charCodeA = "A".charCodeAt(0);
 export class NewGameComponent implements OnInit {
     boardHash: string;
 
-    private isLoading: boolean;
+    private _isLoading: boolean;
+    get isLoading() { return this._isLoading; }
+
     private _board: Tile[][] = [];
     get board() { return this._board; }
     set board(value) {
@@ -47,7 +51,7 @@ export class NewGameComponent implements OnInit {
     }
 
     buildBoard() {
-        this.isLoading = true;
+        this._isLoading = true;
         let stageBoard = [];
         let result = Promise.resolve();
         for (let i = 0; i < this.rows; ++i) {
@@ -82,12 +86,12 @@ export class NewGameComponent implements OnInit {
     }
 
     private onBuildFinish(stageBoard) {
-        this.isLoading = false;
+        this._isLoading = false;
         this.board = stageBoard;
     }
 
     private getCharByPosition(x: number, y: number) {
-        return String.fromCharCode((x * this.rows + y) % alphabetLength + charCodeA);
+        return String.fromCharCode((x * this.rows + y) % alphabetLength + charCode("A"));
     }
 
     onTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {
