@@ -2,12 +2,43 @@
     <div class="row">
         <div class="col-md-4">
             <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" (click)="reset()">
+                        <span>{{'RESET' | translate}}</span>
+                    </button>
+                </span>
+            </div>
+            <div class="input-group">
                 <span class="input-group-addon">{{'ROWS' | translate}}</span>
-                <input class="form-control" type="number" name="rows" [(ngModel)]="rows">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" (click)="addRows(-1)">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+                <span>
+                    {{rows}}
+                </span>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" (click)="addRows(1)">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
             </div>
             <div class="input-group">
                 <span class="input-group-addon">{{'COLUMNS' | translate}}</span>
-                <input class="form-control" type="number" name="columns" [(ngModel)]="columns">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" (click)="addColumns(-1)">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+                <span>
+                    {{columns}}
+                </span>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" (click)="addColumns(1)">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
             </div>
             <div class="hash">
                 <span class="input-group-btn">

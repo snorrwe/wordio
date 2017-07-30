@@ -3,7 +3,7 @@ import { GameService } from "../../services/game.service";
 import { Tile } from "../../models/tile";
 import { hashBoard, parseBoard } from "../../models/board";
 
-function charCode(char: string){
+function charCode(char: string) {
     return char.charCodeAt(0);
 }
 const alphabetLength = charCode("Z") - charCode("A") + 1;
@@ -26,16 +26,18 @@ export class NewGameComponent implements OnInit {
         this.boardHash = hashBoard(this.board);
     }
 
-    private _columns = 15;
+    private _columns: number;
     get columns() { return this._columns; }
     set columns(value) {
+        if (value < 0) value = 0;
         this._columns = +value;
         this.buildBoard();
     }
 
-    private _rows = 15;
+    private _rows: number;
     get rows() { return this._rows; }
     set rows(value) {
+        if (value < 0) value = 0;
         this._rows = +value;
         this.buildBoard();
     }
@@ -43,6 +45,12 @@ export class NewGameComponent implements OnInit {
     constructor(private gameService: GameService) { }
 
     ngOnInit() {
+        this.reset();
+    }
+
+    reset() {
+        this.rows = 10;
+        this.columns = 10;
         this.buildBoard();
     }
 
@@ -106,5 +114,13 @@ export class NewGameComponent implements OnInit {
             this.rows = result.rows;
             this.buildBoard();
         }
+    }
+
+    addRows(value: number) {
+        this.rows += value;
+    }
+
+    addColumns(value: number){
+        this.columns += value;
     }
 }
