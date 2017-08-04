@@ -9,13 +9,14 @@ import { NavigationService } from "../../services/navigation.service";
     styleUrls: ["./game-list-item.component.css"]
 })
 export class GameListItemComponent {
-    @Input("game") private game: Game;
+    @Input("game") private _game: Game;
+    get game() { return this._game; }
 
     constructor(private navigationService: NavigationService) { }
 
     onClick() {
-        if (this.game && this.game._id) {
-            this.navigationService.push("games/" + this.game._id);
+        if (this._game && this._game._id) {
+            this.navigationService.push("games/" + this._game._id);
         }
     }
 }
