@@ -56,7 +56,53 @@ export namespace Board {
         }
         return buildBoardByValues(matrix);
     }
+
+
+    export function buildBoard(onBuildFinish: (tile: Tile[][]) => void) {
+        const stageBoard = [];
+        let result = Promise.resolve();
+        for (let i = 0; i < this.rows; ++i) {
+            result = result
+                .then(() => {
+                    return buildRow(i, stageBoard);
+                });
+        }
+        return result
+            .then(() => {
+                return onBuildFinish(stageBoard);
+            })
+            .catch(error => {
+                console.error("Error while building the board", error);
+                return onBuildFinish(stageBoard);
+            });
+    }
+
+    function buildRow(row: number, stageBoard: Tile[][]) {
+        const line = (this.board[row] && this.board[row].filter((v, index) => index < this.columns))
+            || [];
+        for (let column = line.length; column < this.columns; ++column) {
+            const value = getCharByPosition(row, column);
+            line.push({
+                x: column,
+                y: row,
+                filled: false,
+                value: value
+            });
+        }
+        stageBoard.push(line);
+    }
+
+    const alphabetLength = charCode("Z") - charCode("A") + 1;
+
+    function charCode(char: string) {
+        return char.charCodeAt(0);
+    }
+
+    function getCharByPosition(x: number, y: number) {
+        return String.fromCharCode((x * this.rows + y) % alphabetLength + charCode("A"));
+    }
 }
 
 export const hashBoard = Board.hashBoard;
 export const parseBoard = Board.parseBoard;
+export const buildBoard = Board.buildBoard;
