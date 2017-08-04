@@ -60,7 +60,7 @@ export class NewGameComponent implements OnInit {
 
     buildBoard() {
         this._isLoading = true;
-        let stageBoard = [];
+        const stageBoard = [];
         let result = Promise.resolve();
         for (let i = 0; i < this.rows; ++i) {
             result = result
@@ -120,7 +120,7 @@ export class NewGameComponent implements OnInit {
         this.rows += value;
     }
 
-    addColumns(value: number){
+    addColumns(value: number) {
         this.columns += value;
     }
 }
