@@ -3,6 +3,9 @@
     height: $width;
 }
 
+$selected-background-color: #2e6da4;
+$selected-color: #dddddd;
+
 .wordio {
 
     .index-column {
@@ -26,6 +29,11 @@
             .content {
                 font-size: 7vmin;
             }
+        }
+
+        .filled {
+            background-color: $selected-background-color;
+            color: $selected-color;
         }
 
         .board-tile {

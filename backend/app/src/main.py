@@ -9,6 +9,7 @@ from src.user.register import register as register_enpoint
 from src.user.login import login as login_enpoint
 from src.auth.auth import WordioAuth
 from src.utility.logger import LogService
+from src.domains.event_hooks.add_host_to_game import add_host_to_game
 from src.domains.event_hooks.insert_tiles_by_games import insert_tiles_by_games
 from src.domains.event_hooks.on_new_solution import on_new_solution
 from src.domains.event_hooks.on_post_new_solution import on_post_new_solution
@@ -30,6 +31,7 @@ def __bootstrap_enpoints(app):
     def register(): return register_enpoint(app)
 
 def __bootstrap_events(app):
+    app.on_pre_POST_games += add_host_to_game
     app.on_pre_POST_games += insert_tiles_by_games
     app.on_pre_POST_solutions += on_new_solution
     app.on_inserted_solutions += on_post_new_solution

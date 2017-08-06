@@ -3,8 +3,9 @@
 		<td *ngFor="let tile of column;trackBy: getTileHash" [@appearance]="'in'">
             <div class="board-tile" [ngStyle]="{'width':  getBoxSize(), 'height':  getBoxSize()}">
                 <wordio-tile [value]="tile.value" 
-                            [fontSize]="getFontSize() + 'vmin'"
-                            (onSelectedChange)="onTileSelect(tile, $event)">
+                             [isSelected]="tile.filled"
+                             [fontSize]="getFontSize() + 'vmin'"
+                             (onSelectedChange)="onTileSelect(tile, $event)">
                 </wordio-tile>
             </div>
 		</td>

@@ -7,7 +7,6 @@ import { LocalStorage } from "../decorators/localstorage.decorator";
 import { EveHttpService, Urls } from "./http.service";
 import { NavigationService } from "./navigation.service";
 
-
 @Injectable()
 export class AuthenticationService implements CanActivate {
 

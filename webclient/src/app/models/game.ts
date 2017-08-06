@@ -11,6 +11,11 @@ export class Game extends MongoItem {
     private _name: string;
     get name() { return this._name; }
 
+    private _availableFrom: Date;
+    get availableFrom() { return this._availableFrom; }
+    private _availableUntil: Date;
+    get availableUntil() { return this._availableUntil; }
+
     private static createMatrix(board: Tile[]): Tile[][] {
         if (!board || !board.length) return [];
         const result: Tile[][] = [];
@@ -31,18 +36,29 @@ export class Game extends MongoItem {
     static makeDto(game: Game): GameDto {
         if (!game) return null;
         const board = [];
-        for (const column of game._board || []) {
+        for (const column of game.board || []) {
             board.push(...column);
         }
-        return {
+        const result = {
             _created: game._created
             , _etag: game._etag
             , _id: game._id
             , _updated: game._updated
             , host: game._host
             , board: board
-            , name: game._name
+            , name: game.name
+            , availableFrom: game.availableFrom
+            , availableUntil: game.availableUntil
         };
+        Game.removeFalsyFields(result);
+        return result;
+    }
+
+    static removeFalsyFields(obj: Object) {
+        const keys = Object.keys(obj);
+        for (const key of keys) {
+            if (!obj[key]) delete obj[key];
+        }
     }
 
     constructor(game?: Game | GameDto) {
@@ -66,4 +82,6 @@ export interface GameDto extends MongoItem {
     host: { displayName: string };
     board: Tile[];
     name: string;
+    availableFrom?: Date;
+    availableUntil?: Date;
 }
