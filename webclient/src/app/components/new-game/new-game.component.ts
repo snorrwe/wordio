@@ -86,12 +86,14 @@ export class NewGameComponent {
 
     submit() {
         if (this.checkForErrors()) return;
+        let availalbeFrom = this.availableFrom ? new Date(Date.parse(this.availableFrom)) : undefined;
+        let availableTo = this.availableTo ? new Date(Date.parse(this.availableTo)) : undefined;
         return this.gameService.addGame({
             name: this.name,
             board: this.board,
-            availableFrom: new Date(this.availableFrom),
-            availableTo: new Date(this.availableTo)
-        })
+            availableFrom: availalbeFrom,
+            availableUntil: availableTo
+        });
     }
 
     checkForErrors(): boolean {

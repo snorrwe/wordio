@@ -6,7 +6,7 @@ import { GameDto, Game } from "../models/game";
 
 export interface INewGameInfo {
     availableFrom?: Date;
-    availableTo?: Date;
+    availableUntil?: Date;
     board: Tile[][];
     name: string;
 }
@@ -44,7 +44,7 @@ export class GameService {
         const game: Game = {
             board: gameInfo.board
             , availableFrom: gameInfo.availableFrom
-            , availableUntil: gameInfo.availableTo
+            , availableUntil: gameInfo.availableUntil
             , name: gameInfo.name
         } as any;
         const dto = Game.makeDto(game);
