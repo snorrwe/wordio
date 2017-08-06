@@ -11,7 +11,7 @@
             <div class="input-group">
                 <span class="input-group-addon">{{'ROWS' | translate}}</span>
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" (click)="addRows(-1)">
+                    <button class="btn btn-primary" (click)="setRows(rows-1)">
                         <span class="glyphicon glyphicon-minus"></span>
                     </button>
                 </span>
@@ -19,7 +19,7 @@
                     {{rows}}
                 </span>
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" (click)="addRows(1)">
+                    <button class="btn btn-primary" (click)="setRows(rows+1)">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
                 </span>
@@ -27,7 +27,7 @@
             <div class="input-group">
                 <span class="input-group-addon">{{'COLUMNS' | translate}}</span>
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" (click)="addColumns(-1)">
+                    <button class="btn btn-primary" (click)="setColumns(columns-1)">
                         <span class="glyphicon glyphicon-minus"></span>
                     </button>
                 </span>
@@ -35,7 +35,7 @@
                     {{columns}}
                 </span>
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" (click)="addColumns(1)">
+                    <button class="btn btn-primary" (click)="setColumns(columns+1)">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
                 </span>

@@ -28,7 +28,7 @@ export class NewGameComponent implements OnInit {
 
     private _columns: number;
     get columns() { return this._columns; }
-    set columns(value) {
+    setColumns(value) {
         if (value < 0) value = 0;
         this._columns = +value;
         this.buildBoard();
@@ -36,7 +36,7 @@ export class NewGameComponent implements OnInit {
 
     private _rows: number;
     get rows() { return this._rows; }
-    set rows(value) {
+    setRows(value) {
         if (value < 0) value = 0;
         this._rows = +value;
         this.buildBoard();
@@ -49,8 +49,8 @@ export class NewGameComponent implements OnInit {
     }
 
     reset() {
-        this.rows = 10;
-        this.columns = 10;
+        this._rows = 10;
+        this._columns = 10;
         this.buildBoard();
     }
 
@@ -110,17 +110,9 @@ export class NewGameComponent implements OnInit {
         const result = parseBoard(this.boardHash);
         this.board = result.board;
         if (this.rows !== result.rows || this.columns !== result.columns) {
-            this.columns = result.columns;
-            this.rows = result.rows;
+            this.setColumns(result.columns);
+            this.setRows(result.rows);
             this.buildBoard();
         }
-    }
-
-    addRows(value: number) {
-        this.rows += value;
-    }
-
-    addColumns(value: number) {
-        this.columns += value;
     }
 }
