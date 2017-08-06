@@ -9,11 +9,11 @@ import { NavigationService } from "../../services/navigation.service";
     styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
-    private username: string;
-    private password: string;
+    username: string;
+    password: string;
 
-    private usernameErrors: string[] = [];
-    private passwordErrors: string[] = [];
+    usernameErrors: string[] = [];
+    passwordErrors: string[] = [];
 
     constructor(private authService: AuthenticationService, private navService: NavigationService) { }
 

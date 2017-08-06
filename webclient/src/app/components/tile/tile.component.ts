@@ -7,10 +7,11 @@ import { Component, Input, Output, EventEmitter } from "@angular/core";
 })
 export class TileComponent {
 
-    @Input("value") private value: string;
-    @Input("isSelected") private isSelected: boolean;
-    @Input("enabled") private enabled = true;
-    @Output("onSelectedChange") private onSelectedChangeEmitter = new EventEmitter<{isSelected: boolean, mouseEvent: MouseEvent}>();
+    @Input("value") value: string;
+    @Input("isSelected") isSelected: boolean;
+    @Input("enabled") enabled = true;
+    @Input("fontSize") fontSize?: string;
+    @Output("onSelectedChange") onSelectedChangeEmitter = new EventEmitter<{isSelected: boolean, mouseEvent: MouseEvent}>();
 
     constructor() { }
 

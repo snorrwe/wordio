@@ -37,7 +37,7 @@ describe("GameListItemComponent", () => {
     it("onClick test", () => {
         navigationService.push = () => Promise.resolve(true);
         const navspy = spyOn(navigationService, "push");
-        (component as any).game = { _id: "kanga" };
+        (component as any)._game = { _id: "kanga" };
         component.onClick();
         expect(navspy).toHaveBeenCalled();
         expect(navspy).toHaveBeenCalledWith("games/" + "kanga");

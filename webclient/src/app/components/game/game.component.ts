@@ -12,8 +12,9 @@ import { Game } from "../../models/game";
 })
 export class GameComponent implements OnInit {
 
-    private isLoading: boolean;
-    private game: Game;
+    private _isLoading: boolean;
+    get isLoading() { return this._isLoading; }
+    game: Game;
 
     constructor(
         private gameService: GameService
@@ -24,11 +25,11 @@ export class GameComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.params.subscribe(params => {
             const id = params["id"];
-            this.isLoading = true;
+            this._isLoading = true;
             this.gameService.getGame(id)
                 .then(game => {
                     this.game = game;
-                    this.isLoading = false;
+                    this._isLoading = false;
                 })
                 .catch(error => {
                     console.error("Error while fetching game", id);

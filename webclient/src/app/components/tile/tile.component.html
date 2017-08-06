@@ -1,5 +1,5 @@
 <div (click)="onClick($event)" class="tile">
-    <span class="content">
+    <span class="content" [ngStyle]="{'font-size': fontSize}">
         {{value}}
     </span>
 </div>

@@ -10,3 +10,4 @@ private-docs
 backend/backend.pyproj.user
 run_dev_env.bat
 backend/log.txt
+webclient/package-lock.json

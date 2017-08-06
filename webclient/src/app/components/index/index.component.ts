@@ -10,8 +10,9 @@ import { Game } from "../../models/game";
 })
 export class IndexComponent implements OnInit {
 
-    private games: Game[];
-    private isLoading: boolean;
+    games: Game[];
+    private _isLoading: boolean;
+    get isLoading() { return this._isLoading; }
 
     constructor(
         private gameService: GameService
@@ -20,12 +21,12 @@ export class IndexComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.isLoading = true;
+        this._isLoading = true;
         this.changeDetector.detectChanges();
         this.gameService.listGames(1)
             .then(result => {
                 this.games = result;
-                this.isLoading = false;
+                this._isLoading = false;
                 this.changeDetector.detectChanges();
             });
     }

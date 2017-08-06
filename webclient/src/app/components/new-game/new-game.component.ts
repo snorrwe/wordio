@@ -1,15 +1,28 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { GameService } from "../../services/game.service";
 import { Tile } from "../../models/tile";
 import { hashBoard, parseBoard } from "../../models/board";
+
+function charCode(char: string) {
+    return char.charCodeAt(0);
+}
+
+const alphabetLength = charCode("Z") - charCode("A") + 1;
+
+function getCharByPosition(x: number, y: number) {
+    return String.fromCharCode((x + y) % alphabetLength + charCode("A"));
+}
 
 @Component({
     selector: "wordio-new-game",
     templateUrl: "./new-game.component.html",
     styleUrls: ["./new-game.component.scss"]
 })
-export class NewGameComponent implements OnInit {
+export class NewGameComponent {
     boardHash: string;
+
+    private _isLoading: boolean;
+    get isLoading() { return this._isLoading; }
 
     private _board: Tile[][] = [];
     get board() { return this._board; }
@@ -18,53 +31,70 @@ export class NewGameComponent implements OnInit {
         this.boardHash = hashBoard(this.board);
     }
 
-    private _columns = 2;
+    private _columns: number;
     get columns() { return this._columns; }
-    set columns(value) {
+    setColumns(value) {
+        if (value < 0) value = 0;
         this._columns = +value;
-        this.handleParamsChange();
+        this.buildBoard();
     }
 
-    private _rows = 2;
+    private _rows: number;
     get rows() { return this._rows; }
-    set rows(value) {
+    setRows(value) {
+        if (value < 0) value = 0;
         this._rows = +value;
-        this.handleParamsChange();
+        this.buildBoard();
     }
 
-    constructor(private gameService: GameService) { }
-
-    ngOnInit() {
-        this.handleParamsChange();
+    constructor(private gameService: GameService) {
+        this.reset();
     }
 
-    submit() {
-        throw new Error("Not implemented");
+    reset() {
+        this._rows = 10;
+        this._columns = 10;
+        this.buildBoard();
     }
 
-    private handleParamsChange() {
-        const board = [];
+    buildBoard() {
+        this._isLoading = true;
+        const stageBoard = [];
+        let result = Promise.resolve();
         for (let i = 0; i < this.rows; ++i) {
-            const line = (this.board[i] && this.board[i]
-                .filter((v, index) => index < this.columns))
-                || [];
-            for (let j = line.length; j < this.columns; ++j) {
-                const value = this.getCharByPosition(i, j);
-                line.push({
-                    x: j,
-                    y: i,
-                    filled: false,
-                    value: value
+            result = result
+                .then(() => {
+                    return this.buildRow(i, stageBoard);
                 });
-            }
-            board.push(line);
         }
-        this.board = board;
+        return result
+            .then(() => {
+                return this.onBuildFinish(stageBoard);
+            })
+            .catch(error => {
+                console.error("Error while building the board", error);
+                return this.onBuildFinish(stageBoard);
+            });
     }
 
-    private getCharByPosition(x: number, y: number) {
-        const alphabetLength = ("Z".charCodeAt(0) - "A".charCodeAt(0));
-        return String.fromCharCode((x * this.rows + y) % alphabetLength + "A".charCodeAt(0));
+    private buildRow(row: number, stageBoard: Tile[][]) {
+        const line = (this.board[row] && this.board[row].filter((v, index) => index < this.columns))
+            || [];
+        for (let column = line.length; column < this.columns; ++column) {
+            const value = getCharByPosition(row * this.rows, column);
+            line.push({
+                x: column,
+                y: row,
+                filled: false,
+                value: value
+            });
+        }
+        stageBoard.push(line);
+    }
+
+    private onBuildFinish(stageBoard) {
+        this._isLoading = false;
+        this.board = stageBoard;
     }
 
     onTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {
@@ -75,9 +105,9 @@ export class NewGameComponent implements OnInit {
         const result = parseBoard(this.boardHash);
         this.board = result.board;
         if (this.rows !== result.rows || this.columns !== result.columns) {
-            this.columns = result.columns;
-            this.rows = result.rows;
-            this.handleParamsChange();
+            this.setColumns(result.columns);
+            this.setRows(result.rows);
+            this.buildBoard();
         }
     }
 }

@@ -1,8 +1,11 @@
 <table class="board">
-	<tr *ngFor="let column of board">
-		<td *ngFor="let tile of column">
-            <div class="board-tile">
-                <wordio-tile [value]="tile.value" (onSelectedChange)="onTileSelect(tile, $event)"></wordio-tile>
+	<tr *ngFor="let column of board; trackBy: getRowHash" [@appearance]="'in'">
+		<td *ngFor="let tile of column;trackBy: getTileHash" [@appearance]="'in'">
+            <div class="board-tile" [ngStyle]="{'width':  getBoxSize(), 'height':  getBoxSize()}">
+                <wordio-tile [value]="tile.value" 
+                            [fontSize]="getFontSize() + 'vmin'"
+                            (onSelectedChange)="onTileSelect(tile, $event)">
+                </wordio-tile>
             </div>
 		</td>
 	</tr>
