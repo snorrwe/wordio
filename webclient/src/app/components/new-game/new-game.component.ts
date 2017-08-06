@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { GameService } from "../../services/game.service";
 import { Tile } from "../../models/tile";
 import { hashBoard, parseBoard } from "../../models/board";
+import { IBoardParameters } from "./board-input/board-input.component";
 
 function charCode(char: string) {
     return char.charCodeAt(0);
@@ -19,42 +20,18 @@ function getCharByPosition(x: number, y: number) {
     styleUrls: ["./new-game.component.scss"]
 })
 export class NewGameComponent {
-    boardHash: string;
+
+    rows: number;
+    columns: number;
+    board: Tile[][] = [];
 
     private _isLoading: boolean;
     get isLoading() { return this._isLoading; }
 
-    private _board: Tile[][] = [];
-    get board() { return this._board; }
-    set board(value) {
-        this._board = value;
-        this.boardHash = hashBoard(this.board);
-    }
+    constructor(private gameService: GameService) { }
 
-    private _columns: number;
-    get columns() { return this._columns; }
-    setColumns(value) {
-        if (value < 0) value = 0;
-        this._columns = +value;
-        this.buildBoard();
-    }
-
-    private _rows: number;
-    get rows() { return this._rows; }
-    setRows(value) {
-        if (value < 0) value = 0;
-        this._rows = +value;
-        this.buildBoard();
-    }
-
-    constructor(private gameService: GameService) {
-        this.reset();
-    }
-
-    reset() {
-        this._rows = 10;
-        this._columns = 10;
-        this.buildBoard();
+    onTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {
+        console.log(event, this.board[event.tile.y][event.tile.x]);
     }
 
     buildBoard() {
@@ -97,17 +74,10 @@ export class NewGameComponent {
         this.board = stageBoard;
     }
 
-    onTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {
-        console.log(event, this.board[event.tile.y][event.tile.x]);
-    }
-
-    onHashChange() {
-        const result = parseBoard(this.boardHash);
-        this.board = result.board;
-        if (this.rows !== result.rows || this.columns !== result.columns) {
-            this.setColumns(result.columns);
-            this.setRows(result.rows);
-            this.buildBoard();
-        }
+    onBoardParameterChange(event: IBoardParameters) {
+        this.columns = event.columns;
+        this.rows = event.rows;
+        if (event.board) this.board = event.board;
+        this.buildBoard();
     }
 }
