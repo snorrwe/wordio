@@ -59,10 +59,6 @@ export class NewGameComponent implements OnInit {
         this.buildBoard();
     }
 
-    submit() {
-        throw new Error("Not implemented");
-    }
-
     buildBoard() {
         this._isLoading = true;
         const stageBoard = [];
