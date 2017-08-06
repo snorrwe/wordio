@@ -1,9 +1,9 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
 import { Tile } from "../../../models/tile";
 import { parseBoard, hashBoard } from "../../../models/board";
 
 
-export interface IBoardParameters{
+export interface IBoardParameters {
     columns: number;
     rows: number;
     hash?: string;
@@ -11,21 +11,22 @@ export interface IBoardParameters{
 }
 
 @Component({
-    selector: 'wordio-board-input',
-    templateUrl: './board-input.component.html',
-    styleUrls: ['./board-input.component.scss']
+    selector: "wordio-board-input",
+    templateUrl: "./board-input.component.html",
+    styleUrls: ["./board-input.component.scss"]
 })
 export class BoardInputComponent implements OnInit {
 
     @Output("onParameterChange") onParameterChangeEmitter = new EventEmitter<IBoardParameters>();
 
-    @Input("board") set board(value){
+    boardHash: string;
+    private _rows: number;
+    private _columns: number;
+
+    @Input("board") set board(value) {
         this.boardHash = hashBoard(value);
     }
 
-    boardHash: string;
-
-    private _columns: number;
     get columns() { return this._columns; }
     setColumns(value) {
         if (value < 0) value = 0;
@@ -33,7 +34,6 @@ export class BoardInputComponent implements OnInit {
         this.emitParameterChanges();
     }
 
-    private _rows: number;
     get rows() { return this._rows; }
     setRows(value) {
         if (value < 0) value = 0;
@@ -41,8 +41,8 @@ export class BoardInputComponent implements OnInit {
         this.emitParameterChanges();
     }
 
-    ngOnInit() { 
-        this.reset(); 
+    ngOnInit() {
+        this.reset();
     }
 
     reset() {
@@ -60,7 +60,7 @@ export class BoardInputComponent implements OnInit {
         this.emitParameterChanges(true, board.board);
     }
 
-    private emitParameterChanges(emitHash: boolean = false, board?: Tile[][]){
+    private emitParameterChanges(emitHash: boolean = false, board?: Tile[][]) {
         this.onParameterChangeEmitter.emit({
             columns: this.columns,
             rows: this.rows,

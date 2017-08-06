@@ -77,7 +77,7 @@ export class NewGameComponent {
     onBoardParameterChange(event: IBoardParameters) {
         this.columns = event.columns;
         this.rows = event.rows;
-        if(event.board) this.board = event.board;
+        if (event.board) this.board = event.board;
         this.buildBoard();
     }
 }

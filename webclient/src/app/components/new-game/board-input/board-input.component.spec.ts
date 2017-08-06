@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Pipe, PipeTransform } from '@angular/core';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { Pipe, PipeTransform } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { BoardInputComponent } from './board-input.component';
+import { BoardInputComponent } from "./board-input.component";
 
 @Pipe({
     name: "translate"
@@ -10,7 +10,7 @@ class TranslatePipeMockComponent implements PipeTransform {
     transform(value) { return value; }
 }
 
-describe('BoardInputComponent', () => {
+describe("BoardInputComponent", () => {
     let component: BoardInputComponent;
     let fixture: ComponentFixture<BoardInputComponent>;
 
@@ -27,7 +27,7 @@ describe('BoardInputComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should be created', () => {
+    it("should be created", () => {
         expect(component).toBeTruthy();
     });
 });
