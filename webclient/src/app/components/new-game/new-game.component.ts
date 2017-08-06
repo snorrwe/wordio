@@ -34,7 +34,8 @@ export class NewGameComponent {
     constructor(private gameService: GameService) { }
 
     handleTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {
-        console.log(event, this.board[event.tile.y][event.tile.x]);
+        //TODO replace with input window
+        this.board[event.tile.y][event.tile.x].filled = !this.board[event.tile.y][event.tile.x].filled;
     }
 
     buildBoard() {

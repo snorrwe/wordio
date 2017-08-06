@@ -1,4 +1,4 @@
-<div (click)="onClick($event)" class="tile">
+<div (click)="onClick($event)" class="tile" [ngClass]="{'filled': isSelected}">
     <span class="content" [ngStyle]="{'font-size': fontSize}">
         {{value}}
     </span>
