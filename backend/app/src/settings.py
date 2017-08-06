@@ -8,6 +8,8 @@ MONGO_USERNAME = 'wordio'
 MONGO_PASSWORD = 'wordio_pw'
 MONGO_DBNAME = 'wordio'
 
+DATE_FORMAT: "%Y-%m-%dT%H:%M:%S.%fZ"
+
 HATEOAS = True
 
 # Enable reads (GET), inserts (POST) and DELETE for resources/collections
