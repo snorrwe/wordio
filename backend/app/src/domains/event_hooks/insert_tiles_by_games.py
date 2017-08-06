@@ -21,7 +21,8 @@ class InsertTilesByGamesHook(object):
 
     def validate_board(self):
         try:
-            return self.validator.validate_board(self.request.json['board'])
+            board = list(map(lambda tile: {"x": int(tile["x"]), "y": int(tile["y"])}, self.request.json['board']))
+            return self.validator.validate_board(board)
         except KeyError as error:
             abort(make_response(jsonify(missingKey=error.args[0]), 422))
             return False
