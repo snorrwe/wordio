@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { GameService } from "../../services/game.service";
 import { Tile } from "../../models/tile";
 import { hashBoard, parseBoard } from "../../models/board";
@@ -18,7 +18,7 @@ function getCharByPosition(x: number, y: number) {
     templateUrl: "./new-game.component.html",
     styleUrls: ["./new-game.component.scss"]
 })
-export class NewGameComponent implements OnInit {
+export class NewGameComponent {
     boardHash: string;
 
     private _isLoading: boolean;
@@ -47,9 +47,7 @@ export class NewGameComponent implements OnInit {
         this.buildBoard();
     }
 
-    constructor(private gameService: GameService) { }
-
-    ngOnInit() {
+    constructor(private gameService: GameService) {
         this.reset();
     }
 
