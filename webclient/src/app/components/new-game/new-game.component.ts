@@ -34,7 +34,7 @@ export class NewGameComponent {
     constructor(private gameService: GameService) { }
 
     handleTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {
-        //TODO replace with input window
+        // TODO replace with input window
         this.board[event.tile.y][event.tile.x].filled = !this.board[event.tile.y][event.tile.x].filled;
     }
 
@@ -87,8 +87,8 @@ export class NewGameComponent {
 
     submit() {
         if (this.checkForErrors()) return;
-        let availalbeFrom = this.availableFrom ? new Date(Date.parse(this.availableFrom)) : undefined;
-        let availableTo = this.availableTo ? new Date(Date.parse(this.availableTo)) : undefined;
+        const availalbeFrom = this.availableFrom ? new Date(Date.parse(this.availableFrom)) : undefined;
+        const availableTo = this.availableTo ? new Date(Date.parse(this.availableTo)) : undefined;
         return this.gameService.addGame({
             name: this.name,
             board: this.board,

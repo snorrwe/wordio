@@ -54,10 +54,10 @@ export class Game extends MongoItem {
         return result;
     }
 
-    static removeFalsyFields(obj: Object){
+    static removeFalsyFields(obj: Object) {
         const keys = Object.keys(obj);
-        for(let key of keys){
-            if(!obj[key]) delete obj[key];
+        for (const key of keys) {
+            if (!obj[key]) delete obj[key];
         }
     }
 
