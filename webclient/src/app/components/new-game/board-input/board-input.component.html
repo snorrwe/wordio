@@ -1,0 +1,47 @@
+<div class="input-group">
+    <span class="input-group-btn">
+        <button class="btn btn-primary" (click)="reset()">
+            <span>{{'RESET' | translate}}</span>
+        </button>
+    </span>
+</div>
+<div class="input-gropu">
+    <span class="input-group-addon">{{'ROWS' | translate}}</span>
+    <span class="input-group-btn">
+        <button class="btn btn-primary" (click)="setRows(rows-1)">
+            <span class="glyphicon glyphicon-minus"></span>
+        </button>
+    </span>
+    <span>
+        {{rows}}
+    </span>
+    <span class="input-group-btn">
+        <button class="btn btn-primary" (click)="setRows(rows+1)">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </span>
+</div>
+<div class="input-group">
+    <span class="input-group-addon">{{'COLUMNS' | translate}}</span>
+    <span class="input-group-btn">
+        <button class="btn btn-primary" (click)="setColumns(columns-1)">
+            <span class="glyphicon glyphicon-minus"></span>
+        </button>
+    </span>
+    <span>
+        {{columns}}
+    </span>
+    <span class="input-group-btn">
+        <button class="btn btn-primary" (click)="setColumns(columns+1)">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </span>
+</div>
+<div class="hash">
+    <span class="input-group-btn">
+        <button class="btn btn-primary" (click)="handleHashChange()">
+            <span class="glyphicon glyphicon-refresh"></span>
+        </button>
+    </span>
+    <textarea name="" class="form-control" [(ngModel)]="boardHash"></textarea>
+</div>
