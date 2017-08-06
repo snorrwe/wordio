@@ -24,13 +24,16 @@ export class NewGameComponent {
     rows: number;
     columns: number;
     board: Tile[][] = [];
+    name: string;
+    availableFrom: string;
+    availableTo: string;
 
     private _isLoading: boolean;
     get isLoading() { return this._isLoading; }
 
     constructor(private gameService: GameService) { }
 
-    onTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {
+    handleTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {
         console.log(event, this.board[event.tile.y][event.tile.x]);
     }
 
@@ -79,5 +82,38 @@ export class NewGameComponent {
         this.rows = event.rows;
         if (event.board) this.board = event.board;
         this.buildBoard();
+    }
+
+    submit() {
+        if (this.checkForErrors()) return;
+        return this.gameService.addGame({
+            name: this.name,
+            board: this.board,
+            availableFrom: new Date(this.availableFrom),
+            availableTo: new Date(this.availableTo)
+        })
+    }
+
+    checkForErrors(): boolean {
+        let hasError = false;
+        if (!this.name) {
+            hasError = true;
+            // name is null or empty
+        }
+        if (!this.board) {
+            hasError = true;
+            // board is empty
+        }
+        if (this.availableFrom) {
+            if (new Date(this.availableFrom).getTime() < Date.now()) {
+                hasError = true;
+                // start date is before now
+            }
+            if (this.availableTo && this.availableFrom >= this.availableTo) {
+                hasError = true;
+                // start date is after end date
+            }
+        }
+        return hasError;
     }
 }

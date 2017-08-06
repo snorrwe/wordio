@@ -4,6 +4,13 @@ import { Urls } from "./http/urls";
 import { Tile } from "../models/tile";
 import { GameDto, Game } from "../models/game";
 
+export interface INewGameInfo {
+    availableFrom?: Date;
+    availableTo?: Date;
+    board: Tile[][];
+    name: string;
+}
+
 @Injectable()
 export class GameService {
 
@@ -33,9 +40,16 @@ export class GameService {
             });
     }
 
-    addGame(game: Game): Promise<Game> {
+    addGame(gameInfo: INewGameInfo): Promise<Game> {
+        const game: Game = {
+            board: gameInfo.board
+            , availableFrom: gameInfo.availableFrom
+            , availableUntil: gameInfo.availableTo
+            , name: gameInfo.name
+        } as any;
         const dto = Game.makeDto(game);
-        return this.httpService.post<GameDto>(this.url(Urls.GAMES), dto).then(result => new Game(result));
+        return this.httpService.post<GameDto>(this.url(Urls.GAMES), dto)
+            .then(result => new Game(result));
     }
 
     private url(url: string) {

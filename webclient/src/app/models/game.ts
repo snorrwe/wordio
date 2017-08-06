@@ -11,6 +11,11 @@ export class Game extends MongoItem {
     private _name: string;
     get name() { return this._name; }
 
+    private _availableFrom: Date;
+    get availableFrom() { return this._availableFrom; }
+    private _availableUntil: Date;
+    get availableUntil() { return this._availableUntil; }
+
     private static createMatrix(board: Tile[]): Tile[][] {
         if (!board || !board.length) return [];
         const result: Tile[][] = [];
@@ -42,6 +47,8 @@ export class Game extends MongoItem {
             , host: game._host
             , board: board
             , name: game._name
+            , availableFrom: game.availableFrom
+            , availableUntil: game.availableUntil
         };
     }
 
@@ -66,4 +73,6 @@ export interface GameDto extends MongoItem {
     host: { displayName: string };
     board: Tile[];
     name: string;
+    availableFrom?: Date;
+    availableUntil?: Date;
 }

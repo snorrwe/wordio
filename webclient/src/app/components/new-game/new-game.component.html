@@ -1,10 +1,45 @@
 <div class="new-game">
     <div class="row">
+        <div class="col-md-4 general-information">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" (click)="submit()">
+                        <span>{{'SUBMIT' | translate}}</span>
+                    </button>
+                </span>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">{{'GAME_NAME' | translate}}</span>
+                <input type="text" 
+                       name="{{'GAME_NAME' | translate}}" 
+                       [(ngModel)]="name"
+                       placeholder="{{'GAME_NAME' | translate}}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">{{'START_DATE' | translate}}</span>
+                <input type="date" 
+                       name="{{'START_DATE' | translate}}" 
+                       [(ngModel)]="availableFrom"
+                       placeholder="{{'START_DATE' | translate}}">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">{{'END_DATE' | translate}}</span>
+                <input type="date" 
+                       name="{{'END_DATE' | translate}}" 
+                       [(ngModel)]="availableTo"
+                       placeholder="{{'END_DATE' | translate}}">
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-4">
-            <wordio-board-input [board]="board" (onParameterChange)="onBoardParameterChange($event)"></wordio-board-input>
+            <wordio-board-input 
+                [board]="board" 
+                (onParameterChange)="onBoardParameterChange($event)">
+            </wordio-board-input>
         </div>
         <div class="col-md-6">
-            <wordio-board [board]="board" (onTileSelect)="onTileSelect($event)"></wordio-board>
+            <wordio-board [board]="board" (onTileSelect)="handleTileSelect($event)"></wordio-board>
         </div>
     </div>
 </div>
