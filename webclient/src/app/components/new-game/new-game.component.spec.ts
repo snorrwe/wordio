@@ -4,10 +4,17 @@ import { FormsModule } from "@angular/forms";
 
 import { NewGameComponent } from "./new-game.component";
 import { GameService } from "../../services/game.service";
+import { BoardInputComponent, IBoardParameters } from "./board-input/board-input.component";
 
 @Pipe({ name: "translate" })
 class TranslateMockPipe implements PipeTransform {
     transform(value) { return value; }
+}
+
+@Component({ selector: "wordio-board-input", template: "" })
+class BoardInputMockComponent {
+    @Output("onParameterChange") onParameterChangeEmitter = new EventEmitter<IBoardParameters>();
+    @Input("board") board: any;
 }
 
 @Component({ selector: "wordio-board", template: "" })
@@ -41,6 +48,7 @@ describe("NewGameComponent", () => {
                 NewGameComponent
                 , WordioBoardMockComponent
                 , TranslateMockPipe
+                , BoardInputMockComponent
             ],
             providers: [{ provide: GameService, useValue: {} }],
             imports: [FormsModule]
