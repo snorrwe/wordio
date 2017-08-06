@@ -6,7 +6,12 @@ import { hashBoard, parseBoard } from "../../models/board";
 function charCode(char: string) {
     return char.charCodeAt(0);
 }
+
 const alphabetLength = charCode("Z") - charCode("A") + 1;
+
+function getCharByPosition(x: number, y: number) {
+    return String.fromCharCode((x + y) % alphabetLength + charCode("A"));
+}
 
 @Component({
     selector: "wordio-new-game",
@@ -82,7 +87,7 @@ export class NewGameComponent implements OnInit {
         const line = (this.board[row] && this.board[row].filter((v, index) => index < this.columns))
             || [];
         for (let column = line.length; column < this.columns; ++column) {
-            const value = this.getCharByPosition(row, column);
+            const value = getCharByPosition(row * this.rows, column);
             line.push({
                 x: column,
                 y: row,
@@ -96,10 +101,6 @@ export class NewGameComponent implements OnInit {
     private onBuildFinish(stageBoard) {
         this._isLoading = false;
         this.board = stageBoard;
-    }
-
-    private getCharByPosition(x: number, y: number) {
-        return String.fromCharCode((x * this.rows + y) % alphabetLength + charCode("A"));
     }
 
     onTileSelect(event: { tile: Tile, mouseEvent: MouseEvent }) {
